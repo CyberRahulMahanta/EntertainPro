@@ -1,0 +1,196 @@
+﻿.filter-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin: 20px auto;
+    max-width: 87%;
+    width: 100%; /* allow shrinking on small screens */
+    box-sizing: border-box;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* allow wrapping on small screens */
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px;
+    max-width: 100%; /* prevent overflow */
+    flex: 1; /* let it grow/shrink */
+    outline: none;
+}
+
+.status {
+    font-size: 14px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+    .status .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+.green {
+    background: #28a745;
+}
+
+.yellow {
+    background: #ffc107;
+}
+
+.red {
+    background: #dc3545;
+}
+
+.gray {
+    background: #6c757d;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+    .filters select {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        max-width: 100%;
+    }
+
+.reset-btn {
+    background: #fff3e6;
+    border: 1px solid #ffc107;
+    color: #333;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+    .reset-btn:hover {
+        background: #ffe0b2;
+    }
+
+/* 📱 Responsive Media Queries */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%; /* full width on mobile */
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reset-btn {
+        width: 100%; /* button full width on mobile */
+        text-align: center;
+    }
+}
+
+
+/* ====== Showtime Picker Section ====== */
+.showtime-picker {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem; /* Tailwind py-8 px-4 */
+    background-color: #f9fafb; /* bg-gray-50 */
+}
+
+    .showtime-picker .max-w-3xl {
+        max-width: 768px;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+        padding: 1.5rem; /* p-6 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem; /* space-y-4 */
+        border: 1px solid #e5e7eb; /* border-gray-200 */
+        text-align: center;
+    }
+
+    /* ====== Icon ====== */
+    .showtime-picker .w-12 {
+        width: 3rem; /* Tailwind w-12 */
+        height: 3rem; /* Tailwind h-12 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px; /* rounded-full */
+        background-color: #f3f4f6; /* bg-gray-100 */
+    }
+
+    .showtime-picker svg {
+        width: 1.5rem; /* Tailwind w-6 */
+        height: 1.5rem; /* Tailwind h-6 */
+        color: #4b5563; /* text-gray-600 */
+    }
+
+    /* ====== Heading ====== */
+    .showtime-picker h2 {
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 600; /* font-semibold */
+        color: #111827; /* text-gray-900 */
+        margin: 0.5rem 0 0 0;
+    }
+
+    /* ====== Paragraph ====== */
+    .showtime-picker p {
+        font-size: 1rem; /* text-base */
+        color: #4b5563; /* text-gray-700 */
+        max-width: 20rem; /* max-w-sm */
+        margin: 0;
+    }
+
+    /* ====== Button ====== */
+    .showtime-picker button {
+        margin-top: 0.5rem; /* mt-2 */
+        padding: 0.5rem 1.5rem; /* px-6 py-2 */
+        border: 1px solid #1f2937; /* border-gray-800 */
+        border-radius: 9999px; /* rounded-full */
+        font-weight: 700; /* font-bold */
+        color: #111827; /* text-gray-900 */
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .showtime-picker button:hover {
+            background-color: #f3f4f6; /* hover:bg-gray-100 */
+        }
+
+        .showtime-picker button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.5); /* focus:ring-2 focus:ring-gray-500 */
+        }

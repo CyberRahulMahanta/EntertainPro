@@ -1,0 +1,190 @@
+﻿/* Wrapper for all screens */
+.screens-wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+    align-items: center;
+    background: #f7f8fa;
+}
+
+/* Individual screen card */
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .container:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+/* Header section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+/* Header icons */
+.icons i {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    background: #f2f2f7;
+    transition: all 0.3s ease;
+    margin-left: 6px;
+}
+
+    .icons i.favorite:hover {
+        background: #e63946;
+        color: #fff;
+        transform: scale(1.2);
+    }
+
+    .icons i.minimize:hover {
+        background: #007bff;
+        color: #fff;
+        transform: scale(1.2);
+    }
+
+.price-tag {
+    display: inline-flex;
+    align-items: center;
+    background: #ff4444; /* bright background */
+    color: #fff; /* white text */
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px; /* rounded edges */
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* subtle shadow */
+}
+
+    .price-tag i {
+        margin-right: 5px;
+        font-size: 16px; /* slightly bigger icon */
+        color: #fff; /* ensure icon is white */
+    }
+
+    .price-tag:hover {
+        background: #ff6666; /* hover effect */
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+
+/* Screen details */
+.details {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+/* Container for time slots */
+.content-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    /* Curve / Rounded effect */
+    border: 1px solid #ddd;
+    border-radius: 16px; /* adjust value: 10px, 20px, etc. */
+    padding: 15px; /* space inside so slots don’t touch edge */
+    background: #fff; /* so it looks like a card */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* optional for depth */
+}
+
+    .content-area.collapsed {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+/* Individual time slot */
+/* Adjust time slot for label */
+.time-slot {
+    position: relative;
+    padding: 20px 16px 12px; /* extra top padding for label */
+    text-align: center;
+    border: 2px solid #28a745; /* make border visible */
+    border-radius: 12px;
+    background: #fff;
+    overflow: visible; /* allow label to sit outside the box */
+}
+
+/* Floating language label */
+.language-label {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff; /* covers border behind text */
+    padding: 2px 10px; /* more padding for pill look */
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    z-index: 2; /* keep above everything */
+
+    border-radius: 12px; /* smooth curve */
+    border: 1px solid #ddd; /* optional outline */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* subtle depth */
+}
+
+
+
+/* Showtime text */
+.slot-time {
+    font-size: 16px;
+    font-weight: 700;
+    color: inherit;
+}
+
+    .time-slot:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Active / Inactive styles */
+    .time-slot.active {
+        background: #e6f9f0;
+        color: #28a745;
+        border-color: #28a745;
+        font-weight: 600;
+    }
+
+    .time-slot.inactive {
+        background: #f5f6f7;
+        color: #aaa;
+        border-color: #ddd;
+    }
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .content-area {
+        flex-direction: column;
+    }
+
+    .time-slot {
+        width: 100%;
+    }
+}

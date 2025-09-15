@@ -1,0 +1,108 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🔴 Smooth red background */
+.gradient-bg {
+    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 50%, #ff4444 100%);
+    height: 100vh; /* full height */
+    width: 100vw; /* full width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    overflow: hidden; /* prevent scrolling */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* disable scroll */
+}
+
+/* 🎟️ Glassmorphism card */
+.card-glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgb(99 10 10 / 45%);
+    transition: all 0.3s ease;
+}
+
+    .card-glass:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+/* ✨ Glass input fields */
+.input-glass {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px);
+    color: #2c2c2c;
+    border-radius: 10px;
+    padding: 12px;
+    width: 100%;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+    .input-glass:focus {
+        background: rgba(255, 255, 255, 0.35);
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.35);
+        outline: none;
+    }
+
+/* 🎬 Ticket styled container */
+.ticket-clip {
+    clip-path: polygon(0 0,100% 0,100% 85%,95% 100%,5% 100%,0 85%);
+}
+
+/* 🎥 Movie reel animation */
+.movie-reel {
+    animation: spin 25s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 💡 Glow */
+.glow-effect {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.45);
+}
+
+/* 🔘 Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff4444 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+        transform: translateY(-2px);
+    }
+
+/* 🌟 Accent text */
+.accent-text {
+    color: #000000;
+    font-weight: 600;
+}
