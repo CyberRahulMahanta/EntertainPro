@@ -5,7 +5,11 @@
 <head runat="server">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CineMax - Login</title>
+    <title>Entertain Pro - Login</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/login.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -18,12 +22,12 @@
 
     <form id="form1" runat="server" class="w-full max-w-md">
         <div class="card-glass">
-            
+
             <!-- CineMax Branding -->
             <div class="text-center mb-6">
                 <i class="fa fa-video-camera text-white text-6xl mb-3 animate-pulse"></i>
-                <h1 class="text-3xl font-bold text-white tracking-wide">CineMax</h1>
-                <p class="text-sm text-white/70">Your gateway to the movies 🎬</p>
+                <h1 class="text-3xl font-bold text-white tracking-wide">Entertain Pro</h1>
+                <p class="text-sm text-white/70">Your gateway to the movies</p>
             </div>
 
             <h2 class="text-xl font-semibold text-white text-center mb-6">Sign In</h2>
@@ -64,29 +68,28 @@
             <!-- Social Login Icons -->
             <div class="flex justify-center gap-5 mt-4">
                 <!-- Google -->
-                <a href="GoogleLogin.aspx" 
-                   class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md social-btn">
+                <a href="GoogleLogin.aspx"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md social-btn">
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" />
                 </a>
                 <!-- Facebook -->
-                <a href="FacebookLogin.aspx" 
-                   class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-md social-btn">
+                <a href="FacebookLogin.aspx"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-md social-btn">
                     <i class="fab fa-facebook-f text-lg"></i>
                 </a>
                 <!-- GitHub -->
-                <a href="GithubLogin.aspx" 
-                   class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-900 text-white shadow-md social-btn">
+                <a href="GithubLogin.aspx"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-900 text-white shadow-md social-btn">
                     <i class="fab fa-github text-lg"></i>
                 </a>
             </div>
 
             <!-- Links -->
             <div class="text-center mt-6">
-                <a href="Register.aspx" class="text-red-200 hover:text-white font-semibold text-sm">
-                    Don't have an account? Register
-                </a><br />
-                <a href="ForgotPassword.aspx" class="text-red-200 hover:text-white font-semibold text-sm">
-                    Forgot Password?
+                <a href="Register.aspx" class="text-red-200 hover:text-white font-semibold text-sm">Don't have an account? Register
+                </a>
+                <br />
+                <a href="ForgotPassword.aspx" class="text-red-200 hover:text-white font-semibold text-sm">Forgot Password?
                 </a>
             </div>
         </div>

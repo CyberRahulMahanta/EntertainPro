@@ -1,9 +1,13 @@
-﻿using Razorpay.Api;
+﻿using QRCoder;
+using Razorpay.Api;
 using Razorpay.Api.Errors;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -63,14 +67,30 @@ namespace EntertainPro
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-
-                ltlMessage.Text = "<h2>An Error Occurred</h2><p>We could not finalize your booking. Please contact support with your payment details.</p>";
+                ltlMessage.Text = "<h2>Error Details</h2><pre>" + Server.HtmlEncode(ex.ToString()) + "</pre>";
             }
+
         }
 
         private void SaveBookingDetails(string showingId, string seats, string amountInPaise, string paymentId)
         {
+            byte[] qrCodeBytes;
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentId, QRCodeGenerator.ECCLevel.Q);
+                using (QRCode qrCode = new QRCode(qrCodeData))
+                {
+                    using (Bitmap qrCodeImage = qrCode.GetGraphic(20))
+                    {
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            qrCodeImage.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                            qrCodeBytes = stream.ToArray();
+                        }
+                    }
+                }
+            }
+
             string connStr = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             using (var con = new SqlConnection(connStr))
             {
@@ -96,8 +116,10 @@ namespace EntertainPro
 
                     foreach (string seat in seatArray)
                     {
-                        string query = @"INSERT INTO Bookings (UserID, ShowingID, SeatNumber, TicketPrice, PaymentID, PaymentStatus, BookingDate)
-                                         VALUES (@UserID, @ShowingID, @SeatNumber, @TicketPrice, @PaymentID, 'Paid', @BookingDate)";
+                        // This query is correct with 8 columns and 8 values.
+                        string query = @"INSERT INTO Bookings (UserID, ShowingID, SeatNumber, TicketPrice, PaymentID, PaymentStatus, BookingDate, QrCodeImage)
+                                 VALUES (@UserID, @ShowingID, @SeatNumber, @TicketPrice, @PaymentID, 'Paid', @BookingDate, @QrCodeImage)";
+
                         using (var cmd = new SqlCommand(query, con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@UserID", Session["UserID"].ToString());
@@ -106,6 +128,7 @@ namespace EntertainPro
                             cmd.Parameters.AddWithValue("@TicketPrice", pricePerTicket);
                             cmd.Parameters.AddWithValue("@PaymentID", paymentId);
                             cmd.Parameters.AddWithValue("@BookingDate", DateTime.Now);
+                            cmd.Parameters.Add("@QrCodeImage", SqlDbType.VarBinary, -1).Value = qrCodeBytes;
                             cmd.ExecuteNonQuery();
                         }
                     }

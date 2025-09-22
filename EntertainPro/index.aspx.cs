@@ -24,6 +24,7 @@ namespace EntertainPro
                 LoadUpcomingMoviesCategory();
                 LoadReleasedMoviesCategory();
                 LoadBestMoviesCategory();
+                LoadTopMovies();
 
                 if (Session["unm"] != null)
                 {
@@ -32,14 +33,13 @@ namespace EntertainPro
 
                     navUserName.InnerText = Session["unm"].ToString();
 
-                    // check if user uploaded image
                     if (Session["UserImage"] != null && Session["UserImage"].ToString() != "")
                     {
-                        userAvatar.Src = Session["UserImage"].ToString();  // path from DB/session
+                        userAvatar.Src = Session["UserImage"].ToString();
                     }
                     else
                     {
-                        userAvatar.Src = "img/50.jpg";  // default avatar
+                        userAvatar.Src = "img/50.jpg";
                     }
                 }
                 else
@@ -127,6 +127,51 @@ namespace EntertainPro
 
                 dlBest.DataSource = dt;
                 dlBest.DataBind();
+            }
+        }
+
+        private void LoadTopMovies()
+        {
+            using (SqlConnection con = new SqlConnection(s))
+            {
+                string query = "SELECT * FROM Movies WHERE Category = 'Top'";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    rptTopMovies.DataSource = dt;
+                    rptTopMovies.DataBind();
+
+                    int totalItems = dt.Rows.Count;
+                    int itemsPerSlide = 4;
+                    int slideCount = (int)Math.Ceiling((double)totalItems / itemsPerSlide);
+
+                    rptTopMoviesIndicators.DataSource = new int[slideCount];
+                    rptTopMoviesIndicators.DataBind();
+                }
+            }
+        }
+
+        protected void rptTopMovies_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Literal litStart = (Literal)e.Item.FindControl("litSlideStart");
+                Literal litEnd = (Literal)e.Item.FindControl("litSlideEnd");
+
+                int itemsPerSlide = 4;
+                if (e.Item.ItemIndex % itemsPerSlide == 0)
+                {
+                    string activeClass = (e.Item.ItemIndex == 0) ? " active" : "";
+                    litStart.Text = $"<div class='carousel-item{activeClass}'><div class='upcome_2i row'>";
+                }
+                int totalItems = ((DataTable)((Repeater)sender).DataSource).Rows.Count;
+                if (e.Item.ItemIndex % itemsPerSlide == itemsPerSlide - 1 || e.Item.ItemIndex == totalItems - 1)
+                {
+                    litEnd.Text = "</div></div>";
+                }
             }
         }
 

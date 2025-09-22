@@ -16,25 +16,22 @@ namespace EntertainPro
 
                 if (Session["unm"] != null)
                 {
-                    navUserItem.Visible = true;
-                    navLoginItem.Visible = false;
+                    if (navUserItem != null) navUserItem.Visible = true;
+                    if (navLoginItem != null) navLoginItem.Visible = false;
 
-                    navUserName.InnerText = Session["unm"].ToString();
+                    if (navUserName != null) navUserName.InnerText = Session["unm"].ToString();
 
-                    // check if user uploaded image
-                    if (Session["UserImage"] != null && Session["UserImage"].ToString() != "")
+                    if (userAvatar != null)
                     {
-                        userAvatar.Src = Session["UserImage"].ToString();  // path from DB/session
-                    }
-                    else
-                    {
-                        userAvatar.Src = "img/50.jpg";  // default avatar
+                        userAvatar.Src = string.IsNullOrEmpty(Session["UserImage"] as string)
+                            ? "img/50.jpg"
+                            : Session["UserImage"].ToString();
                     }
                 }
                 else
                 {
-                    navUserItem.Visible = false;
-                    navLoginItem.Visible = true;
+                    if (navUserItem != null) navUserItem.Visible = false;
+                    if (navLoginItem != null) navLoginItem.Visible = true;
                 }
             }
         }

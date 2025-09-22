@@ -1,0 +1,599 @@
+/* css/BookedMovies.css */
+
+:root {
+    --gray-200: #edf2f7;
+    --gray-300: #e2e8f0;
+    --gray-400: #cbd5e0;
+    --gray-500: #a0aec0;
+    --gray-600: #718096;
+    --gray-700: #4a5568;
+    --gray-800: #2d3748;
+    --red-500: #ef4444;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    background-color: #f7fafc;
+}
+
+.ticket-card {
+    background-color: white;
+    box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 2rem; /* Give some space below the ticket */
+}
+
+.ticket-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.ticket-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: var(--gray-700);
+    letter-spacing: -0.025em;
+}
+
+.logo-img {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.5rem;
+}
+
+.logo-pro-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo-icon {
+    font-size: 6rem;
+    color: var(--red-500);
+}
+
+.logo-pro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.ticket-notice {
+    text-align: right;
+}
+
+.notice-text-wrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+.notice-text {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--gray-800);
+}
+
+.notice-text-wrapper > .notice-text:first-child {
+    margin-right: 0.5rem;
+}
+
+.notice-text-wrapper > .notice-text:last-child {
+    margin-left: 0.5rem;
+}
+
+.notice-highlight {
+    position: relative;
+}
+
+.highlight-bg {
+    position: absolute;
+    inset: -0.375rem;
+    background-color: var(--red-500);
+    border-radius: 9999px;
+}
+
+.highlight-text {
+    position: relative;
+    z-index: 10;
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.notice-subtext {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 0.25rem;
+}
+
+.ticket-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.header-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .action-button i {
+        font-size: 1rem;
+        color: white;
+    }
+
+    .action-button:hover {
+        background-color: #ff0000;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px);
+        color: white
+    }
+
+    .action-button:active {
+        transform: translateY(0); 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+        background-color: #4a0f7b; 
+    }
+.greeting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.notification-icon {
+    font-size: 1.75rem;
+    color: var(--gray-500);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.information-icon {
+    font-size: 1.75rem;
+    color: var(--gray-400);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+    .information-icon:hover i {
+        color: var(--gray-800);
+    }
+
+
+
+/* The Modal Overlay (background) */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.7); /* Darker, more prominent overlay */
+    /* Center the modal content using Flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Initial state for fade-in animation */
+    opacity: 0;
+    pointer-events: none; /* Disable interaction when hidden */
+    transition: opacity 0.3s ease-out;
+}
+
+    /* Active state for modal-overlay */
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto; /* Enable interaction when active */
+    }
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fefefe; /* Light background */
+    margin: auto;
+    width: 90%;
+    max-width: 600px; /* Slightly larger for better presentation */
+    border-radius: 15px; /* More rounded corners */
+    /* Deeper, softer shadow */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden; /* Ensures rounded corners cut content */
+    /* Initial state for slide-in animation */
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease-out;
+}
+
+/* Active state for modal-content */
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Gradient Header */
+.modal-header-gradient {
+    background: linear-gradient(135deg, #ff4444 0%, #ff884d 100%);
+    color: #fff;
+    padding: 20px 30px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header-gradient h2 {
+        margin: 0;
+        font-size: 1.8em;
+        font-weight: 600;
+    }
+
+/* The Close Button (X) */
+.close-button {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 32px; /* Larger */
+    font-weight: 300; /* Lighter weight */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+    .close-button:hover,
+    .close-button:focus {
+        color: #fff; /* White on hover */
+        text-decoration: none;
+    }
+
+/* Main Content Area */
+.modal-body-content {
+    padding: 25px 30px;
+}
+
+    .modal-body-content p {
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: #4a4a4a;
+        margin-bottom: 25px;
+    }
+
+.info-list {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+    .info-list li {
+        display: flex; /* Align icon and text */
+        align-items: flex-start;
+        margin-bottom: 15px;
+        font-size: 1em;
+        color: #3a3a3a;
+        line-height: 1.5;
+    }
+
+    .info-list .list-icon {
+        color: #ff4444; /* Match header primary color */
+        font-size: 1.2em;
+        margin-right: 15px;
+        flex-shrink: 0; /* Prevent icon from shrinking */
+        padding-top: 2px; /* Slight alignment adjustment */
+    }
+
+/* Modal Footer */
+.modal-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Subtle separator */
+}
+
+.modal-button {
+    background: linear-gradient(135deg, #ff4444 0%, #ff884d 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px; /* Pill-shaped button */
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+    .modal-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        background: linear-gradient(45deg, #ff0000 0%, #ff0000 100%); /* Invert gradient on hover */
+    }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 0; /* Remove internal padding as content has its own */
+    }
+
+    .modal-header-gradient {
+        padding: 15px 20px;
+    }
+
+        .modal-header-gradient h2 {
+            font-size: 1.5em;
+        }
+
+    .close-button {
+        font-size: 24px;
+    }
+
+    .modal-body-content {
+        padding: 20px;
+    }
+
+    .modal-button {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+@keyframes ring-bell {
+    0% {
+        transform: rotate(0);
+    }
+
+    15% {
+        transform: rotate(17deg);
+    }
+
+    30% {
+        transform: rotate(-15deg);
+    }
+
+    45% {
+        transform: rotate(13deg);
+    }
+
+    60% {
+        transform: rotate(-11deg);
+    }
+
+    75% {
+        transform: rotate(9deg);
+    }
+
+    90% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.notification-icon:hover {
+    animation: ring-bell 0.8s ease-in-out;
+}
+
+    .notification-icon:hover {
+        color: var(--gray-800);
+    }
+
+    .notification-icon::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        right: 1px;
+        width: 7px;
+        height: 7px;
+        background-color: var(--red-500);
+        border-radius: 50%;
+        border: 1.5px solid white;
+    }
+
+.ticket-main-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.ticket-cutout {
+    position: absolute;
+    top: 50%;
+    left: -2.25rem;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #f7fafc;
+    border-radius: 9999px;
+    border-right: 2px dashed var(--gray-300);
+}
+
+.ticket-top-info {
+    border: 2px dashed var(--gray-300);
+    border-bottom: none;
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.movie-and-ids {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+    flex-wrap: wrap;
+}
+
+.movie-poster {
+    flex-shrink: 0;
+}
+
+.poster-img {
+    height: 150px;
+    width: auto;
+    display: block;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* -------------------------------------------------- */
+
+.ticket-ids {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-line {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--gray-400);
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    background-color: #f9fafb;
+}
+
+.icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: var(--gray-600);
+    margin-right: 0.5rem;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-500);
+    margin-right: 0.5rem;
+    white-space: nowrap;
+}
+
+.info-value-mono {
+    font-size: 0.875rem;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.qr-code img {
+    border-radius: 0.125rem;
+}
+
+.ticket-bottom-details {
+    border: 2px dashed var(--gray-300);
+    border-top: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .ticket-bottom-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.detail-box {
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+}
+
+.movie-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.detail-line-padded {
+    padding: 1rem;
+}
+
+.icon-large {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: var(--gray-500);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.detail-line > .icon-large {
+    margin-top: 0;
+}
+
+.detail-title {
+    color: var(--gray-800);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.detail-text {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+.detail-text-semibold {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    font-weight: 600;
+}
+
+.show-time {
+    border-top: 1px solid var(--gray-300);
+    display: flex;
+}
+
+.time-section {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.time-section-bordered {
+    border-left: 1px solid var(--gray-300);
+}

@@ -17,7 +17,22 @@
     <link href="css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
-
+    <style>
+        #searchOverlay {
+            display: none;
+            position: fixed;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: 550px;
+            background: #ffffff;
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 9999;
+            border-radius: 12px;
+            transition: opacity 0.3s ease;
+        }
+    </style>
 </head>
 <body>
     <section id="header">
@@ -44,40 +59,38 @@
                                 <li><a class="dropdown-item border-0" href="blog_details.aspx">Blog Detail</a></li>
                             </ul>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="event.aspx">Events</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="team.aspx">team</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="contact.aspx">Contact</a>
                         </li>
-
                     </ul>
                     <ul class="navbar-nav mb-0 ms-auto">
 
                         <li class="nav-item">
-                            <select name="categories" class="form-select bg-light" required="">
-                                <option value="">All Categories</option>
-                                <option>Movie</option>
-                                <option>Video</option>
-                                <option>Tv-Show</option>
-                                <option>Music</option>
-                            </select>
-
-                            <div class="input-group">
-                                <input type="text" class="form-control border-start-0" placeholder="Search Movie">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary bg_yell" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
+                            <div class="input-group" style="width: 300px;">
+                                <input type="text"
+                                    id="movieSearch"
+                                    class="form-control"
+                                    placeholder="Search Movie"
+                                    style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                                <button class="btn btn-primary bg_yell" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
                             </div>
                         </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link position-relative" href="wishlist.aspx" title="Wishlist">
+                                <i class="fa fa-heart fs-5 text-white"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
+                                </span>
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown ms-3" runat="server" id="navUserItem">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img id="userAvatar" runat="server" src="#" class="rounded-circle me-2" style="width: 30px; height: 30px;" alt="Avatar" />
@@ -101,6 +114,8 @@
             </div>
         </nav>
     </section>
+    <div id="searchOverlay">
+    </div>
 
     <section id="center" class="center_home">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -167,7 +182,7 @@
         </div>
     </section>
 
-        <form id="form1" runat="server">
+    <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <section id="upcome" class="p_3 bg-light">
@@ -242,484 +257,256 @@
                 </asp:UpdatePanel>
             </div>
         </section>
-    </form>
 
-    <section id="release">
-        <div class="release_m clearfix">
-            <div class="container-xl">
-                <div class="row release_1">
-                    <div class="col-md-7">
-                        <div class="release_1i">
+
+        <section id="release">
+            <div class="release_m clearfix">
+                <div class="container-xl">
+                    <div class="row release_1">
+                        <div class="col-md-7">
+                            <div class="release_1i">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="release_1i1 text-center">
+                                <h6 class="text-uppercase bg_red d-inline-block p-2 pe-4 ps-4 text-white">Releasing On</h6>
+                                <h3 class="text-white icon_line mt-3 text-uppercase">22 June 2022</h3>
+                                <h1 class="text-uppercase font_50 text-white mt-3">One Men Army</h1>
+                                <h4 class="text-white mt-3 mb-0">A Presenter Film Production</h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="release_1i1 text-center">
-                            <h6 class="text-uppercase bg_red d-inline-block p-2 pe-4 ps-4 text-white">Releasing On</h6>
-                            <h3 class="text-white icon_line mt-3 text-uppercase">22 June 2022</h3>
-                            <h1 class="text-uppercase font_50 text-white mt-3">One Men Army</h1>
-                            <h4 class="text-white mt-3 mb-0">A Presenter Film Production</h4>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="popular" class="p_3 bg-light">
-        <div class="container-xl">
-            <div class="row upcome_1 text-center">
-                <div class="col-md-12">
-                    <h3 class="mb-0">POPULAR MOVIES</h3>
-                    <hr class="line me-auto ms-auto">
-                    <ul class="nav nav-tabs justify-content-center border-0 mb-0 mt-4">
-                        <li class="nav-item">
-                            <a href="#upcoming" data-bs-toggle="tab" class="nav-link active">Upcoming</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#released" data-bs-toggle="tab" class="nav-link">Released</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#best" data-bs-toggle="tab" class="nav-link">Best of Library</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="tab-content mt-4">
-                <!-- Upcoming -->
-                <div class="tab-pane fade show active" id="upcoming">
-                    <div class="row upcome_2 mt-4">
-                        <asp:DataList ID="DataList1" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
-                            <ItemTemplate>
-                                <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
-                                    <div class="upcome_2i1i clearfix">
-                                        <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
-                                    </div>
-                                    <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                        <h6 class="text-uppercase">
-                                            <a class="button_1" href='<%# Eval("TrailerUrl") %>' target="_blank">View Trailer</a>
-                                        </h6>
-                                        <h6 class="text-uppercase mb-0">
-                                            <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="upcome_2i_last bg-white p-3"
-                                    style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
-                                    <div class="row">
-                                        <div class="col-md-9 col-9">
-                                            <div class="upcome_2i_lastil">
-                                                <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
-                                                <h6 class="text-muted"><%# Eval("Genre") %></h6>
-                                                <span class="col_red">
-                                                    <%# GetStars((int)Eval("Rating")) %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-0 col-3">
-                                            <div class="upcome_2i_lastir pt-3">
-                                                <span>
-                                                    <a class="col_red rounded"
-                                                        href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>'>
-                                                        <i class="fa fa-ticket"></i>
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                </div>
-                <!-- Released -->
-                <div class="tab-pane fade" id="released">
-                    <div class="row upcome_2 mt-4">
-                        <asp:DataList ID="dlReleased" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
-                            <ItemTemplate>
-                                <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
-                                    <div class="upcome_2i1i clearfix">
-                                        <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
-                                    </div>
-                                    <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                        <h6 class="text-uppercase">
-                                            <a class="button_1" href='<%# Eval("TrailerUrl") %>' target="_blank">View Trailer</a>
-                                        </h6>
-                                        <h6 class="text-uppercase mb-0">
-                                            <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="upcome_2i_last bg-white p-3"
-                                    style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
-                                    <div class="row">
-                                        <div class="col-md-9 col-9">
-                                            <div class="upcome_2i_lastil">
-                                                <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
-                                                <h6 class="text-muted"><%# Eval("Genre") %></h6>
-                                                <span class="col_red">
-                                                    <%# GetStars((int)Eval("Rating")) %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-0 col-3">
-                                            <div class="upcome_2i_lastir pt-3">
-                                                <span>
-                                                    <a class="col_red rounded" href="BookingMovieDetails.aspx">
-                                                        <i class="fa fa-ticket"></i>
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                </div>
-                <!-- Best of Library -->
-                <div class="tab-pane fade" id="best">
-                    <div class="row upcome_2 mt-4">
-                        <asp:DataList ID="dlBest" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
-                            <ItemTemplate>
-                                <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
-                                    <div class="upcome_2i1i clearfix">
-                                        <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
-                                    </div>
-                                    <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                        <h6 class="text-uppercase">
-                                            <a class="button_1" href='<%# Eval("TrailerUrl") %>' target="_blank">View Trailer</a>
-                                        </h6>
-                                        <h6 class="text-uppercase mb-0">
-                                            <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="upcome_2i_last bg-white p-3"
-                                    style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
-                                    <div class="row">
-                                        <div class="col-md-9 col-9">
-                                            <div class="upcome_2i_lastil">
-                                                <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
-                                                <h6 class="text-muted"><%# Eval("Genre") %></h6>
-                                                <span class="col_red">
-                                                    <%# GetStars((int)Eval("Rating")) %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-0 col-3">
-                                            <div class="upcome_2i_lastir pt-3">
-                                                <span>
-                                                    <a class="col_red rounded" href="BookingMovieDetails.aspx">
-                                                        <i class="fa fa-ticket"></i>
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:DataList>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <section id="trend">
-        <div class="trend_m clearfix bg_light pt-4 pb-5">
+        <section id="popular" class="p_3 bg-light">
             <div class="container-xl">
                 <div class="row upcome_1 text-center">
                     <div class="col-md-12">
-                        <h3 class="mb-0 text-white">TOP MOVIES</h3>
+                        <h3 class="mb-0">POPULAR MOVIES</h3>
                         <hr class="line me-auto ms-auto">
+                        <ul class="nav nav-tabs justify-content-center border-0 mb-0 mt-4">
+                            <li class="nav-item">
+                                <a href="#upcoming" data-bs-toggle="tab" class="nav-link active">Upcoming</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#released" data-bs-toggle="tab" class="nav-link">Released</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#best" data-bs-toggle="tab" class="nav-link">Best of Library</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="trend_m1 row mt-3">
-                    <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+
+                <div class="tab-content mt-4">
+                    <!-- Upcoming -->
+                    <div class="tab-pane fade show active" id="upcoming">
+                        <div class="row upcome_2 mt-4">
+                            <asp:DataList ID="DataList1" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
+                                <ItemTemplate>
+                                    <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
+                                        <div class="upcome_2i1i clearfix">
+                                            <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
+                                        </div>
+                                        <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
+                                            <h6 class="text-uppercase">
+                                                <a class="button_1" href="javascript:void(0);" data-trailer='<%# Eval("TrailerUrl") %>' onclick="openTrailer(this)">View Trailer</a>
+                                            </h6>
+                                            <h6 class="text-uppercase mb-0">
+                                                <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="upcome_2i_last bg-white p-3"
+                                        style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
+                                        <div class="row">
+                                            <div class="col-md-9 col-9">
+                                                <div class="upcome_2i_lastil">
+                                                    <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
+                                                    <h6 class="text-muted"><%# Eval("Genre") %></h6>
+                                                    <span class="col_red">
+                                                        <%# GetStars((int)Eval("Rating")) %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 p-0 col-3">
+                                                <div class="upcome_2i_lastir pt-3">
+                                                    <span>
+                                                        <a class="col_red rounded" href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>'>
+                                                            <i class="fa fa-ticket"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
                         </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="upcome_2i row">
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/4.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
+                    </div>
+                    <!-- Released -->
+                    <div class="tab-pane fade" id="released">
+                        <div class="row upcome_2 mt-4">
+                            <asp:DataList ID="dlReleased" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
+                                <ItemTemplate>
+                                    <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
+                                        <div class="upcome_2i1i clearfix">
+                                            <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
                                         </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Eget Nulla</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
+                                        <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
+                                            <h6 class="text-uppercase">
+                                                <a class="button_1" href="javascript:void(0);" data-trailer='<%# Eval("TrailerUrl") %>' onclick="openTrailer(this)">View Trailer</a>
+                                            </h6>
+                                            <h6 class="text-uppercase mb-0">
+                                                <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="upcome_2i_last bg-white p-3"
+                                        style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
+                                        <div class="row">
+                                            <div class="col-md-9 col-9">
+                                                <div class="upcome_2i_lastil">
+                                                    <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
+                                                    <h6 class="text-muted"><%# Eval("Genre") %></h6>
+                                                    <span class="col_red">
+                                                        <%# GetStars((int)Eval("Rating")) %>
+                                                    </span>
                                                 </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-3 p-0 col-3">
+                                                <div class="upcome_2i_lastir pt-3">
+                                                    <span>
+                                                        <a class="col_red rounded" href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>'>
+                                                            <i class="fa fa-ticket"></i>
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/5.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                    <!-- Best of Library -->
+                    <div class="tab-pane fade" id="best">
+                        <div class="row upcome_2 mt-4">
+                            <asp:DataList ID="dlBest" runat="server" RepeatColumns="4" RepeatDirection="Horizontal" CellPadding="5" CellSpacing="5">
+                                <ItemTemplate>
+                                    <div class="upcome_2i1 clearfix position-relative" style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
+                                        <div class="upcome_2i1i clearfix">
+                                            <img src='<%# Eval("ImageUrl") %>' height="380" width="270" class="w-100" alt='<%# Eval("Title") %>' />
                                         </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Semp Porta</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
+                                        <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
+                                            <h6 class="text-uppercase">
+                                                <a class="button_1" href="javascript:void(0);" data-trailer='<%# Eval("TrailerUrl") %>' onclick="openTrailer(this)">View Trailer</a>
+                                            </h6>
+                                            <h6 class="text-uppercase mb-0">
+                                                <a class="button_2" href="MovieDetails.aspx?id=<%# Eval("MovieID") %>">View Details</a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="upcome_2i_last bg-white p-3"
+                                        style="width: 270px; height: 120px; margin: auto; overflow: hidden;">
+                                        <div class="row">
+                                            <div class="col-md-9 col-9">
+                                                <div class="upcome_2i_lastil">
+                                                    <h5><a href="blog_detail.html"><%# Eval("Title") %></a></h5>
+                                                    <h6 class="text-muted"><%# Eval("Genre") %></h6>
+                                                    <span class="col_red">
+                                                        <%# GetStars((int)Eval("Rating")) %>
+                                                    </span>
                                                 </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-3 p-0 col-3">
+                                                <div class="upcome_2i_lastir pt-3">
+                                                    <span>
+                                                        <a class="col_red rounded" href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>'>
+                                                            <i class="fa fa-ticket"></i>
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/6.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Quis Sem</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/7.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Lorem Amet</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </ItemTemplate>
+                            </asp:DataList>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trend">
+            <div class="trend_m clearfix bg_light pt-4 pb-5">
+                <div class="container-xl">
+                    <div class="row upcome_1 text-center">
+                        <div class="col-md-12">
+                            <h3 class="mb-0 text-white">TOP MOVIES</h3>
+                            <hr class="line me-auto ms-auto">
+                        </div>
+                    </div>
+                    <div class="trend_m1 row mt-3">
+                        <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
+
+                            <div class="carousel-indicators">
+                                <asp:Repeater ID="rptTopMoviesIndicators" runat="server">
+                                    <ItemTemplate>
+                                        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="<%# Container.ItemIndex %>" class='<%# (Container.ItemIndex == 0) ? "active" : "" %>' aria-label='<%# "Slide " + (Container.ItemIndex + 1) %>'></button>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </div>
-                            <div class="carousel-item">
-                                <div class="upcome_2i row">
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/8.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Eget Nulla</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
+
+                            <div class="carousel-inner">
+                                <asp:Repeater ID="rptTopMovies" runat="server" OnItemDataBound="rptTopMovies_ItemDataBound">
+                                    <ItemTemplate>
+
+                                        <asp:Literal ID="litSlideStart" runat="server"></asp:Literal>
+
+                                        <div class="col-md-3">
+                                            <div class="upcome_2i1 clearfix position-relative">
+                                                <div class="upcome_2i1i clearfix">
+                                                    <img src='<%# Eval("ImageUrl") %>' height="380" width="305" alt='<%# Eval("Title") %>'>
                                                 </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
+                                                <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
+                                                    <h6 class="text-uppercase"><a class="button_1" href='<%# Eval("TrailerUrl") %>'>View Trailer</a></h6>
+                                                    <h6 class="text-uppercase mb-0"><a class="button_2" href='<%# "MovieDetails.aspx?id=" + Eval("MovieId") %>'>View Details</a></h6>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/9.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Semp Porta</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
+                                            <div class="upcome_2i_last bg-white p-3">
+                                                <div class="upcome_2i_lasti row">
+                                                    <div class="col-md-9 col-9">
+                                                        <div class="upcome_2i_lastil">
+                                                            <h5><a href='<%# "MovieDetails.aspx?id=" + Eval("MovieId") %>'><%# Eval("Title") %></a></h5>
+                                                            <h6 class="text-muted"><%# Eval("Genre") %></h6>
+                                                            <span class="col_red">
+                                                                <%# GetStars((int)Eval("Rating")) %>
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
+                                                    <div class="col-md-3 p-0 col-3">
+                                                        <div class="upcome_2i_lastir pt-3">
+                                                            <span><a class="col_red rounded" href='<%# "BookingMovieDetails.aspx?id=" + Eval("MovieId") %>'><i class="fa fa-thumbs-up"></i></a></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/10.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Quis Sem</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="upcome_2i1 clearfix position-relative">
-                                            <div class="upcome_2i1i clearfix">
-                                                <img src="img/11.jpg" class="w-100" alt="abc">
-                                            </div>
-                                            <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
-                                                <h6 class="text-uppercase"><a class="button_1" href="#">View Trailer</a></h6>
-                                                <h6 class="text-uppercase mb-0"><a class="button_2" href="#">View Details</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="upcome_2i_last bg-white p-3">
-                                            <div class="upcome_2i_lasti row">
-                                                <div class="col-md-9 col-9">
-                                                    <div class="upcome_2i_lastil">
-                                                        <h5><a href="#">Lorem Amet</a></h5>
-                                                        <h6 class="text-muted">Drama, Action</h6>
-                                                        <span class="col_red">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 p-0 col-3">
-                                                    <div class="upcome_2i_lastir pt-3">
-                                                        <span><a class="col_red rounded" href="#"><i class="fa fa-shopping-cart"></i></a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                        <asp:Literal ID="litSlideEnd" runat="server"></asp:Literal>
+
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </form>
 
     <section id="news" class="p_3 bg-light">
         <div class="container-xl">
@@ -786,179 +573,6 @@
                                     <h6 class="col_red">22 May 2022</h6>
                                     <p>Lorem ipsum dolor sit amet, consectuir adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                                     <h6 class="mb-0"><i class="fa fa-thumbs-up col_red me-1"></i><a href="#">127 Like</a> <span class="text-muted me-2 ms-2">|</span>  <i class="fa fa-comments col_red me-1"></i><a href="#">42 comments</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="events" class="p_3 pb-5">
-        <div class="container-xl">
-            <div class="row upcome_1 text-center">
-                <div class="col-md-12">
-                    <h3 class="mb-0">FEATURED EVENTS</h3>
-                    <hr class="line me-auto ms-auto">
-                </div>
-            </div>
-            <div class="row events_1 mt-3">
-                <div id="carouselExampleCaptions3" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="events_1i row">
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/19.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/20.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/21.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="events_1i row">
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/22.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/23.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="events_1i1 clearfix position-relative">
-                                        <div class="events_1i1i clearfix">
-                                            <img src="img/24.jpg" alt="abc" class="w-100">
-                                        </div>
-                                        <div class="events_1i1i1 clearfix position-absolute bottom-0 text-center w-100">
-                                            <h6 class="mb-0"><a class="button_1" href="#">Book Now </a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="events_1i2 clearfix p-3 pt-4 pb-4 bg-light">
-                                        <h5 class="text-uppercase"><a href="#">Music Event in India</a></h5>
-                                        <h6>Delhi & Mumbai
-											<span class="col_red pull-right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </span>
-                                        </h6>
-                                        <hr>
-                                        <h6 class="mb-0">June 09 - July 06 <span class="pull-right">09:00-13:00 pm</span></h6>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1250,6 +864,26 @@
             }, { once: true });
         }
 
+        const searchInput = document.getElementById("movieSearch");
+        const searchOverlay = document.getElementById("searchOverlay");
+
+        // Show white page when input is focused
+        searchInput.addEventListener("focus", () => {
+            searchOverlay.style.display = "block";
+        });
+
+        // Hide white page when user clicks outside or presses ESC
+        searchOverlay.addEventListener("click", () => {
+            searchOverlay.style.display = "none";
+            searchInput.blur(); // remove focus
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                searchOverlay.style.display = "none";
+                searchInput.blur();
+            }
+        });
     </script>
 
 </body>

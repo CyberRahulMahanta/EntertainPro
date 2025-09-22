@@ -50,6 +50,11 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="Razorpay, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Razorpay.3.3.2\lib\net47\Razorpay.dll</HintPath>
     </Reference>
@@ -79,6 +84,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -93,11 +99,14 @@
     </Content>
     <Content Include="blog.aspx" />
     <Content Include="blog_details.aspx" />
+    <Content Include="BookedMovies.aspx" />
     <Content Include="BookingMovieDetails.aspx" />
     <Content Include="contact.aspx" />
     <Content Include="event.aspx" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="logout.aspx" />
     <Content Include="Payment.aspx" />
     <Content Include="PaymentSuccess.aspx" />
     <Content Include="Register.aspx" />
@@ -128,6 +137,13 @@
     <Compile Include="blog_details.aspx.designer.cs">
       <DependentUpon>blog_details.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BookedMovies.aspx.cs">
+      <DependentUpon>BookedMovies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookedMovies.aspx.designer.cs">
+      <DependentUpon>BookedMovies.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BookingMovieDetails.aspx.cs">
       <DependentUpon>BookingMovieDetails.aspx</DependentUpon>
     </Compile>
@@ -148,6 +164,13 @@
     <Compile Include="event.aspx.designer.cs">
       <DependentUpon>event.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,6 +184,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Payment.aspx.cs">
       <DependentUpon>Payment.aspx</DependentUpon>

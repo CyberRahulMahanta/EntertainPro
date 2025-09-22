@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="SeatLayout.aspx.cs" Inherits="EntertainPro.SeatLayout" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="css/SeatLayout.css" />
+    <link rel="stylesheet" href="css/SeatLayout.css"/>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="summary-section proceed-button-wrapper">
-                    <button class="proceed-button">Proceed</button>
+                    <button type="button" class="proceed-button">Proceed</button>
                 </div>
             </div>
         </div>
