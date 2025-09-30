@@ -15,6 +15,24 @@ namespace EntertainPro
     {
 
         /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
+        /// txtSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+
+        /// <summary>
         /// navUserItem control.
         /// </summary>
         /// <remarks>
@@ -60,13 +78,13 @@ namespace EntertainPro
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navLoginItem;
 
         /// <summary>
-        /// form1 control.
+        /// dlMovies control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Repeater dlMovies;
 
         /// <summary>
         /// ScriptManager1 control.

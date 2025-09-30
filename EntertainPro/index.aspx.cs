@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -25,6 +26,7 @@ namespace EntertainPro
                 LoadReleasedMoviesCategory();
                 LoadBestMoviesCategory();
                 LoadTopMovies();
+                BindMovies();
 
                 if (Session["unm"] != null)
                 {
@@ -173,6 +175,40 @@ namespace EntertainPro
                     litEnd.Text = "</div></div>";
                 }
             }
+        }
+
+
+        // Show overlay and filter movies
+        private void BindMovies()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(s))
+            {
+                string query = "SELECT * FROM Movies";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.Fill(dt);
+            }
+
+            dlMovies.DataSource = dt;
+            dlMovies.DataBind();
+        }
+
+        protected string GetGenreTags(object dataItem)
+        {
+            var sb = new StringBuilder();
+            if (dataItem is System.Data.DataRowView rowView)
+            {
+                if (rowView.Row.Table.Columns.Contains("Genre") && rowView["Genre"] != DBNull.Value)
+                {
+                    string genreString = rowView["Genre"].ToString();
+                    List<string> genres = genreString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    foreach (var genre in genres)
+                    {
+                        sb.Append($"<span class='genre-tag'>{genre.Trim()}</span>");
+                    }
+                }
+            }
+            return sb.ToString();
         }
 
         public string GetStars(int rating)

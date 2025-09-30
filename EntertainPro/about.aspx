@@ -18,11 +18,12 @@
 			<div class="row about_1">
 				<div class="col-md-6">
 					<div class="about_1l">
-						<h3>ABOUT THE EVENT</h3>
+						<h3>About Entertain Pro</h3>
 						<hr class="line">
-						<h5 class="mt-4">How it All Started Event and manage this this is event how to given pas and how to participate</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor nt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerciion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor indi reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Exceiur sint occaecat cupidatat non proident,</p>
-						<p class="mb-0">sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis de omnis iste natus error sit voluptatem tium doloremque laudantium, totam rem am, eaque ipsa quae ab illo inventore veritatis</p>
+						<h5 class="mt-4">Welcome to Entertain Pro, your one-stop destination for a seamless online movie ticket booking experience.</h5>
+						<p>We make it easy, fast, and secure to book tickets for the latest movies at your favorite cinemas—anytime, anywhere.To bring the magic of cinema closer to you by simplifying the way you discover, book, and enjoy movies.Whether it’s the latest blockbuster, a family-friendly film, or an indie masterpiece, Entertain Pro ensures that your next cinema experience is just a few clicks away,</p>
+						<p class="mb-0">Our Vision, To become the most trusted online movie booking platform, connecting movie lovers to the best cinematic experiences with cutting-edge technology and user-first design.</p>
+
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -98,7 +99,7 @@
 		<div class="container">
 			<div class="row upcome_1 text-center">
 				<div class="col-md-12">
-					<h3 class="mb-0">EVENT SCHEDULE</h3>
+					<h3 class="mb-0">Awards & Recognition</h3>
 					<hr class="line me-auto ms-auto">
 				</div>
 			</div>
@@ -108,7 +109,7 @@
 						<li class="nav-item">
 							<a href="#homeo" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
 								<span class="d-md-block">
-									<span class="fw-bold">DAY 01</span> <br>
+									<span class="fw-bold">2015</span> <br>
 									June 06
 								</span>
 							</a>
@@ -116,7 +117,7 @@
 						<li class="nav-item">
 							<a href="#profileo" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
 								<span class="d-md-block">
-									<span class="fw-bold">DAY 02</span> <br>
+									<span class="fw-bold">2018</span> <br>
 									June 07
 								</span>
 							</a>
@@ -124,7 +125,7 @@
 						<li class="nav-item">
 							<a href="#settingso" data-bs-toggle="tab" aria-expanded="false" class="nav-link border-0">
 								<span class="d-md-block">
-									<span class="fw-bold">DAY 03</span> <br>
+									<span class="fw-bold">2020</span> <br>
 									June 08
 								</span>
 							</a>
@@ -536,12 +537,12 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingOne">
 									<button class="accordion-button mt-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-										What is special about comparing rental car deals?
+										What is Entertain Pro?
 									</button>
 								</h2>
 								<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										Use securing confined his shutters. Delightful as he it acceptance an solicitude discretion reasonably. Carriage we husbands advanced an perceive greatest. Totally dearest expense on demesne ye he. Curiosity excellent commanded in me. Unpleasing impression themselves to at assistance acceptance my or.
+										Yes. There are no extra charges for using Entertain Pro apart from the ticket price and standard taxes set by the theatres.
 									</div>
 								</div>
 							</div>
@@ -549,7 +550,7 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="headingTwo">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-										Where is Corpo office address ?
+										Is Entertain Pro free to use?
 									</button>
 								</h2>
 								<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -562,12 +563,12 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="heading3">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapseTwo">
-										How many your customers have ?
+										Can I book tickets for someone else?
 									</button>
 								</h2>
 								<div id="collapse3" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										Use securing confined his shutters. Delightful as he it acceptance an solicitude discretion reasonably. Carriage we husbands advanced an perceive greatest. Totally dearest expense on demesne ye he. Curiosity excellent commanded in me. Unpleasing impression themselves to at assistance acceptance my or.
+										Yes! You can book tickets using your account and simply share the e-ticket or QR code with the person attending.
 									</div>
 								</div>
 							</div>
@@ -575,12 +576,12 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="heading4">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapseTwo">
-										Where is you main office ?
+										What if I don’t receive my ticket after payment?
 									</button>
 								</h2>
 								<div id="collapse4" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										Use securing confined his shutters. Delightful as he it acceptance an solicitude discretion reasonably. Carriage we husbands advanced an perceive greatest. Totally dearest expense on demesne ye he. Curiosity excellent commanded in me. Unpleasing impression themselves to at assistance acceptance my or.
+										If you don’t receive your ticket within a few minutes, please check your spam folder or contact our support team immediately.
 									</div>
 								</div>
 							</div>
@@ -588,12 +589,12 @@
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="heading5">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapseTwo">
-										Shortly.. What Corpo does ?
+										Is my payment information safe?
 									</button>
 								</h2>
 								<div id="collapse5" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										Use securing confined his shutters. Delightful as he it acceptance an solicitude discretion reasonably. Carriage we husbands advanced an perceive greatest. Totally dearest expense on demesne ye he. Curiosity excellent commanded in me. Unpleasing impression themselves to at assistance acceptance my or.
+										Absolutely. Entertain Pro uses secure payment gateways and SSL encryption to protect your personal and payment details.
 									</div>
 								</div>
 							</div>
@@ -672,97 +673,6 @@
 							</ul>
 							<h5 class="mt-3 mb-0 fw-normal"><a class="button_1" href="#">Subscribe Now</a></h5>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section id="subs" class="pt-5 pb-5 bg_red">
-		<div class="container-xl">
-			<div class="row subs_1">
-				<div class="col-md-4">
-					<div class="subs_1l">
-						<h4 class="text-white mb-0 mt-2">GET UPDATE SIGN UP NOW !</h4>
-					</div>
-				</div>
-				<div class="col-md-8">
-					<div class="subs_1r">
-						<div class="input-group">
-							<input type="text" class="form-control bg-transparent" placeholder="Enter Your Email">
-							<span class="input-group-btn">
-								<button class="btn btn-primary bg-white col_red" type="button">
-									Submit
-								</button>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section id="footer" class="p_3">
-		<div class="container-xl">
-			<div class="row footer_1">
-				<div class="col-md-2">
-					<div class="footer_1i">
-						<h6 class="text-white fw-bold">LANGUAGE MOVIES</h6>
-						<hr class="line mb-4">
-						<div class="row footer_1i_small">
-							<h6 class="col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">English Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Tamil Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Punjabi Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Hindi Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Malyalam Movie</a></h6>
-							<h6 class="mb-0 mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#"> Action Movie</a></h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="footer_1i">
-						<h6 class="text-white fw-bold">TAG CLOUD</h6>
-						<hr class="line mb-4">
-						<ul class="mb-0">
-							<li class="d-inline-block"><a class="d-block" href="#">Analyze</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Audio</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Blog</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Business</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Creative</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Design</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Experiment</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">News</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Expertize</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Express</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Share</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Sustain</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Video</a></li>
-							<li class="d-inline-block"><a class="d-block" href="#">Youtube</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="footer_1i">
-						<h6 class="text-white fw-bold">BY PRESENTER</h6>
-						<hr class="line mb-4">
-						<div class="row footer_1i_small">
-							<h6 class="col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Action Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Romantic Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Other Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Comedy Movie</a></h6>
-							<h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Drama Movie</a></h6>
-							<h6 class="mb-0 mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Classical Movie</a></h6>
-						</div>
-
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="footer_1i">
-						<h6 class="text-white fw-bold">SUBSCRIPTION</h6>
-						<hr class="line mb-4">
-						<p class="text-muted">Subscribe your Email address for latest news & updates.</p>
-						<input class="form-control bg-transparent" placeholder="Enter Email Address" type="text">
-						<h6 class="mb-0 mt-4"><a class="button_1 pt-3 pb-3" href="#">Submit <i class="fa fa-check-circle ms-1"></i> </a></h6>
 					</div>
 				</div>
 			</div>

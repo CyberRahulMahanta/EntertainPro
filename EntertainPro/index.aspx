@@ -17,172 +17,198 @@
     <link href="css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
-    <style>
-        #searchOverlay {
-            display: none;
-            position: fixed;
-            top: 100px;
-            left: 0;
-            width: 100%;
-            height: 550px;
-            background: #ffffff;
-            border: 2px solid #ccc;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 9999;
-            border-radius: 12px;
-            transition: opacity 0.3s ease;
-        }
-    </style>
+
 </head>
 <body>
-    <section id="header">
-        <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
-            <div class="container-fluid">
-                <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="index.aspx"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Entertain Pro</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.aspx">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.aspx">About </a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog
-                            </a>
-                            <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="blog.aspx">Blog</a></li>
-                                <li><a class="dropdown-item border-0" href="blog_details.aspx">Blog Detail</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="event.aspx">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="team.aspx">team</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.aspx">Contact</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mb-0 ms-auto">
-
-                        <li class="nav-item">
-                            <div class="input-group" style="width: 300px;">
-                                <input type="text"
-                                    id="movieSearch"
-                                    class="form-control"
-                                    placeholder="Search Movie"
-                                    style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
-                                <button class="btn btn-primary bg_yell" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link position-relative" href="wishlist.aspx" title="Wishlist">
-                                <i class="fa fa-heart fs-5 text-white"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
-                                </span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item dropdown ms-3" runat="server" id="navUserItem">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img id="userAvatar" runat="server" src="#" class="rounded-circle me-2" style="width: 30px; height: 30px;" alt="Avatar" />
-                                <span id="Span1" runat="server"></span>
-
-                                <span id="navUserName" runat="server"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="bookedMovies.aspx">Booked Movies</a></li>
-                                <li><a class="dropdown-item" href="profile.aspx">Profile</a></li>
-                                <li><a class="dropdown-item text-danger" href="logout.aspx">Logout</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item ms-3" runat="server" id="navLoginItem">
-                            <a class="nav-link button" href="login.aspx">Get Start</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </section>
-    <div id="searchOverlay">
-    </div>
-
-    <section id="center" class="center_home">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="img/1.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-md-block">
-                        <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                        <h1>Vestibulum Arcu Eget Aptent Semper</h1>
-                        <p>
-                            There are many variations of passages available but the majority have suffered
-							alteration in some form by injected humour or randomised words.
-                        </p>
-                        <ul class="mb-0 mt-3">
-                            <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                            <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="img/2.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-md-block">
-                        <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                        <h1>Vestibulum Arcu Eget Aptent Semper</h1>
-                        <p>
-                            There are many variations of passages available but the majority have suffered
-							alteration in some form by injected humour or randomised words.
-                        </p>
-                        <ul class="mb-0 mt-3">
-                            <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                            <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="img/3.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-md-block">
-                        <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                        <h1>Vestibulum Arcu Eget Aptent Semper</h1>
-                        <p>
-                            There are many variations of passages available but the majority have suffered
-							alteration in some form by injected humour or randomised words.
-                        </p>
-                        <ul class="mb-0 mt-3">
-                            <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                            <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
-
     <form id="form1" runat="server">
+        <section id="header">
+            <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+                <div class="container-fluid">
+                    <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="index.aspx"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i>Entertain Pro</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.aspx">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.aspx">About </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog
+                                </a>
+                                <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="blog.aspx">Blog</a></li>
+                                    <li><a class="dropdown-item border-0" href="blog_details.aspx">Blog Detail</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="event.aspx">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="team.aspx">team</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.aspx">Contact</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav mb-0 ms-auto">
+
+<!-- Search Box in Navbar -->
+<li class="nav-item">
+    <div class="input-group" style="width: 300px;">
+        <span class="input-group-text animated-icon" style="background: #fff; border-radius: 10px 0 0 10px; border-right: 0;">
+            <i class="fa fa-search"></i>
+        </span>
+        <asp:TextBox ID="txtSearch" runat="server"
+            CssClass="form-control"
+            placeholder="Search Movie"
+            Style="border-radius: 0 10px 10px 0; border-left: 0;">
+        </asp:TextBox>
+    </div>
+</li>
+                            <li class="nav-item ms-3">
+                                <a class="nav-link position-relative" href="wishlist.aspx" title="Wishlist">
+                                    <i class="fa fa-heart fs-5 text-white"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown ms-3" runat="server" id="navUserItem">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img id="userAvatar" runat="server" src="#" class="rounded-circle me-2" style="width: 30px; height: 30px;" alt="Avatar" />
+                                    <span id="Span1" runat="server"></span>
+
+                                    <span id="navUserName" runat="server"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="bookedMovies.aspx">Booked Movies</a></li>
+                                    <li><a class="dropdown-item" href="profile.aspx">Profile</a></li>
+                                    <li><a class="dropdown-item text-danger" href="logout.aspx">Logout</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item ms-3" runat="server" id="navLoginItem">
+                                <a class="nav-link button" href="login.aspx">Get Start</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+
+
+
+<!-- Search Overlay -->
+<div id="searchOverlay">
+    <button type="button" class="close-button" onclick="hideOverlay()">&times;</button>
+    <div class="movie-list" id="movieContainer">
+        <asp:Repeater ID="dlMovies" runat="server">
+            <ItemTemplate>
+                <div class="movie-card-layout movie-item">
+                    <a href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>' class="movie-link">
+                        <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Title") %>' class="movie-poster" />
+                        <div class="movie-info">
+                            <span class="new-release">New Release</span>
+                            <h3 class="movie-title"><%# Eval("Title") %></h3>
+                            <div class="movie-meta">
+                                <span><%# Eval("Genre") %></span>
+                                <span><%# Eval("Language") %></span>
+                                <span><%# Eval("Duration") %></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+
+        <!-- No movies message -->
+        <div id="noMoviesMessage">No movies found.</div>
+    </div>
+</div>
+
+
+        <section id="center" class="center_home">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-img-wrapper">
+                            <img src="img/1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-md-block">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
+                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+                            <p>
+                                There are many variations of passages available but the majority have suffered
+                            alteration in some form by injected humour or randomised words.
+                       
+                            </p>
+                            <ul class="mb-0 mt-3 list-unstyled">
+                                <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                                <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img-wrapper">
+                            <img src="img/2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-md-block">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
+                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+                            <p>
+                                There are many variations of passages available but the majority have suffered
+                            alteration in some form by injected humour or randomised words.
+                       
+                            </p>
+                            <ul class="mb-0 mt-3 list-unstyled">
+                                <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                                <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img-wrapper">
+                            <img src="img/3.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-md-block">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
+                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+                            <p>
+                                There are many variations of passages available but the majority have suffered
+                            alteration in some form by injected humour or randomised words.
+                       
+                            </p>
+                            <ul class="mb-0 mt-3 list-unstyled">
+                                <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                                <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-progress">
+                    <div class="carousel-progress-bar"></div>
+                </div>
+            </div>
+        </section>
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <section id="upcome" class="p_3 bg-light">
@@ -267,11 +293,11 @@
                             <div class="release_1i">
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <div class="release_1i1 text-center">
                                 <h6 class="text-uppercase bg_red d-inline-block p-2 pe-4 ps-4 text-white">Releasing On</h6>
-                                <h3 class="text-white icon_line mt-3 text-uppercase">22 June 2022</h3>
-                                <h1 class="text-uppercase font_50 text-white mt-3">One Men Army</h1>
+                                <h3 class="text-white icon_line mt-3 text-uppercase">22 October 2026</h3>
+                                <h1 class="text-uppercase font_50 text-white mt-3">KANTARA</h1>
                                 <h4 class="text-white mt-3 mb-0">A Presenter Film Production</h4>
                             </div>
                         </div>
@@ -521,12 +547,12 @@
                     <div class="news_1l">
                         <div class="popular_m clearfix position-relative">
                             <div class="popular_m1 clearfix">
-                                <img src="img/18.jpg" class="w-100" height="519" alt="abc">
+                                <img src="img/news2.jpg" class="w-100" height="519" alt="abc">
                             </div>
                             <div class="popular_m2 clearfix position-absolute w-100 top-0 bg_dark">
                                 <div class="popular_m2i clearfix p-4">
                                     <span class="d-block text-center play"><a class="col_red" href="#"><i class="fa fa-play-circle"></i></a></span>
-                                    <h6 class="col_red">29 Jan 2021</h6>
+                                    <h6 class="col_red">29 Sep 2026</h6>
                                     <h2 class="text-white mt-3 text-uppercase">THE NEWS OF THEATER</h2>
                                     <h6 class="mb-0 mt-3"><i class="fa fa-thumbs-up col_red me-1"></i><a class="text-light" href="#">110 Like</a> <span class="text-muted me-2 ms-2">|</span>  <i class="fa fa-comments col_red me-1"></i><a class="text-light" href="#">32 comments</a></h6>
                                 </div>
@@ -542,7 +568,7 @@
                                     <div class="grid clearfix">
                                         <figure class="effect-jazz mb-0">
                                             <a href="#">
-                                                <img src="img/16.jpg" height="251" class="w-100" alt="abc"></a>
+                                                <img src="img/news.jpg" height="251" class="w-100" alt="abc"></a>
                                         </figure>
                                     </div>
                                 </div>
@@ -550,8 +576,8 @@
                             <div class="col-md-7 ps-0">
                                 <div class="news_1rir pt-4 pb-4 ps-3 pe-3 bg-white">
                                     <h4 class="fs-5"><a href="#">THE NEWS OF THEATER</a></h4>
-                                    <h6 class="col_red">29 Jan 2021</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectuir adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                    <h6 class="col_red">29 Dec 2026</h6>
+                                    <p>Get ready for an immersive cinematic experience with motion seats, wind, rain, fog, and other exciting effects.</p>
                                     <h6 class="mb-0"><i class="fa fa-thumbs-up col_red me-1"></i><a href="#">129 Like</a> <span class="text-muted me-2 ms-2">|</span>  <i class="fa fa-comments col_red me-1"></i><a href="#">58 comments</a></h6>
                                 </div>
                             </div>
@@ -562,7 +588,7 @@
                                     <div class="grid clearfix">
                                         <figure class="effect-jazz mb-0">
                                             <a href="#">
-                                                <img src="img/17.jpg" height="251" class="w-100" alt="abc"></a>
+                                                <img src="img/news1.jpg" height="251" class="w-100" alt="abc"></a>
                                         </figure>
                                     </div>
                                 </div>
@@ -571,7 +597,7 @@
                                 <div class="news_1rir pt-4 pb-4 ps-3 pe-3 bg-white">
                                     <h4 class="fs-5"><a href="#">THE NEWS OF THEATER</a></h4>
                                     <h6 class="col_red">22 May 2022</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectuir adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                    <p>Enjoy our premium Gold Class seating with extra comfort, gourmet snacks, and an exclusive cinematic experience.</p>
                                     <h6 class="mb-0"><i class="fa fa-thumbs-up col_red me-1"></i><a href="#">127 Like</a> <span class="text-muted me-2 ms-2">|</span>  <i class="fa fa-comments col_red me-1"></i><a href="#">42 comments</a></h6>
                                 </div>
                             </div>
@@ -816,7 +842,19 @@
 
 
 
-    <script>
+    <script type="text/javascript">
+        // JS to reset the progress bar animation on each slide change
+        const myCarousel = document.getElementById('carouselExampleCaptions');
+        const progressBar = myCarousel.querySelector('.carousel-progress-bar');
+
+        myCarousel.addEventListener('slide.bs.carousel', () => {
+            progressBar.classList.remove('animate');
+            void progressBar.offsetWidth; // Trigger a reflow
+            progressBar.classList.add('animate');
+        });
+
+        // Add animation to the first slide's progress bar on load
+        progressBar.classList.add('animate');
         window.onscroll = function () { myFunction() };
 
         var navbar_sticky = document.getElementById("navbar_sticky");
@@ -864,26 +902,72 @@
             }, { once: true });
         }
 
-        const searchInput = document.getElementById("movieSearch");
-        const searchOverlay = document.getElementById("searchOverlay");
+        let searchInput, searchOverlay, movieContainer, noMoviesMessage;
 
-        // Show white page when input is focused
-        searchInput.addEventListener("focus", () => {
-            searchOverlay.style.display = "block";
-        });
+        function showOverlay() {
+            searchOverlay.style.display = 'block';
+        }
 
-        // Hide white page when user clicks outside or presses ESC
-        searchOverlay.addEventListener("click", () => {
-            searchOverlay.style.display = "none";
-            searchInput.blur(); // remove focus
-        });
+        function hideOverlay() {
+            searchOverlay.style.display = 'none';
+            searchInput.value = '';
+            filterMovies('');
+        }
 
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                searchOverlay.style.display = "none";
-                searchInput.blur();
+        function filterMovies(keyword) {
+            const movieItems = movieContainer.querySelectorAll('.movie-item');
+            let found = false;
+
+            movieItems.forEach(item => {
+                const titleElem = item.querySelector('.movie-title');
+                if (!titleElem) return;
+
+                const title = titleElem.innerText.toLowerCase();
+                if (title.includes(keyword)) {
+                    item.style.display = '';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (!found) {
+                noMoviesMessage.style.display = 'block';
+                setTimeout(() => noMoviesMessage.style.opacity = '1', 10);
+            } else {
+                noMoviesMessage.style.opacity = '0';
+                setTimeout(() => noMoviesMessage.style.display = 'none', 300);
             }
-        });
+        }
+
+        window.addEventListener('load', () => {
+            searchInput = document.getElementById('<%= txtSearch.ClientID %>');
+    searchOverlay = document.getElementById('searchOverlay');
+    movieContainer = document.getElementById('movieContainer');
+    noMoviesMessage = document.getElementById('noMoviesMessage');
+
+    // Show overlay on focus
+    searchInput.addEventListener('focus', showOverlay);
+
+    // Live filter while typing
+    searchInput.addEventListener('input', () => {
+        const keyword = searchInput.value.toLowerCase().trim();
+        filterMovies(keyword);
+    });
+
+    // Close overlay on ESC
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') hideOverlay();
+    });
+
+    // Close overlay when clicking outside
+    document.addEventListener('click', e => {
+        if (!searchOverlay.contains(e.target) && e.target !== searchInput) {
+            hideOverlay();
+        }
+    });
+});
+
     </script>
 
 </body>
