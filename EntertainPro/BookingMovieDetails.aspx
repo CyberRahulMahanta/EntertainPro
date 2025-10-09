@@ -5,6 +5,34 @@
     <link rel="stylesheet" type="text/css" href="css/BookingMovieFilter.css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  .movie-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;           /* Text color initially white */
+    background: #ff4444;    /* Red button */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .movie-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: #ff0000;    /* Lighter red on hover */
+    color: black;           /* Text turns black on hover */
+  }
+
+  .movie-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+</style>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -132,10 +160,12 @@
                     Let us know your preferred Movie
                 </p>
 
-                <button
-                    class="mt-2 px-6 py-2 border border-gray-800 rounded-full font-bold text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 transition">
-                    Enjoy another Movie
-                </button>
+<a href="index.aspx" class="movie-btn">Enjoy another Movie</a>
+
+
+
+
+
             </div>
         </section>
     </asp:PlaceHolder>

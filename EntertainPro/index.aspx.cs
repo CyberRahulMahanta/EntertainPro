@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -16,6 +17,10 @@ namespace EntertainPro
         String s = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
         static int currentPage = 0;
         int pageSize = 8;
+        DataSet ds;
+        SqlCommand cmd;
+        SqlDataAdapter da;
+        SqlConnection con;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,6 +32,7 @@ namespace EntertainPro
                 LoadBestMoviesCategory();
                 LoadTopMovies();
                 BindMovies();
+                fillWishlist();
 
                 if (Session["unm"] != null)
                 {
@@ -219,6 +225,110 @@ namespace EntertainPro
                 stars += i <= rating ? "<i class='fa fa-star'></i>" : "<i class='fa fa-star-o'></i>";
             }
             return stars;
+        }
+
+        void getcon()
+        {
+            con = new SqlConnection(s);
+            con.Open();
+        }
+        protected void dlUpcoming_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "cmd_view")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("viewDetails.aspx?id=" + id);
+            }
+            else if (e.CommandName == "AddToWishlist")
+            {
+                if (Session["UserID"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
+                getcon();
+                da = new SqlDataAdapter("Select * from Users where UserID  ='" + Session["UserID"] + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                int UserID = Convert.ToInt32(Session["UserID"]);
+                int MovieID = Convert.ToInt32(e.CommandArgument);
+
+                da = new SqlDataAdapter("Select * from Movies where MovieID = '" + MovieID + "'", con);
+                ds = new DataSet();
+                da.Fill(ds);
+
+                string Movie_Name = ds.Tables[0].Rows[0][1].ToString();
+                string Language = ds.Tables[0].Rows[0][9].ToString();
+                string ImageURL = ds.Tables[0].Rows[0][4].ToString();
+
+
+                cmd = new SqlCommand("Insert into Wishlists(UserID, MovieID, Movie_Name, Language, ImageURL) values ('" + UserID + "','" + MovieID + "', '" + Movie_Name + "','" + Language + "','" + ImageURL + "')", con);
+                int rows = cmd.ExecuteNonQuery(); ;
+
+                if (rows > 0)
+                {
+                    fillWishlist();
+                    ScriptManager.RegisterStartupScript(this, GetType(), "success",
+                        "showLabelToast('Movie added to your wishlist successfully!', 'success');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "error",
+                        "showLabelToast('Failed to add movie to wishlist!', 'error');", true);
+                }
+
+            }
+        }
+
+        void fillWishlist()
+        {
+
+            int userId = Convert.ToInt32(Session["UserID"]);
+            con = new SqlConnection(s);
+
+            da = new SqlDataAdapter("SELECT * FROM Wishlists WHERE UserId='" + userId + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
+
+            DataList2.DataSource = ds;
+            DataList2.DataBind();
+
+            wishlistCount.InnerText = ds.Tables[0].Rows.Count.ToString();
+        }
+
+        protected void wishlistBtn_Click(object sender, EventArgs e)
+        {
+            wishlistPanel.Visible = true;
+            wishlistPanel.CssClass = "wishlist-panel active"; // slide-in
+        }
+
+        protected void CloseWishlist_Click(object sender, EventArgs e)
+        {
+            wishlistPanel.CssClass = "wishlist-panel"; // hide panel
+        }
+
+        protected void DataList2_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "Remove")
+            {
+                int WishList_ID = Convert.ToInt32(e.CommandArgument);
+                int userId = Convert.ToInt32(Session["UserID"]);
+
+                using (SqlConnection con = new SqlConnection(s))
+                {
+                    string query = "DELETE FROM Wishlists WHERE WishList_ID=@WishList_ID AND UserId=@UserId";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@WishList_ID", WishList_ID);
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                fillWishlist();
+            }
         }
 
     }

@@ -33,6 +33,24 @@ namespace EntertainPro
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
+        /// wishlistBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton wishlistBtn;
+
+        /// <summary>
+        /// wishlistCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl wishlistCount;
+
+        /// <summary>
         /// navUserItem control.
         /// </summary>
         /// <remarks>
@@ -87,6 +105,33 @@ namespace EntertainPro
         protected global::System.Web.UI.WebControls.Repeater dlMovies;
 
         /// <summary>
+        /// wishlistPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel wishlistPanel;
+
+        /// <summary>
+        /// closeWishlistBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton closeWishlistBtn;
+
+        /// <summary>
+        /// DataList2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList DataList2;
+
+        /// <summary>
         /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -94,6 +139,15 @@ namespace EntertainPro
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
+        /// lblToast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblToast;
 
         /// <summary>
         /// UpdatePanel1 control.

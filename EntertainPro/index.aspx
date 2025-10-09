@@ -17,6 +17,217 @@
     <link href="css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="js/bootstrap.bundle.min.js"></script>
+    <style>
+        .toast-message {
+            position: fixed;
+            top: 80px; /* slightly down */
+            right: -400px; /* off-screen start */
+            min-width: 280px;
+            max-width: 350px;
+            background-color: #28a745; /* success default */
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.4;
+            z-index: 9999;
+            transition: all 0.6s ease-in-out;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            /* Show toast with slide-in */
+            .toast-message.show {
+                right: 20px;
+                opacity: 1;
+            }
+
+        /* Toast types */
+        .toast-success {
+            background-color: #28a745;
+        }
+        /* green */
+        .toast-error {
+            background-color: #dc3545;
+        }
+        /* red */
+        .toast-warning {
+            background-color: #ffc107;
+            color: #000;
+        }
+        /* yellow with black text */
+
+        /* Optional icon styling */
+        .toast-message i {
+            font-size: 20px;
+        }
+
+        /* --- Wishlist Panel Container --- */
+        .wishlist-panel {
+            position: fixed;
+            top: 0;
+            /* Use 'calc' to ensure it's fully off-screen but ready for transition */
+            right: -320px;
+            width: 320px; /* Slightly wider for better content space */
+            height: 100%;
+            background: #ffffff;
+            /* Soft, modern shadow */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: none; /* Removed redundant border */
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            z-index: 10000; /* High z-index */
+            overflow-y: auto;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+            border-radius: 8px 0 0 8px; /* Slight round corner on the left */
+        }
+
+            /* Panel Active State */
+            .wishlist-panel.active {
+                right: 0;
+            }
+
+        /* --- Panel Header --- */
+        .wishlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem; /* More generous padding */
+            border-bottom: 1px solid #f0f0f0; /* Lighter border */
+            background: #fcfcfc; /* Very light background */
+            position: sticky; /* Keep the header visible when scrolling */
+            top: 0;
+            z-index: 100;
+        }
+
+            .wishlist-header h5 {
+                margin: 0;
+                color: #1a1a1a; /* Darker, modern text color */
+                font-weight: 700; /* Bolder title */
+                font-size: 1.2rem;
+                letter-spacing: -0.5px;
+            }
+
+            /* Close Button Styling (Anchor or Button) */
+            .wishlist-header a,
+            .wishlist-header button {
+                font-size: 1.5rem;
+                color: #999999; /* Neutral grey color */
+                font-weight: 300; /* Thinner 'x' for a modern look */
+                line-height: 1; /* Ensure good alignment */
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                padding: 0; /* Remove default button padding */
+                transition: color 0.2s ease, transform 0.2s ease;
+            }
+
+                .wishlist-header a:hover,
+                .wishlist-header button:hover {
+                    color: #444444; /* Darker grey on hover */
+                    transform: rotate(90deg); /* Playful hover effect */
+                }
+
+        /* --- Panel Content --- */
+        .wishlist-content {
+            padding: 0 1.5rem 1.5rem 1.5rem; /* Padding adjusted for uniformity */
+        }
+
+        /* --- Wishlist Item --- */
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Increased spacing */
+            padding: 1rem 0; /* More vertical padding */
+            border-bottom: 1px solid #f7f7f7; /* Very light separator */
+            transition: background-color 0.2s ease;
+        }
+
+            .wishlist-item:last-child {
+                border-bottom: none; /* Remove border on the last item */
+            }
+
+            .wishlist-item:hover {
+                background-color: #fcfcfc; /* Subtle hover background */
+                padding-left: 5px; /* Subtle slide-in effect on hover */
+                border-radius: 4px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very slight lift */
+            }
+
+            .wishlist-item img {
+                width: 60px; /* Slightly larger image */
+                height: 90px; /* Using a common aspect ratio for movies/posters */
+                object-fit: cover;
+                border-radius: 4px; /* Slightly less rounded for sharpness */
+                /* Lighter, softer shadow for the image */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                flex-shrink: 0;
+            }
+
+        .wishlist-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .wishlist-item-details strong {
+                font-size: 1rem;
+                color: #333;
+                font-weight: 600;
+                line-height: 1.3;
+                margin-bottom: 0.3rem;
+            }
+
+            .wishlist-item-details p {
+                font-size: 0.9rem;
+                color: #999; /* Muted color for secondary info */
+                margin: 0;
+            }
+
+        /* --- Scrollbar Styling (More subtle) --- */
+        .wishlist-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .wishlist-panel::-webkit-scrollbar-thumb {
+            background-color: #cccccc; /* Lighter scrollbar thumb */
+            border-radius: 3px;
+        }
+
+        .wishlist-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .remove-icon {
+            color: #ff4444;
+            font-size: 1.2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+            .remove-icon:hover {
+                color: #e60000;
+            }
+
+        .close-wishlist-minimal {
+            background: transparent;
+            color: #666 !important;
+            font-size: 20px;
+            border: none;
+            transition: color 0.3s ease;
+        }
+
+            .close-wishlist-minimal:hover {
+                color: #e74c3c;
+            }
+    </style>
+
 
 </head>
 <body>
@@ -57,26 +268,26 @@
                         </ul>
                         <ul class="navbar-nav mb-0 ms-auto">
 
-<!-- Search Box in Navbar -->
-<li class="nav-item">
-    <div class="input-group" style="width: 300px;">
-        <span class="input-group-text animated-icon" style="background: #fff; border-radius: 10px 0 0 10px; border-right: 0;">
-            <i class="fa fa-search"></i>
-        </span>
-        <asp:TextBox ID="txtSearch" runat="server"
-            CssClass="form-control"
-            placeholder="Search Movie"
-            Style="border-radius: 0 10px 10px 0; border-left: 0;">
-        </asp:TextBox>
-    </div>
-</li>
-                            <li class="nav-item ms-3">
-                                <a class="nav-link position-relative" href="wishlist.aspx" title="Wishlist">
-                                    <i class="fa fa-heart fs-5 text-white"></i>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
+                            <!-- Search Box in Navbar -->
+                            <li class="nav-item">
+                                <div class="input-group" style="width: 300px;">
+                                    <span class="input-group-text animated-icon" style="background: #fff; border-radius: 10px 0 0 10px; border-right: 0;">
+                                        <i class="fa fa-search"></i>
                                     </span>
-                                </a>
+                                    <asp:TextBox ID="txtSearch" runat="server"
+                                        CssClass="form-control"
+                                        placeholder="Search Movie"
+                                        Style="border-radius: 0 10px 10px 0; border-left: 0;">
+                                    </asp:TextBox>
+                                </div>
                             </li>
+                            <li class="nav-item ms-3">
+                                <asp:LinkButton ID="wishlistBtn" runat="server" CssClass="nav-link position-relative" OnClick="wishlistBtn_Click" ToolTip="Wishlist">
+                                    <i class="fa fa-heart fs-5 text-white"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="wishlistCount" runat="server">0</span>
+                                </asp:LinkButton>
+                            </li>
+
 
                             <li class="nav-item dropdown ms-3" runat="server" id="navUserItem">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -104,33 +315,62 @@
 
 
 
-<!-- Search Overlay -->
-<div id="searchOverlay">
-    <button type="button" class="close-button" onclick="hideOverlay()">&times;</button>
-    <div class="movie-list" id="movieContainer">
-        <asp:Repeater ID="dlMovies" runat="server">
-            <ItemTemplate>
-                <div class="movie-card-layout movie-item">
-                    <a href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>' class="movie-link">
-                        <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Title") %>' class="movie-poster" />
-                        <div class="movie-info">
-                            <span class="new-release">New Release</span>
-                            <h3 class="movie-title"><%# Eval("Title") %></h3>
-                            <div class="movie-meta">
-                                <span><%# Eval("Genre") %></span>
-                                <span><%# Eval("Language") %></span>
-                                <span><%# Eval("Duration") %></span>
-                            </div>
+        <!-- Search Overlay -->
+        <div id="searchOverlay">
+            <button type="button" class="close-button" onclick="hideOverlay()">&times;</button>
+            <div class="movie-list" id="movieContainer">
+                <asp:Repeater ID="dlMovies" runat="server">
+                    <ItemTemplate>
+                        <div class="movie-card-layout movie-item">
+                            <a href='<%# "BookingMovieDetails.aspx?Id=" + Eval("MovieId") %>' class="movie-link">
+                                <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Title") %>' class="movie-poster" />
+                                <div class="movie-info">
+                                    <span class="new-release">New Release</span>
+                                    <h3 class="movie-title"><%# Eval("Title") %></h3>
+                                    <div class="movie-meta">
+                                        <span><%# Eval("Genre") %></span>
+                                        <span><%# Eval("Language") %></span>
+                                        <span><%# Eval("Duration") %></span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+                    </ItemTemplate>
+                </asp:Repeater>
 
-        <!-- No movies message -->
-        <div id="noMoviesMessage">No movies found.</div>
-    </div>
-</div>
+                <!-- No movies message -->
+                <div id="noMoviesMessage">No movies found.</div>
+            </div>
+        </div>
+
+
+        <!-- Slide-in wishlist panel -->
+        <asp:Panel ID="wishlistPanel" runat="server" CssClass="wishlist-panel" Visible="false">
+            <div class="wishlist-header">
+                <h5>My Wishlist</h5>
+                <asp:LinkButton ID="closeWishlistBtn" runat="server" OnClick="CloseWishlist_Click" CssClass="close-wishlist-btn">
+    <i class="fa fa-times"></i>
+                </asp:LinkButton>
+
+            </div>
+            <div class="wishlist-content">
+                <asp:DataList ID="DataList2" runat="server" OnItemCommand="DataList2_ItemCommand">
+                    <ItemTemplate>
+                        <div class="wishlist-item">
+                            <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Movie_Name") %>' />
+                            <div class="wishlist-item-details">
+                                <strong><%# Eval("Movie_Name") %></strong>
+                                <p>$<%# Eval("Language") %></p>
+                            </div>
+                            <!-- Trash icon -->
+                            <asp:LinkButton ID="removeBtn" runat="server" CommandName="Remove" CommandArgument='<%# Eval("WishList_Id") %>' CssClass="remove-icon" ToolTip="Remove from wishlist">
+                <i class="fa fa-trash"></i>
+                            </asp:LinkButton>
+                        </div>
+                    </ItemTemplate>
+                </asp:DataList>
+            </div>
+        </asp:Panel>
 
 
         <section id="center" class="center_home">
@@ -211,6 +451,9 @@
         </section>
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
+        <asp:Label ID="lblToast" runat="server" CssClass="toast-label"></asp:Label>
+
+
         <section id="upcome" class="p_3 bg-light">
             <div class="container-xl">
                 <div class="row upcome_1 text-center">
@@ -227,7 +470,7 @@
                                 RepeatColumns="4"
                                 RepeatDirection="Horizontal"
                                 CellPadding="5"
-                                CellSpacing="5">
+                                CellSpacing="5" OnItemCommand="dlUpcoming_ItemCommand">
                                 <ItemTemplate>
                                     <div class="upcome_2i1 clearfix position-relative"
                                         style="width: 270px; height: 380px; margin: auto; overflow: hidden;">
@@ -237,6 +480,7 @@
                                                 class="w-100"
                                                 alt='<%# Eval("Title") %>' />
                                         </div>
+
                                         <div class="upcome_2i1i1 clearfix position-absolute top-0 text-center w-100">
                                             <h6 class="text-uppercase">
                                                 <a class="button_1" href="javascript:void(0);" data-trailer='<%# Eval("TrailerUrl") %>' onclick="openTrailer(this)">View Trailer</a>
@@ -244,6 +488,15 @@
                                             <h6 class="text-uppercase mb-0">
                                                 <a class="button_2" href="blog_detail.html">View Details</a>
                                             </h6>
+                                            <div class="position-absolute top-0 end-0 p-2">
+                                                <asp:LinkButton ID="btnWishlist"
+                                                    runat="server"
+                                                    CommandName="AddToWishlist"
+                                                    CommandArgument='<%# Eval("MovieID") %>'
+                                                    CssClass="text-danger">
+                                                    <i class="fa fa-heart fa-lg"></i>
+                                                </asp:LinkButton>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="upcome_2i_last bg-white p-3"
@@ -703,6 +956,7 @@
         </div>
     </section>
 
+
     <section id="subs" class="pt-5 pb-5 bg_red">
         <div class="container-xl">
             <div class="row subs_1">
@@ -942,31 +1196,55 @@
 
         window.addEventListener('load', () => {
             searchInput = document.getElementById('<%= txtSearch.ClientID %>');
-    searchOverlay = document.getElementById('searchOverlay');
-    movieContainer = document.getElementById('movieContainer');
-    noMoviesMessage = document.getElementById('noMoviesMessage');
+            searchOverlay = document.getElementById('searchOverlay');
+            movieContainer = document.getElementById('movieContainer');
+            noMoviesMessage = document.getElementById('noMoviesMessage');
 
-    // Show overlay on focus
-    searchInput.addEventListener('focus', showOverlay);
+            // Show overlay on focus
+            searchInput.addEventListener('focus', showOverlay);
 
-    // Live filter while typing
-    searchInput.addEventListener('input', () => {
-        const keyword = searchInput.value.toLowerCase().trim();
-        filterMovies(keyword);
-    });
+            // Live filter while typing
+            searchInput.addEventListener('input', () => {
+                const keyword = searchInput.value.toLowerCase().trim();
+                filterMovies(keyword);
+            });
 
-    // Close overlay on ESC
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') hideOverlay();
-    });
+            // Close overlay on ESC
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') hideOverlay();
+            });
 
-    // Close overlay when clicking outside
-    document.addEventListener('click', e => {
-        if (!searchOverlay.contains(e.target) && e.target !== searchInput) {
-            hideOverlay();
+            // Close overlay when clicking outside
+            document.addEventListener('click', e => {
+                if (!searchOverlay.contains(e.target) && e.target !== searchInput) {
+                    hideOverlay();
+                }
+            });
+        });
+
+        function showLabelToast(message, type) {
+            var lbl = document.getElementById('<%= lblToast.ClientID %>');
+            lbl.innerText = message;
+            lbl.style.display = 'block';
+            lbl.className = 'toast-message show toast-' + type;
+
+            // Remove after 3 seconds
+            setTimeout(function () {
+                lbl.classList.remove('show');
+                setTimeout(function () { lbl.style.display = 'none'; }, 600);
+            }, 3000);
         }
-    });
-});
+        const wishlistBtn = document.getElementById('wishlistBtn');
+        const wishlistPanel = document.getElementById('wishlistPanel');
+        const closeWishlist = document.getElementById('closeWishlist');
+
+        wishlistBtn.addEventListener('click', () => {
+            wishlistPanel.classList.toggle('active');
+        });
+
+        closeWishlist.addEventListener('click', () => {
+            wishlistPanel.classList.remove('active');
+        });
 
     </script>
 
