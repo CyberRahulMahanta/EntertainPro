@@ -3,7 +3,11 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 using System.Web.UI.WebControls;
+using static QRCoder.PayloadGenerator;
 
 namespace EntertainPro
 {
@@ -71,6 +75,7 @@ namespace EntertainPro
                     {
                         dlBookings.Visible = false;
                         pnlNoBookings.Visible = true;
+                        ticket_navigation.Visible = false;
                     }
                 }
             }
@@ -117,5 +122,130 @@ namespace EntertainPro
         {
 
         }
+
+        private bool SendWhatsAppNotification(int userId)
+        {
+            string customerNumber = "";
+            string userName = "";
+            string movieTitle = "";
+            string seatNumber = "";
+            string showDate = "";
+            string showTime = "";
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnStr"].ToString()))
+            {
+                con.Open();
+
+                // ✅ Join all related tables to get booking details
+                string query = @"
+            SELECT TOP 1 
+                u.FirstName, 
+                u.phone, 
+                m.Title AS MovieTitle, 
+                b.SeatNumber, 
+                sm.ShowDate, 
+                sm.ShowTime
+            FROM Bookings b
+            INNER JOIN Users u ON b.UserID = u.UserID
+            INNER JOIN ShowingMovies sm ON b.ShowingID = sm.ShowingID
+            INNER JOIN Movies m ON sm.MovieID = m.MovieID
+            WHERE u.UserID = @userId
+            ORDER BY b.BookingDate DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            userName = reader["FirstName"].ToString();
+                            customerNumber = reader["phone"].ToString();
+                            movieTitle = reader["MovieTitle"].ToString();
+                            seatNumber = reader["SeatNumber"].ToString();
+                            showDate = Convert.ToDateTime(reader["ShowDate"]).ToString("dd MMM yyyy");
+                            showTime = reader["ShowTime"].ToString();
+                        }
+                        else
+                        {
+                            ShowToast("No booking found for this user.", "error");
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if (string.IsNullOrEmpty(customerNumber))
+            {
+                ShowToast("Phone number not found.", "error");
+                return false;
+            }
+
+            // ✅ Format phone number for WhatsApp
+            if (!customerNumber.StartsWith("+91"))
+                customerNumber = "+91" + customerNumber.TrimStart('0');
+
+            // ✅ Build a dynamic and nice WhatsApp message
+            string message =
+                $"Hello {userName}, your booking for *{movieTitle}* is confirmed!\n" +
+                $"Seat: {seatNumber}\n" +
+                $"Date: {showDate}\n" +
+                $"Time: {showTime}\n\n" +
+                $"Thank you for choosing *EntertainPro*!";
+
+            try
+            {
+                var accountSid = "YOUR_TWILIO_ID_HERE";
+                var authToken = "YOUR_TWILIO_TOKEN_HERE";
+                Twilio.TwilioClient.Init(accountSid, authToken);
+
+                var msg = Twilio.Rest.Api.V2010.Account.MessageResource.Create(
+                    to: new Twilio.Types.PhoneNumber("whatsapp:" + customerNumber),
+                    from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"),
+                    body: message
+                );
+
+                ShowToast($"Notification sent to {userName} ({customerNumber})", "success");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ShowToast($"Error sending message: {ex.Message}", "error");
+                return false;
+            }
+        }
+
+        protected void btnNotify_Click(object sender, EventArgs e)
+        {
+            if (Session["UserID"] == null)
+            {
+                ShowToast("User not logged in!", "error");
+                return;
+            }
+
+            int userId = Convert.ToInt32(Session["UserID"]);
+
+            bool success = SendWhatsAppNotification(userId);
+
+            if (success)
+                Session["NotificationSent"] = true;
+        }
+
+
+
+
+        private void ShowToast(string message, string type)
+        {
+            string bgColor = type == "success" ? "green" : "red";
+            string script = $@"
+        var toast = document.getElementById('toastMessage');
+        toast.style.backgroundColor = '{bgColor}';
+        toast.innerText = '{message}';
+        toast.style.display = 'block';
+        setTimeout(function() {{ toast.style.display = 'none'; }}, 4000);
+    ";
+            ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), script, true);
+        }
     }
+
 }

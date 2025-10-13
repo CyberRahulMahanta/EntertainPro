@@ -1,0 +1,148 @@
+﻿:root {
+    --sidebar-width: 260px;
+    --collapsed-width: 80px;
+}
+
+body {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: #f1f5f9;
+    line-height: 1.5;
+    font-size: 16px;
+    color: #000000;
+}
+
+/* --- 1. Desktop Sidebar and Resizing --- */
+#sidebar {
+    width: var(--sidebar-width);
+    transition: width 300ms ease, transform 300ms ease;
+}
+
+#main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left 300ms ease;
+}
+
+.sidebar-collapsed #sidebar {
+    width: var(--collapsed-width);
+}
+
+.sidebar-collapsed #main-content {
+    margin-left: var(--collapsed-width);
+}
+
+/* Hiding text/elements when collapsed */
+.sidebar-collapsed .nav-text,
+.sidebar-collapsed #sidebar-header h1 {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    margin-left: 0;
+    /* Added transition for smoother text hide */
+    transition: opacity 200ms ease, width 200ms ease, margin-left 200ms ease;
+}
+
+.nav-text,
+#sidebar-header h1 {
+    transition: opacity 300ms ease, width 300ms ease, margin-left 300ms ease;
+}
+
+.sidebar-collapsed #collapse-toggle-btn .nav-text {
+    display: none;
+}
+
+.sidebar-collapsed #sidebar-header {
+    justify-content: center;
+}
+
+.sidebar-collapsed .nav-link {
+    justify-content: center;
+}
+
+    .sidebar-collapsed .nav-link svg {
+        margin-right: 0 !important;
+    }
+
+.sidebar-collapsed #collapse-toggle-btn {
+    justify-content: center;
+}
+
+/* --- 2. Mobile Sidebar Visibility & Transition --- */
+/* Sidebar is hidden by default on mobile via -translate-x-full */
+@media (max-width: 767px) {
+    #sidebar {
+        width: 300px;
+        /* Max width on mobile for better visibility */
+        transform: translateX(-100%);
+    }
+
+        #sidebar.is-visible {
+            transform: translateX(0);
+            /* Opens smoothly */
+        }
+
+    #sidebar-resizer {
+        display: none !important;
+        /* Resizing is disabled on mobile */
+    }
+
+    #main-content {
+        margin-left: 0 !important;
+    }
+}
+
+/* Overlay transition */
+#sidebar-overlay {
+    transition: opacity 300ms ease, visibility 300ms ease;
+    visibility: hidden;
+    opacity: 0;
+}
+
+    #sidebar-overlay.is-visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+/* --- 3. Modal Transitions --- */
+.modal {
+    transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.modal-content {
+    transition: transform 300ms ease;
+}
+
+.modal.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+    .modal.is-visible .modal-content {
+        transform: scale(1);
+    }
+
+    .modal.is-visible.is-closing .modal-content {
+        transform: scale(0.95);
+    }
+
+#sidebar-resizer:hover {
+    background-color: rgb(254 202 202 / 0.5);
+}
+
+.nav-link.active {
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1)); /* light red */
+    color: white; /* red text */
+}
+
+    .nav-link.active svg {
+        color: white;
+    }
+
+
+/*Chart */
+
+.chart-container {
+    position: relative;
+    height: 200px;
+    min-height: 200px;
+}

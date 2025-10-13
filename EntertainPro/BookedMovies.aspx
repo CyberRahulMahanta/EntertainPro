@@ -3,6 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="css/BookedMovies.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <style>
         /* Small style addition for the navigation section */
         .ticket-navigation {
@@ -19,6 +23,21 @@
             font-size: 1.1em;
             color: #555;
         }
+
+        .action-button {
+            display: inline-block; /* instead of block or width:100% */
+            width: auto;
+            background-color: #e63946;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+            .action-button:hover {
+                background-color: #d62828;
+            }
     </style>
 </asp:Content>
 
@@ -27,13 +46,18 @@
         <ItemTemplate>
             <div class="ticket-card">
                 <header class="ticket-header">
+                    <div id="toastMessage" style="display: none; position: fixed; top: 100px; right: 20px; padding: 15px 25px; color: #fff; border-radius: 5px; font-weight: bold; z-index: 9999;"></div>
+
+
                     <div class="ticket-logo">
                         <img src="favicon_io/android-chrome-512x512.png" alt="Entertain Logo" class="logo-img">
                         <span class="logo-text">Entertain<span class="logo-pro-container"><i class="fa fa-video-camera logo-icon"></i><span class="logo-pro-text">Pro</span></span></span>
                     </div>
                     <div class="ticket-notice">
-                        <div class="notice-text-wrapper"><span class="notice-text">THIS IS</span><div class="notice-highlight"><span class="highlight-bg"></span><span class="highlight-text">NOT</span></div>
-                            <span class="notice-text">YOUR TICKET</span></div>
+                        <div class="notice-text-wrapper">
+                            <span class="notice-text">THIS IS</span><div class="notice-highlight"><span class="highlight-bg"></span><span class="highlight-text">NOT</span></div>
+                            <span class="notice-text">YOUR TICKET</span>
+                        </div>
                         <p class="notice-subtext">Exchange this at the box office for your ticket.</p>
                     </div>
                 </header>
@@ -47,9 +71,10 @@
                             <div class="information-icon js-open-modal" title="Information">
                                 <i class="fa-solid fa-circle-info icon-large"></i>
                             </div>
-                            <div class="notification-icon" title="Notifications">
+                            <asp:LinkButton ID="btnNotify" runat="server" CssClass="notification-icon" OnClick="btnNotify_Click" title="Send Notification">
                                 <i class="fa-solid fa-bell"></i>
-                            </div>
+                            </asp:LinkButton>
+
                         </div>
                     </div>
                     <div class="ticket-main-section">
@@ -96,10 +121,8 @@
                                     <div class="detail-title"><%# Eval("MovieTitle") %></div>
                                 </div>
                                 <div class="detail-line">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
+                                    <i class="fa-solid fa-desktop icon-large"></i>
+
                                     <div class="detail-text"><%# Eval("ScreenName") %></div>
                                 </div>
                             </div>
@@ -131,20 +154,22 @@
         </ItemTemplate>
     </asp:DataList>
 
-    <div class="ticket-navigation">
-        <asp:LinkButton ID="btnPrevious" runat="server" OnClick="btnPrevious_Click" CssClass="action-button nav-button">
+    <asp:Panel ID="ticket_navigation" runat="server" Visible="false">
+        <div class="ticket-navigation">
+            <asp:LinkButton ID="btnPrevious" runat="server" OnClick="btnPrevious_Click" CssClass="action-button nav-button">
                 <i class="fa-solid fa-arrow-left"></i> <span>Previous Ticket</span>
             </asp:LinkButton>
-        <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click" CssClass="action-button nav-button">
+            <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click" CssClass="action-button nav-button">
                 <span>Next Ticket</span> <i class="fa-solid fa-arrow-right"></i>
             </asp:LinkButton>
-    </div>
+        </div>
+    </asp:Panel>
 
     <asp:Panel ID="pnlNoBookings" runat="server" Visible="false">
         <div class="not-found-message">
             <h2>No Bookings Found</h2>
             <p>You haven't booked any movie tickets yet. Why not book one now?</p>
-            <a href="Default.aspx" class="action-button">Browse Movies</a>
+            <a href="index.aspx" class="action-button">Browse Movies</a>
         </div>
     </asp:Panel>
 
@@ -169,7 +194,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Simplified modal logic since there's only one modal on the page

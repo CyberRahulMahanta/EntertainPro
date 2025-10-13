@@ -20,7 +20,7 @@ namespace EntertainPro
             FormsAuthentication.SignOut();
 
             // 3. Redirect the user to the Login page.
-            Response.Redirect("index.aspx");
+            Response.Redirect("Login.aspx");
         }
     }
 }
