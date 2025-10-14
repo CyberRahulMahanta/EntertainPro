@@ -8,20 +8,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
-        /* Small style addition for the navigation section */
-        .ticket-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            padding: 0 10px;
+        /* Container for ticket and navigation */
+        .ticket-container {
+            position: relative;
+            width: 100%;
+            display: inline-block;
         }
 
-        .ticket-counter {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #555;
+        /* Navigation buttons container over the ticket */
+        .ticket-nav {
+            position: absolute;
+            top: 65%; /* adjust to move slightly down or up */
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between; /* left/right positioning */
+            padding: 0 15px; /* distance from edges */
+            z-index: 10;
+        }
+
+        /* Navigation buttons */
+        .nav-arrow {
+            pointer-events: auto; /* make clickable */
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 50%;
+            width: 50px; /* bigger button */
+            height: 50px; /* bigger button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px; /* bigger icon */
+            transition: 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            /* Hover effect */
+            .nav-arrow:hover {
+                background-color: #dc2626;
+                transform: scale(1.1);
+            }
+
+            /* Disabled button (first/last page) */
+            .nav-arrow.disabled {
+                pointer-events: none; /* block clicking */
+                cursor: not-allowed; /* shows blocked cursor */
+                opacity: 0.5; /* visually disabled */
+            }
+
+        /* Ticket styling */
+        .ticket {
+            position: relative;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 50px 0; /* space for nav buttons */
         }
 
         .action-button {
@@ -38,140 +82,202 @@
             .action-button:hover {
                 background-color: #d62828;
             }
+
+        /* Container centering */
+        .not-found-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card styling */
+        .not-found-card {
+            text-align: center;
+            background: #fff;
+            border-radius: 20px;
+            position: relative;
+            padding: 40px 30px;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            pointer-events: auto; /* make sure clicks pass through */
+            z-index: 9999; /* very high */
+            pointer-events: auto;
+        }
+
+            .not-found-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            }
+
+        .browse-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #dc2626, #e63946);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative; /* ensure proper stacking */
+            z-index: 10001; /* above everything */
+            pointer-events: auto; /* make clickable */
+        }
+
+            .browse-btn:hover {
+                background: linear-gradient(135deg, #b91c1c, #dc2626);
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 10px 25px rgba(220, 38, 38, 0.6);
+                color: #fff;
+            }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <asp:DataList ID="dlBookings" runat="server" RepeatDirection="Vertical" Width="100%">
-        <ItemTemplate>
-            <div class="ticket-card">
-                <header class="ticket-header">
-                    <div id="toastMessage" style="display: none; position: fixed; top: 100px; right: 20px; padding: 15px 25px; color: #fff; border-radius: 5px; font-weight: bold; z-index: 9999;"></div>
+    <!-- Navigation Buttons ABOVE the ticket -->
+    <div class="ticket-container">
+        <!-- Navigation buttons -->
+        <div class="ticket-nav">
+            <asp:LinkButton ID="btnPrevious" runat="server" OnClick="btnPrevious_Click" CssClass="nav-btn left">
+            <i class="fa-solid fa-chevron-left"></i>
+            </asp:LinkButton>
+            <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click" CssClass="nav-btn right">
+            <i class="fa-solid fa-chevron-right"></i>
+            </asp:LinkButton>
+        </div>
+        <asp:DataList ID="dlBookings" runat="server" RepeatDirection="Vertical" Width="100%">
+            <ItemTemplate>
+                <div class="ticket-card">
+                    <header class="ticket-header">
+                        <div id="toastMessage" style="display: none; position: fixed; top: 100px; right: 20px; padding: 15px 25px; color: #fff; border-radius: 5px; font-weight: bold; z-index: 9999;"></div>
 
 
-                    <div class="ticket-logo">
-                        <img src="favicon_io/android-chrome-512x512.png" alt="Entertain Logo" class="logo-img">
-                        <span class="logo-text">Entertain<span class="logo-pro-container"><i class="fa fa-video-camera logo-icon"></i><span class="logo-pro-text">Pro</span></span></span>
-                    </div>
-                    <div class="ticket-notice">
-                        <div class="notice-text-wrapper">
-                            <span class="notice-text">THIS IS</span><div class="notice-highlight"><span class="highlight-bg"></span><span class="highlight-text">NOT</span></div>
-                            <span class="notice-text">YOUR TICKET</span>
+                        <div class="ticket-logo">
+                            <img src="favicon_io/android-chrome-512x512.png" alt="Entertain Logo" class="logo-img">
+                            <span class="logo-text">Entertain<span class="logo-pro-container"><i class="fa fa-video-camera logo-icon"></i><span class="logo-pro-text">Pro</span></span></span>
                         </div>
-                        <p class="notice-subtext">Exchange this at the box office for your ticket.</p>
-                    </div>
-                </header>
-                <main class="ticket-body">
-                    <div class="greeting-header">
-                        <p class="greeting">Dear <%# Eval("FullName") %>,</p>
-                        <div class="header-actions">
-                            <asp:LinkButton ID="btnDownload" CommandName="Download" CommandArgument='<%# Eval("PaymentID") %>' runat="server" OnClick="btnDownload_Click" CssClass="action-button" title="Download Ticket">
+                        <div class="ticket-notice">
+                            <div class="notice-text-wrapper">
+                                <span class="notice-text">THIS IS</span><div class="notice-highlight"><span class="highlight-bg"></span><span class="highlight-text">NOT</span></div>
+                                <span class="notice-text">YOUR TICKET</span>
+                            </div>
+                            <p class="notice-subtext">Exchange this at the box office for your ticket.</p>
+                        </div>
+                    </header>
+                    <main class="ticket-body">
+                        <div class="greeting-header">
+                            <p class="greeting">Dear <%# Eval("FullName") %>,</p>
+                            <div class="header-actions">
+                                <asp:LinkButton ID="btnDownload" CommandName="Download" CommandArgument='<%# Eval("PaymentID") %>' runat="server" OnClick="btnDownload_Click" CssClass="action-button" title="Download Ticket">
                                         <i class="fa-solid fa-download"></i> <span>Download</span>
-                            </asp:LinkButton>
-                            <div class="information-icon js-open-modal" title="Information">
-                                <i class="fa-solid fa-circle-info icon-large"></i>
-                            </div>
-                            <asp:LinkButton ID="btnNotify" runat="server" CssClass="notification-icon" OnClick="btnNotify_Click" title="Send Notification">
+                                </asp:LinkButton>
+                                <div class="information-icon js-open-modal" title="Information">
+                                    <i class="fa-solid fa-circle-info icon-large"></i>
+                                </div>
+                                <asp:LinkButton ID="btnNotify" runat="server" CssClass="notification-icon" OnClick="btnNotify_Click" title="Send Notification">
                                 <i class="fa-solid fa-bell"></i>
-                            </asp:LinkButton>
+                                </asp:LinkButton>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="ticket-main-section">
-                        <div class="ticket-cutout"></div>
-                        <div class="ticket-top-info">
-                            <div class="movie-and-ids">
-                                <div class="movie-poster">
-                                    <img src='<%# Eval("PosterUrl") %>' alt='<%# Eval("MovieTitle") %>' class="poster-img" />
+                        <div class="ticket-main-section">
+                            <div class="ticket-cutout"></div>
+                            <div class="ticket-top-info">
+                                <div class="movie-and-ids">
+                                    <div class="movie-poster">
+                                        <img src='<%# Eval("PosterUrl") %>' alt='<%# Eval("MovieTitle") %>' class="poster-img" />
+                                    </div>
+                                    <div class="ticket-ids">
+                                        <div class="info-line">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                                            </svg>
+                                            <span class="info-label">BOOKING ID:</span>
+                                            <span class="info-value-mono"><%# Eval("PaymentID") %></span>
+                                        </div>
+                                        <div class="info-line">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                                            </svg>
+                                            <span class="info-label">TOTAL PRICE:</span>
+                                            <span class="info-value-mono"><%# Eval("TotalPrice", "{0:C}") %></span>
+                                        </div>
+                                        <div class="info-line payment-status">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span class="info-label">STATUS:</span>
+                                            <%# GetStatusBadge(Eval("PaymentStatus")) %>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="ticket-ids">
-                                    <div class="info-line">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <div class="qr-code">
+                                    <img src='<%# GetQrCodeUrl(Eval("QrCodeImage")) %>' alt="QR Code not found" heignt="180" width="180" />
+                                </div>
+                            </div>
+                            <div class="ticket-bottom-details">
+                                <div class="detail-box movie-info">
+                                    <div class="detail-line">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                                         </svg>
-                                        <span class="info-label">BOOKING ID:</span>
-                                        <span class="info-value-mono"><%# Eval("PaymentID") %></span>
+                                        <div class="detail-title"><%# Eval("MovieTitle") %></div>
                                     </div>
-                                    <div class="info-line">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                                        </svg>
-                                        <span class="info-label">TOTAL PRICE:</span>
-                                        <span class="info-value-mono"><%# Eval("TotalPrice", "{0:C}") %></span>
-                                    </div>
-                                    <div class="info-line payment-status">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span class="info-label">STATUS:</span>
-                                        <%# GetStatusBadge(Eval("PaymentStatus")) %>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="qr-code">
-                                <img src='<%# GetQrCodeUrl(Eval("QrCodeImage")) %>' alt="QR Code not found" heignt="180" width="180" />
-                            </div>
-                        </div>
-                        <div class="ticket-bottom-details">
-                            <div class="detail-box movie-info">
-                                <div class="detail-line">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                                    </svg>
-                                    <div class="detail-title"><%# Eval("MovieTitle") %></div>
-                                </div>
-                                <div class="detail-line">
-                                    <i class="fa-solid fa-desktop icon-large"></i>
+                                    <div class="detail-line">
+                                        <i class="fa-solid fa-desktop icon-large"></i>
 
-                                    <div class="detail-text"><%# Eval("ScreenName") %></div>
-                                </div>
-                            </div>
-                            <div class="detail-box">
-                                <div class="detail-line detail-line-padded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <rect x="6" y="4" width="12" height="8" rx="2" ry="2"></rect><rect x="4" y="12" width="16" height="4" rx="1" ry="1"></rect><line x1="6" y1="16" x2="6" y2="20"></line><line x1="18" y1="16" x2="18" y2="20"></line></svg>
-                                    <div class="detail-title">Seats: <%# Eval("AllSeats") %></div>
-                                </div>
-                                <div class="show-time">
-                                    <div class="time-section">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <div class="detail-text-semibold"><%# Convert.ToDateTime(Eval("FullShowTime")).ToString("ddd, dd MMM, yyyy") %></div>
+                                        <div class="detail-text"><%# Eval("ScreenName") %></div>
                                     </div>
-                                    <div class="time-section time-section-bordered">
+                                </div>
+                                <div class="detail-box">
+                                    <div class="detail-line detail-line-padded">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <div class="detail-text-semibold"><%# Convert.ToDateTime(Eval("FullShowTime")).ToString("h:mm tt") %></div>
+                                            <rect x="6" y="4" width="12" height="8" rx="2" ry="2"></rect><rect x="4" y="12" width="16" height="4" rx="1" ry="1"></rect><line x1="6" y1="16" x2="6" y2="20"></line><line x1="18" y1="16" x2="18" y2="20"></line></svg>
+                                        <div class="detail-title">Seats: <%# Eval("AllSeats") %></div>
+                                    </div>
+                                    <div class="show-time">
+                                        <div class="time-section">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <div class="detail-text-semibold"><%# Convert.ToDateTime(Eval("FullShowTime")).ToString("ddd, dd MMM, yyyy") %></div>
+                                        </div>
+                                        <div class="time-section time-section-bordered">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-large" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <div class="detail-text-semibold"><%# Convert.ToDateTime(Eval("FullShowTime")).ToString("h:mm tt") %></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </main>
-            </div>
-        </ItemTemplate>
-    </asp:DataList>
+                    </main>
+                </div>
+            </ItemTemplate>
+        </asp:DataList>
+    </div>
 
-    <asp:Panel ID="ticket_navigation" runat="server" Visible="false">
-        <div class="ticket-navigation">
-            <asp:LinkButton ID="btnPrevious" runat="server" OnClick="btnPrevious_Click" CssClass="action-button nav-button">
-                <i class="fa-solid fa-arrow-left"></i> <span>Previous Ticket</span>
-            </asp:LinkButton>
-            <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click" CssClass="action-button nav-button">
-                <span>Next Ticket</span> <i class="fa-solid fa-arrow-right"></i>
-            </asp:LinkButton>
-        </div>
-    </asp:Panel>
-
-    <asp:Panel ID="pnlNoBookings" runat="server" Visible="false">
+    <asp:Panel ID="pnlNoBookings" runat="server" Visible="false" Style="position: relative; z-index: 10000;">
         <div class="not-found-message">
-            <h2>No Bookings Found</h2>
-            <p>You haven't booked any movie tickets yet. Why not book one now?</p>
-            <a href="index.aspx" class="action-button">Browse Movies</a>
+            <div class="not-found-card">
+                <h2>No Bookings Found</h2>
+                <p>You haven't booked any movie tickets yet. Why not book one now ?</p>
+                <asp:LinkButton ID="btnBrowseMovies" runat="server" CssClass="browse-btn" OnClick="btnBrowseMovies_Click">
+                Browse Movies
+                </asp:LinkButton>
+            </div>
         </div>
     </asp:Panel>
+
 
     <div class="modal-overlay js-modal">
         <div class="modal-content">

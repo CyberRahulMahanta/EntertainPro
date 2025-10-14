@@ -199,7 +199,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
                                             <%# Eval("SeatNumber") %>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold <%# GetAmountClass(Eval("PaymentStatus").ToString()) %>">$<%# Eval("TicketPrice") %>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold <%# GetAmountClass(Eval("PaymentStatus").ToString()) %>">Rs.<%# Eval("TicketPrice") %>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%# GetStatusClass(Eval("PaymentStatus").ToString()) %>">

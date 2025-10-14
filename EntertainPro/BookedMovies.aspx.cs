@@ -34,20 +34,20 @@ namespace EntertainPro
             using (var con = new SqlConnection(connStr))
             {
                 string query = @"
-                    SELECT 
-                        B.PaymentID, MIN(U.FirstName + ' ' + U.LastName) AS FullName, MIN(M.Title) AS MovieTitle,
-                        MIN(M.ImageUrl) AS PosterUrl, MIN(SCR.ScreenType) AS ScreenName,
-                        MIN(CAST(SM.ShowDate AS DATETIME) + CAST(SM.ShowTime AS DATETIME)) AS FullShowTime,
-                        MIN(B.PaymentStatus) AS PaymentStatus, MIN(B.QrCodeImage) AS QrCodeImage,
-                        SUM(B.TicketPrice) AS TotalPrice, STRING_AGG(B.SeatNumber, ', ') AS AllSeats
-                    FROM Bookings AS B
-                    INNER JOIN ShowingMovies AS SM ON B.ShowingID = SM.ShowingID
-                    INNER JOIN Movies AS M ON SM.MovieID = M.MovieID
-                    INNER JOIN Screens AS SCR ON SM.ScreenID = SCR.ScreenID
-                    INNER JOIN Users AS U ON B.UserID = U.UserID
-                    WHERE B.UserID = @UserID
-                    GROUP BY B.PaymentID
-                    ORDER BY MIN(CAST(SM.ShowDate AS DATETIME) + CAST(SM.ShowTime AS DATETIME)) DESC;";
+            SELECT 
+                B.PaymentID, MIN(U.FirstName + ' ' + U.LastName) AS FullName, MIN(M.Title) AS MovieTitle,
+                MIN(M.ImageUrl) AS PosterUrl, MIN(SCR.ScreenType) AS ScreenName,
+                MIN(CAST(SM.ShowDate AS DATETIME) + CAST(SM.ShowTime AS DATETIME)) AS FullShowTime,
+                MIN(B.PaymentStatus) AS PaymentStatus, MIN(B.QrCodeImage) AS QrCodeImage,
+                SUM(B.TicketPrice) AS TotalPrice, STRING_AGG(B.SeatNumber, ', ') AS AllSeats
+            FROM Bookings AS B
+            INNER JOIN ShowingMovies AS SM ON B.ShowingID = SM.ShowingID
+            INNER JOIN Movies AS M ON SM.MovieID = M.MovieID
+            INNER JOIN Screens AS SCR ON SM.ScreenID = SCR.ScreenID
+            INNER JOIN Users AS U ON B.UserID = U.UserID
+            WHERE B.UserID = @UserID
+            GROUP BY B.PaymentID
+            ORDER BY MIN(CAST(SM.ShowDate AS DATETIME) + CAST(SM.ShowTime AS DATETIME)) DESC;";
 
                 using (var cmd = new SqlCommand(query, con))
                 {
@@ -63,23 +63,49 @@ namespace EntertainPro
                         pds.DataSource = dt.DefaultView;
                         pds.AllowPaging = true;
                         pds.PageSize = 1;
-                        pds.CurrentPageIndex = Convert.ToInt32(ViewState["PageIndex"]);
 
-                        btnPrevious.Enabled = !pds.IsFirstPage;
-                        btnNext.Enabled = !pds.IsLastPage;
+                        // If ViewState["PageIndex"] is null, start from 0
+                        int currentPage = ViewState["PageIndex"] != null ? Convert.ToInt32(ViewState["PageIndex"]) : 0;
+                        pds.CurrentPageIndex = currentPage;
 
                         dlBookings.DataSource = pds;
                         dlBookings.DataBind();
+
+                        // Enable/Disable Previous button
+                        if (pds.IsFirstPage)
+                        {
+                            btnPrevious.Enabled = false;
+                            btnPrevious.CssClass = "nav-arrow left disabled";
+                        }
+                        else
+                        {
+                            btnPrevious.Enabled = true;
+                            btnPrevious.CssClass = "nav-arrow left";
+                        }
+
+                        // Enable/Disable Next button
+                        if (pds.IsLastPage)
+                        {
+                            btnNext.Enabled = false;
+                            btnNext.CssClass = "nav-arrow right disabled";
+                        }
+                        else
+                        {
+                            btnNext.Enabled = true;
+                            btnNext.CssClass = "nav-arrow right";
+                        }
                     }
                     else
                     {
                         dlBookings.Visible = false;
                         pnlNoBookings.Visible = true;
-                        ticket_navigation.Visible = false;
+                        btnPrevious.Visible = false;
+                        btnNext.Visible = false;
                     }
                 }
             }
         }
+
 
         // "Next" button click handler
         protected void btnNext_Click(object sender, EventArgs e)
@@ -122,6 +148,13 @@ namespace EntertainPro
         {
 
         }
+
+        protected void btnBrowseMovies_Click(object sender, EventArgs e)
+        {
+            // Redirect to index.aspx
+            Response.Redirect("index.aspx");
+        }
+
 
         private bool SendWhatsAppNotification(int userId)
         {
@@ -230,9 +263,6 @@ namespace EntertainPro
             if (success)
                 Session["NotificationSent"] = true;
         }
-
-
-
 
         private void ShowToast(string message, string type)
         {

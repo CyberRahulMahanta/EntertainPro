@@ -15,24 +15,6 @@ namespace EntertainPro
     {
 
         /// <summary>
-        /// dlBookings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlBookings;
-
-        /// <summary>
-        /// ticket_navigation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ticket_navigation;
-
-        /// <summary>
         /// btnPrevious control.
         /// </summary>
         /// <remarks>
@@ -51,6 +33,15 @@ namespace EntertainPro
         protected global::System.Web.UI.WebControls.LinkButton btnNext;
 
         /// <summary>
+        /// dlBookings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dlBookings;
+
+        /// <summary>
         /// pnlNoBookings control.
         /// </summary>
         /// <remarks>
@@ -58,5 +49,14 @@ namespace EntertainPro
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNoBookings;
+
+        /// <summary>
+        /// btnBrowseMovies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnBrowseMovies;
     }
 }

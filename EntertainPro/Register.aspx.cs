@@ -47,7 +47,7 @@ namespace EntertainPro
             {
                 lblMessage.Text = "Registration successful! Please login.";
                 lblMessage.ForeColor = System.Drawing.Color.LightGreen;
-                Response.Redirect("login.aspx");
+                Response.Redirect("Login.aspx");
             }
             else
             {
