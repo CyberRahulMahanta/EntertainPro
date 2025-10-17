@@ -16,6 +16,7 @@
     <link href="css/global.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="js/bootstrap.bundle.min.js"></script>
     <style>
         .toast-message {
@@ -226,6 +227,25 @@
             .close-wishlist-minimal:hover {
                 color: #e74c3c;
             }
+
+        .dropdown-menu {
+            min-width: 220px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f3f4f6; /* soft gray hover */
+                color: #0d6efd;
+            }
+
+        .dropdown-divider {
+            margin: 6px 0;
+        }
     </style>
 
 
@@ -296,11 +316,30 @@
 
                                     <span id="navUserName" runat="server"></span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="bookedMovies.aspx">Booked Movies</a></li>
-                                    <li><a class="dropdown-item" href="profile.aspx">Profile</a></li>
-                                    <li><a class="dropdown-item text-danger" href="logout.aspx">Logout</a></li>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 py-2" aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3" href="bookedMovies.aspx">
+                                            <i class="bi bi-ticket-perforated text-primary fs-5"></i>
+                                            <span>Booked Movies</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3" href="profile.aspx">
+                                            <i class="bi bi-person-circle text-success fs-5"></i>
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider my-2">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger fw-semibold" href="logout.aspx">
+                                            <i class="bi bi-box-arrow-right fs-5"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
                                 </ul>
+
                             </li>
 
                             <li class="nav-item ms-3" runat="server" id="navLoginItem">
