@@ -372,6 +372,7 @@
     <Content Include="obj\Debug\EntertainPro.pdb" />
     <Content Include="Payment.aspx" />
     <Content Include="PaymentSuccess.aspx" />
+    <Content Include="profile.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="SeatLayout.aspx" />
     <Content Include="SessionDebug.aspx" />
@@ -526,6 +527,13 @@
     </Compile>
     <Compile Include="PaymentSuccess.aspx.designer.cs">
       <DependentUpon>PaymentSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="profile.aspx.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="profile.aspx.designer.cs">
+      <DependentUpon>profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

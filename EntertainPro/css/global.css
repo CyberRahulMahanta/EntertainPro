@@ -668,3 +668,23 @@ width:150px;
 padding: 10px 12px;
 }
  }
+
+
+.dropdown-menu {
+    min-width: 220px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+    .dropdown-item:hover {
+        background-color: #f3f4f6; /* soft gray hover */
+        color: #0d6efd;
+    }
+
+.dropdown-divider {
+    margin: 6px 0;
+}
