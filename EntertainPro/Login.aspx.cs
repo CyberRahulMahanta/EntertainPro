@@ -41,6 +41,7 @@ namespace EntertainPro
 
                     Session["UserEmail"] = dr["Email"].ToString();
                     Session["unm"] = dr["FirstName"].ToString();
+                    Session["UserImage"] = dr["ImagePath"].ToString();
                     Session["UserID"] = dr["UserID"].ToString();
                     Session["Role"] = dr["Role"].ToString();
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="profile.aspx.cs" Inherits="EntertainPro.profile" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="profile.aspx.cs" Inherits="EntertainPro.profile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>EntertainPro Profile</title>
@@ -9,189 +9,28 @@
             important: '#tailwind-container'
         }
     </script>
-    <style>
-        /* Ensures the active navigation link is easily visible */
-        .nav-active {
-            font-weight: bold;
-            border-left-width: 4px;
-            border-color: white;
-            padding-left: 0.75rem;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            margin-left: -1.5rem;
-            transition: all 200ms ease-in-out;
-        }
-
-        /* Custom styles for the fixed-size ticket card */
-        .ticket-card {
-            width: 270px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            padding: 1.25rem;
-        }
-
-        /* Dashed divider for the ticket stub look */
-        .dashed-divider {
-            border: none;
-            border-top: 2px dashed #e5e7eb;
-            /* gray-200 */
-            margin: 0.75rem 0;
-            position: relative;
-        }
-
-        /* Enforce word break for long titles */
-        .title-break {
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-
-        /* ------------------------------------- */
-        /* Custom Toggle Switch Styles (Crucial) */
-        /* ------------------------------------- */
-
-        /* Hide the default checkbox input */
-        .toggle-checkbox {
-            height: 0;
-            width: 0;
-            opacity: 0;
-            position: absolute;
-        }
-
-        /* Style the toggle track/background */
-        .toggle-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            width: 48px;
-            height: 24px;
-            background: #ccc;
-            border-radius: 9999px;
-            position: relative;
-            transition: background-color 0.2s;
-        }
-
-            /* Style the toggle circle/thumb */
-            .toggle-label:after {
-                content: '';
-                position: absolute;
-                top: 2px;
-                left: 2px;
-                width: 20px;
-                height: 20px;
-                background: white;
-                border-radius: 90px;
-                box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-                transition: transform 0.2s;
-            }
-
-        /* State when checkbox is checked (ON state) */
-        .toggle-checkbox:checked + .toggle-label {
-            background: #ff4444;
-            /* The EntertainPro Red */
-        }
-
-            /* Move the toggle thumb to the right when checked */
-            .toggle-checkbox:checked + .toggle-label:after {
-                transform: translateX(24px);
-            }
-
-        /* Style for the input fields when in edit mode */
-        .profile-input {
-            background-color: #f7f7f7;
-            border: 1px solid #e0e0e0;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            width: 100%;
-            /* Make inputs the same width as the span text space */
-            flex-grow: 1;
-        }
-
-        /* Make the profile display span also take up the available width */
-        .profile-field-display {
-            flex-grow: 1;
-        }
-
-        /* Custom Loader Styles */
-        .loader {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            position: relative;
-            animation: rotate 1s linear infinite;
-        }
-
-            .loader::before, .loader::after {
-                content: "";
-                box-sizing: border-box;
-                position: absolute;
-                inset: 0px;
-                border-radius: 50%;
-                border: 5px solid #000000;
-                animation: prixClipFix 2s linear infinite;
-            }
-
-            .loader::after {
-                border-color: #FF3D00;
-                animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
-                inset: 6px;
-            }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes prixClipFix {
-            0% {
-                clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
-            }
-
-            25% {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
-            }
-
-            50% {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
-            }
-
-            75% {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
-            }
-
-            100% {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/UserProfilePage.css" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <iv id="tailwind-container">
+    <div id="tailwind-container">
         <div class="w-full bg-white shadow-2xl flex flex-col lg:flex-row overflow-hidden">
 
-            <div
-                class="lg:w-1/5 p-6 sm:p-8 bg-gradient-to-br from-[#ff4444] to-red-600 text-white flex flex-col justify-start space-y-8 min-h-screen">
+            <div class="lg:w-1/5 p-6 sm:p-8 bg-gradient-to-br from-[#ff4444] to-red-600 text-white flex flex-col justify-start space-y-8 min-h-screen">
 
+                <!-- User Info -->
                 <div class="flex items-center space-x-3">
-                    <div
-                        class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-700 text-sm font-bold border-2 border-white flex-shrink-0">
-                        RK
+                    <!-- Profile picture or initials -->
+                    <div id="profileContainer" runat="server"
+                        class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-700 text-sm font-bold border-2 border-white flex-shrink-0 overflow-hidden">
                     </div>
+
                     <div>
                         <span class="text-sm font-medium opacity-80 block leading-none">Hello,</span>
-                        <span class="text-xl font-extrabold leading-tight tracking-tight">Rahul Kumar</span>
+                        <span id="userName" runat="server" class="text-xl font-extrabold leading-tight tracking-tight"></span>
                     </div>
                 </div>
 
+                <!-- Navigation -->
                 <nav class="flex flex-col space-y-4 text-lg font-medium">
                     <a href="#" id="profile-link" class="text-white nav-active transition duration-200"
                         onclick="showContent('user-profile')">Your Profile
@@ -219,264 +58,153 @@
                 <hr class="mb-6 border-t border-gray-200">
 
 
-                <div id="user-profile-content">
-
+                <div id="Div1">
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold mb-3">Our signature loyalty program</h2>
-                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
-                            The program provides members exclusive access to special movie screenings, premieres as well as
-                        meet-and-greet with stars!
-                        <a href="#" class="text-[#ff4444] hover:text-red-600 font-medium ml-1">Know more</a>
-                        </p>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">The program provides members exclusive access to special movie screenings, premieres as well as meet-and-greet with stars! <a href="#" class="text-[#ff4444] hover:text-red-600 font-medium ml-1">Know more</a> </p>
+                    </div>
+                    <div class="text-right mb-6 relative">
+                        <asp:Button ID="btnEdit" runat="server" Text="Edit Profile"
+                            CssClass="text-[#ff4444] hover:text-red-600 font-medium flex items-center justify-end absolute top-0 right-0"
+                            OnClick="EditButton_Click" OnClientClick="toggleEditMode(); return false;" />
+
+                        <asp:Button ID="btnSave" runat="server" Text="Save Changes"
+                            CssClass="hidden px-4 py-1 bg-[#ff4444] text-white font-medium rounded-lg hover:bg-red-600 transition duration-200 shadow-md"
+                            OnClick="SaveButton_Click" OnClientClick="toggleEditMode(); return false;" />
                     </div>
 
-                    <div class="text-right mb-6 relative">
-                        <button id="edit-button"
-                            class="text-[#ff4444] hover:text-red-600 font-medium flex items-center justify-end absolute top-0 right-0"
-                            onclick="toggleEditMode()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-7 1l-2 2m4-4l2-2m-4 4l-2 2m-2-2l-2 2m4-4l-2 2" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg>
-                            Edit
-                        </button>
-                        <button id="save-button"
-                            class="hidden px-4 py-1 bg-[#ff4444] text-white font-medium rounded-lg hover:bg-red-600 transition duration-200 shadow-md"
-                            onclick="toggleEditMode(true)">
-                            Save Changes
-                        </button>
-                    </div>
                     <div class="flex items-center space-x-6 mb-8 mt-4 sm:mt-0">
-                        <div
-                            class="relative w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-5xl font-bold overflow-hidden border-2 border-gray-300">
-                            <span class="absolute">RK</span>
+                        <div class="relative w-24 h-24">
+                            <div id="profilePicContainer" runat="server"
+                                class="w-full h-full rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-5xl font-bold overflow-hidden border-2 border-gray-300 cursor-pointer">
+                                <!-- Initials or background image -->
+                            </div>
+
+                            <!-- Camera icon overlay -->
+                            <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 border border-gray-300">
+                                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <asp:FileUpload ID="fuProfilePic" runat="server" CssClass="hidden" onchange="previewImage(event);" />
+
+                            <!-- Save Button -->
+                            <asp:Button ID="btnSaveProfilePic" runat="server" Text="Save" CssClass="hidden mt-2 px-4 py-1 bg-[#ff4444] text-white font-medium rounded-lg hover:bg-red-600 transition duration-200 shadow-md" OnClick="btnSaveProfilePic_Click" />
                         </div>
+
+
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-900">Rahul Kumar</h2>
-                            <p class="text-gray-600">Premium Member</p>
-                            <button class="text-[#ff4444] hover:text-red-600 font-medium text-sm mt-2">
-                                Change
-                            Picture</button>
+                            <asp:Label ID="fullName" runat="server" CssClass="text-2xl font-bold text-gray-900"></asp:Label>
+                            <p id="membership" class="text-gray-600">Premium Member</p>
                         </div>
+                    </div>
+
+                    <!-- Toast container -->
+                    <div id="toast" class="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg hidden transition-all duration-300">
+                        Success message
                     </div>
 
                     <div class="pt-6 sm:pt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12">
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">First Name:</span>
-                                <span class="profile-field-display font-medium" data-field="firstName">RAHUL</span>
-                                <input type="text" data-field="firstName" value="RAHUL" class="profile-input hidden"
-                                    title="firstName">
+                                <asp:TextBox ID="txtFirstName" runat="server" CssClass="hidden profile-input"></asp:TextBox>
+                                <asp:Label ID="lblFirstName" runat="server" CssClass="profile-field-display font-medium"></asp:Label>
                             </div>
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">Last Name:</span>
-                                <span class="profile-field-display font-medium" data-field="lastName">KUMAR</span>
-                                <input type="text" data-field="lastName" value="KUMAR" class="profile-input hidden"
-                                    title="lastName">
+                                <asp:TextBox ID="txtLastName" runat="server" CssClass="hidden profile-input"></asp:TextBox>
+                                <asp:Label ID="lblLastName" runat="server" CssClass="profile-field-display font-medium"></asp:Label>
                             </div>
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">Email:</span>
-                                <span class="font-medium truncate">rmahanta175@rku.ac.in</span>
+                                <asp:Label ID="lblEmail" runat="server" CssClass="font-medium truncate"></asp:Label>
                             </div>
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">DOB:</span>
-                                <span class="profile-field-display font-medium" data-field="dob">17/10/2025</span>
-                                <input type="date" data-field="dob" value="2025-10-17" class="profile-input hidden"
-                                    title="DOB">
+                                <asp:TextBox ID="txtDOB" runat="server" CssClass="hidden profile-input" TextMode="Date"></asp:TextBox>
+                                <asp:Label ID="lblDOB" runat="server" CssClass="profile-field-display font-medium"></asp:Label>
                             </div>
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">Mobile:</span>
-                                <span class="profile-field-display font-medium" data-field="mobile">8287547221</span>
-                                <input type="text" data-field="mobile" value="8287547221" class="profile-input hidden"
-                                    title="Contact No">
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="hidden profile-input"></asp:TextBox>
+                                <asp:Label ID="lblMobile" runat="server" CssClass="profile-field-display font-medium"></asp:Label>
                             </div>
 
                             <div class="flex items-center space-x-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1" />
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 15v3m-3-3l-2 2m4 2h.01M16 15v3m3-3l2 2m-4 2h.01" />
-                                </svg>
                                 <span class="text-sm font-semibold text-gray-600 w-24 flex-shrink-0">Gender:</span>
-                                <span class="profile-field-display font-medium text-gray-400 italic" data-field="gender">Add
-                                Gender</span>
-                                <select data-field="gender" class="profile-input hidden" title="Gender">
-                                    <option value="Add Gender" selected>Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <asp:DropDownList ID="ddlGender" runat="server" CssClass="hidden profile-input">
+                                    <asp:ListItem Text="Select" Value=""></asp:ListItem>
+                                    <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
+                                    <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+                                    <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Label ID="lblGender" runat="server" CssClass="profile-field-display font-medium"></asp:Label>
                             </div>
+
                         </div>
                     </div>
                 </div>
-
                 <div id="booking-history-content" class="hidden">
-                    <div class="flex flex-wrap gap-6 justify-start">
-                        <div
-                            class="ticket-card bg-white rounded-xl shadow-xl border border-gray-200 font-sans flex-shrink-0">
-                            <div class="flex-grow flex flex-col justify-start">
-                                <div class="text-xs font-semibold text-[#ff4444] mb-1 uppercase tracking-wider">
-                                    EntertainPro
-                                Ticket
-                                </div>
-                                <h3 class="text-xl font-extrabold text-gray-900 leading-tight mb-2 title-break">Mission: Impossible - Dead Part
-                                </h3>
-                                <p class="text-sm text-gray-600 mb-4">English | Standard 2D | 2h 43m</p>
+                    <asp:Panel ID="pnlNoBookings" runat="server" CssClass="text-gray-500 text-sm" Visible="false">
+                        No bookings found.
+                    </asp:Panel>
 
-                                <div class="grid grid-cols-2 gap-y-3 text-sm">
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">DATE</p>
-                                        <p class="font-bold">15 OCT</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">TIME</p>
-                                        <p class="font-bold">10:30 AM</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">SCREEN</p>
-                                        <p class="font-bold">Screen 3</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">SEATS</p>
-                                        <p class="font-bold">H12, H13</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <asp:DataList ID="dlBookings" runat="server" RepeatDirection="Horizontal"
+                        RepeatLayout="Flow" CellPadding="10" CssClass="flex flex-wrap gap-6 justify-start">
 
-                            <div class="dashed-divider"></div>
-
-                            <div class="mt-auto text-center">
-                                <p class="text-xs font-semibold text-gray-500 mb-1">Total Paid</p>
-                                <p class="text-3xl font-extrabold text-[#ff4444] leading-none mb-3">₹850</p>
-                                <p class="text-xs text-gray-500">Booking ID: EP20251015A</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="ticket-card bg-white rounded-xl shadow-xl border border-gray-200 font-sans flex-shrink-0">
-                            <div class="flex-grow flex flex-col justify-start">
-                                <div class="text-xs font-semibold text-[#ff4444] mb-1 uppercase tracking-wider">
-                                    EntertainPro
-                                Ticket
-                                </div>
-                                <h3 class="text-2xl font-extrabold text-gray-900 leading-tight mb-2 title-break">Jawan
-                                </h3>
-                                <p class="text-sm text-gray-600 mb-4">Hindi | IMAX 3D | 2h 45m</p>
-
-                                <div class="grid grid-cols-2 gap-y-3 text-sm">
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">DATE</p>
-                                        <p class="font-bold">21 SEP</p>
+                        <ItemTemplate>
+                            <div class="ticket-card bg-white rounded-xl shadow-xl border border-gray-200 font-sans flex-shrink-0">
+                                <div class="flex-grow flex flex-col justify-start">
+                                    <div class="text-xs font-semibold text-[#ff4444] mb-1 uppercase tracking-wider">
+                                        EntertainPro Ticket
                                     </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">TIME</p>
-                                        <p class="font-bold">07:00 PM</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">SCREEN</p>
-                                        <p class="font-bold">IMAX 1</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-500">SEATS</p>
-                                        <p class="font-bold">D05</p>
+                                    <h3 class="text-xl font-extrabold text-gray-900 leading-tight mb-2 title-break">
+                                        <%# Eval("MovieName") %>
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mb-4">
+                                        <%# Eval("ShowLanguage") %> | <%# Eval("ScreenType") %> | <%# Eval("MovieDuration") %>
+                                    </p>
+
+                                    <div class="grid grid-cols-2 gap-y-3 text-sm">
+                                        <div>
+                                            <p class="text-xs font-semibold text-gray-500">DATE</p>
+                                            <p class="font-bold"><%# Convert.ToDateTime(Eval("ShowDate")).ToString("dd MMM") %></p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-gray-500">TIME</p>
+                                            <p class="font-bold"><%# Eval("ShowTime") %></p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-gray-500">SCREEN</p>
+                                            <p class="font-bold"><%# Eval("ScreenName") %></p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold text-gray-500">SEATS</p>
+                                            <p class="font-bold"><%# Eval("SeatNumber") %></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="dashed-divider"></div>
+                                <div class="dashed-divider"></div>
 
-                            <div class="mt-auto text-center">
-                                <p class="text-xs font-semibold text-gray-500 mb-1">Total Paid</p>
-                                <p class="text-3xl font-extrabold text-[#ff4444] leading-none mb-3">₹600</p>
-                                <p class="text-xs text-gray-500">Booking ID: EP20250921B</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="ticket-card bg-gray-50 rounded-xl shadow-inner border border-gray-300 font-sans flex-shrink-0 opacity-80">
-                            <div class="flex-grow flex flex-col justify-start">
-                                <div class="text-xs font-semibold text-gray-400 mb-1 uppercase tracking-wider">
-                                    Advance
-                                Booking
-                                </div>
-                                <h3 class="text-xl font-extrabold text-gray-600 leading-tight mb-2 title-break">Upcoming Movie Title (Tentative)
-                                </h3>
-                                <p class="text-sm text-gray-500 mb-4 italic">Genre: Action-Fantasy</p>
-
-                                <div class="grid grid-cols-2 gap-y-3 text-sm">
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-400">DATE</p>
-                                        <p class="font-bold text-gray-600">01 NOV</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-400">TIME</p>
-                                        <p class="font-bold text-gray-600">TBD</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-400">SCREEN</p>
-                                        <p class="font-bold text-gray-600">Any Screen</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-gray-400">SEATS</p>
-                                        <p class="font-bold text-gray-600">Any Available</p>
-                                    </div>
-                                    <div class="col-span-2 mt-2">
-                                        <p class="text-xs font-semibold text-gray-400">STATUS</p>
-                                        <p class="font-bold text-yellow-600">Pending Release</p>
-                                    </div>
+                                <div class="mt-auto text-center">
+                                    <p class="text-xs font-semibold text-gray-500 mb-1">Total Paid</p>
+                                    <p class="text-3xl font-extrabold text-[#ff4444] leading-none mb-3">Rs <%# Eval("TicketPrice") %></p>
+                                    <p class="text-xs text-gray-500">Booking ID: <%# Eval("BookingID") %></p>
+                                    <p class="text-xs text-gray-500">Payment Status: <%# Eval("PaymentStatus") %></p>
                                 </div>
                             </div>
-
-                            <div class="dashed-divider border-gray-300"></div>
-
-                            <div class="mt-auto text-center">
-                                <p class="text-xs font-semibold text-gray-500 mb-1">Advance Amount</p>
-                                <p class="text-3xl font-extrabold text-gray-500 leading-none mb-3">₹200</p>
-                                <p class="text-xs text-gray-400">Booking ID: EP20251101C</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="w-full text-center pt-8">
-                        <a href="#" class="text-[#ff4444] hover:text-red-600 font-semibold">View All History →</a>
-                    </div>
+                        </ItemTemplate>
+                    </asp:DataList>
                 </div>
 
                 <div id="settings-content" class="hidden">
@@ -485,11 +213,11 @@
                     <div class="space-y-6">
                         <div class="p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
                             <h3 class="text-lg font-bold text-gray-800 mb-3">Notification</h3>
-                            <p class="text-sm text-gray-600 mb-4">Control which promotional updates you receive.</p>
+                            <p class="text-sm text-gray-600 mb-4">Control which notifications updates you receive.</p>
 
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-base font-medium text-gray-700">Receive promotional emails</span>
+                                    <span class="text-base font-medium text-gray-700">Receive Notifications emails</span>
                                     <label for="email-toggle" class="relative">
                                         <input type="checkbox" id="email-toggle" class="toggle-checkbox" checked
                                             title="Email message">
@@ -498,7 +226,7 @@
                                 </div>
 
                                 <div class="flex items-center justify-between">
-                                    <span class="text-base font-medium text-gray-700">Receive promotional Whatsapp
+                                    <span class="text-base font-medium text-gray-700">Receive Notifications Whatsapp
                                     message</span>
                                     <label for="whatsapp-toggle" class="relative">
                                         <input type="checkbox" id="whatsapp-toggle" class="toggle-checkbox" checked
@@ -512,14 +240,15 @@
                         <div class="p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
                             <h3 class="text-lg font-bold text-gray-800 mb-2">Change Password</h3>
                             <p class="text-sm text-gray-600 mb-4">
-                                You will be logged out of all devices after changing your
-                            password.
+                                You will be logged out of all devices after changing your password.
                             </p>
-                            <button
-                                class="px-4 py-2 bg-[#ff4444] text-white font-medium rounded-lg hover:bg-red-600 transition duration-200 shadow-md">
+                            <button id="openChangePasswordModal"
+                                class="px-4 py-2 bg-[#ff4444] text-white font-medium rounded-lg hover:bg-red-600 transition duration-200 shadow-md"
+                                onclick="openChangePasswordModal()">
                                 Update Password
                             </button>
                         </div>
+
 
                         <div class="p-6 bg-yellow-50 rounded-lg shadow-sm border border-yellow-300">
                             <h3 class="text-lg font-bold text-gray-800 mb-2">Delete Account</h3>
@@ -532,6 +261,58 @@
                     </div>
 
                 </div>
+
+
+                <!-- Change Password Modal -->
+                <div id="changePasswordModal"
+                    class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+                        <!-- Close Button -->
+                        <asp:Button ID="btnCloseModal" runat="server" Text="�"
+                            CssClass="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold"
+                            OnClientClick="closeChangePasswordModal(); return false;" />
+
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Change Password</h2>
+                        <p class="text-sm text-gray-600 mb-6">Please enter your current password and set a new one.</p>
+
+                        <asp:Panel ID="pnlChangePassword" runat="server" CssClass="space-y-4">
+                            <div>
+                                <asp:Label ID="lblCurrentPassword" runat="server" Text="Current Password"
+                                    CssClass="block text-gray-700 font-medium mb-1" AssociatedControlID="txtCurrentPassword" />
+                                <asp:TextBox ID="txtCurrentPassword" runat="server" TextMode="Password"
+                                    CssClass="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4444]"
+                                    placeholder="Enter current password"/>
+                            </div>
+
+                            <div>
+                                <asp:Label ID="lblNewPassword" runat="server" Text="New Password"
+                                    CssClass="block text-gray-700 font-medium mb-1" AssociatedControlID="txtNewPassword" />
+                                <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password"
+                                    CssClass="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4444]"
+                                    placeholder="Enter new password"/>
+                            </div>
+
+                            <div>
+                                <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password"
+                                    CssClass="block text-gray-700 font-medium mb-1" AssociatedControlID="txtConfirmPassword" />
+                                <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password"
+                                    CssClass="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4444]"
+                                    placeholder="Confirm new password"/>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 pt-4">
+                                <asp:Button ID="btnCancelChangePassword" runat="server" Text="Cancel"
+                                    CssClass="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition duration-200"
+                                    OnClientClick="closeChangePasswordModal(); return false;" />
+
+                                <asp:Button ID="btnSaveChangePassword" runat="server" Text="Save Changes"
+                                    CssClass="px-4 py-2 bg-[#ff4444] text-white rounded-lg hover:bg-red-600 transition duration-200"
+                                    />
+                            </div>
+                        </asp:Panel>
+                    </div>
+                </div>
+
 
                 <div id="help-support-content" class="hidden">
                     <h2 class="text-2xl font-semibold mb-6 text-gray-700">Get Assistance</h2>
@@ -591,190 +372,51 @@
                             <p class="text-sm text-gray-600">Send us a detailed query. We aim to reply within 24 hours.</p>
                         </a>
                     </div>
-                    <div class="p-6 bg-gray-50 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Submit a New Request</h3>
-                        <p class="text-sm text-gray-600 mb-6">
-                            Can't find an answer? Use the form below for issues requiring
-                        a booking ID or agent investigation.
-                        </p>
 
-                        <form action="#" method="POST" class="space-y-4">
-                            <div>
-                                <label for="issue-type" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Issue Type
-                                <span class="text-[#ff4444]">*</span></label>
-                                <select id="issue-type" name="issue-type" required
-                                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#ff4444] focus:border-[#ff4444] sm:text-sm rounded-md shadow-sm">
-                                    <option>Select a category</option>
-                                    <option>Cancellation/Refund Issue</option>
-                                    <option>Payment Charged, Ticket Not Received</option>
-                                    <option>Technical Bug or Website Error</option>
-                                    <option>Loyalty Program Inquiry</option>
-                                    <option>Other General Question</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="booking-id" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Booking/Ticket
-                                ID (If applicable)</label>
-                                <input type="text" id="booking-id" name="booking-id" placeholder="EP20251015A"
-                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#ff4444] focus:border-[#ff4444] sm:text-sm">
-                            </div>
-
-                            <div>
-                                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Detailed
-                                Description <span class="text-[#ff4444]">*</span></label>
-                                <textarea id="description" name="description" rows="4" required
-                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#ff4444] focus:border-[#ff4444] sm:text-sm"
-                                    placeholder="Describe your issue in detail, including dates and times."></textarea>
-                            </div>
-
-                            <div class="pt-2">
-                                <button type="submit"
-                                    class="w-full justify-center inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#ff4444] hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ff4444] transition duration-200">
-                                    Submit Request
-                                </button>
-                            </div>
-                        </form>
-                    </div>
 
                 </div>
             </div>
         </div>
-    
-    <!-- Loader Overlay -->
-    <div id="loader" class="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="loader"></div>
+
+        <div id="loader" class="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 hidden">
+            <div class="loader"></div>
+        </div>
     </div>
-    </div>
-    <script>
-        // Loader functions
-        function showLoader() {
-            document.getElementById('loader').classList.remove('hidden');
-        }
 
-        function hideLoader() {
-            document.getElementById('loader').classList.add('hidden');
-        }
+    <script src="js/UserProfilePage.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('<%= profilePicContainer.ClientID %>');
+            const fileInput = document.getElementById('<%= fuProfilePic.ClientID %>');
+            const saveBtn = document.getElementById('<%= btnSaveProfilePic.ClientID %>');
 
-        /**
-         * Function to toggle between different content sections
-         * @param {string} contentId - 'user-profile', 'booking-history', 'settings', or 'help-support'
-         */
-        function showContent(contentId) {
-            showLoader();
-            setTimeout(() => {
-                const contentElements = {
-                    'user-profile': document.getElementById('user-profile-content'),
-                    'booking-history': document.getElementById('booking-history-content'),
-                    'settings': document.getElementById('settings-content'),
-                    'help-support': document.getElementById('help-support-content')
-                };
-
-                const linkElements = {
-                    'user-profile': document.getElementById('profile-link'),
-                    'booking-history': document.getElementById('history-link'),
-                    'settings': document.getElementById('settings-link'),
-                    'help-support': document.getElementById('support-link')
-                };
-
-                const activeClass = 'nav-active';
-                const inactiveClasses = ['text-red-100', 'hover:text-white', 'pl-3', 'py-1'];
-
-                for (const id in contentElements) {
-                    if (id === contentId) {
-                        contentElements[id].classList.remove('hidden');
-                        linkElements[id].classList.add(activeClass, 'text-white');
-                        linkElements[id].classList.remove(...inactiveClasses);
-                    } else {
-                        contentElements[id].classList.add('hidden');
-                        linkElements[id].classList.remove(activeClass, 'text-white');
-                        linkElements[id].classList.add(...inactiveClasses);
-
-                        // If switching away from profile, ensure edit mode is turned off
-                        if (id !== 'user-profile' && document.getElementById('save-button').classList.contains('hidden') === false) {
-                            toggleEditMode(true);
-                        }
-                    }
-                }
-                hideLoader();
-            }, 1000);
-        }
-
-        /**
-         * Toggles the display mode of profile fields between text (span) and input fields.
-         * @param {boolean} isSaving - True if the user clicked Save, false if they clicked Edit.
-         */
-        function toggleEditMode(isSaving = false) {
-            const displayElements = document.querySelectorAll('.profile-field-display');
-            const inputElements = document.querySelectorAll('.profile-input');
-            const editButton = document.getElementById('edit-button');
-            const saveButton = document.getElementById('save-button');
-
-            if (isSaving) {
-                // 1. Logic for SAVING (Switching from Input back to Span)
-
-                // Update the visible span text with the new input values
-                inputElements.forEach(input => {
-                    const fieldName = input.getAttribute('data-field');
-                    const displaySpan = document.querySelector(`.profile-field-display[data-field="${fieldName}"]`);
-
-                    if (displaySpan) {
-                        if (input.tagName === 'SELECT') {
-                            // Handle select (dropdown)
-                            displaySpan.textContent = input.options[input.selectedIndex].text;
-                            if (input.value !== 'Add Gender' && input.value !== 'Select') {
-                                displaySpan.classList.remove('text-gray-400', 'italic');
-                                displaySpan.classList.add('text-gray-800');
-                            } else {
-                                displaySpan.classList.add('text-gray-400', 'italic');
-                                displaySpan.classList.remove('text-gray-800');
-                            }
-                        } else if (input.type === 'date') {
-                            // Handle date input
-                            const dateValue = input.value;
-                            if (dateValue) {
-                                // Convert YYYY-MM-DD to DD/MM/YYYY for display (simple format conversion)
-                                const parts = dateValue.split('-');
-                                displaySpan.textContent = `${parts[2]}/${parts[1]}/${parts[0]}`;
-                            }
-                        } else {
-                            // Handle standard text input
-                            // Use input value if it exists, otherwise keep old text
-                            displaySpan.textContent = input.value || displaySpan.textContent;
-                        }
-                    }
+            if (container && fileInput) {
+                // Click on container opens file picker
+                container.addEventListener('click', () => {
+                    fileInput.click();
                 });
 
-                // Show spans, hide inputs
-                displayElements.forEach(el => el.classList.remove('hidden'));
-                inputElements.forEach(el => el.classList.add('hidden'));
+                // Preview image after selection
+                fileInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            container.style.backgroundImage = `url(${e.target.result})`;
+                            container.style.backgroundSize = 'cover';
+                            container.style.backgroundPosition = 'center';
+                            container.style.color = 'transparent';
+                            container.innerText = ''; // remove initials
 
-                // Switch buttons
-                saveButton.classList.add('hidden');
-                editButton.classList.remove('hidden');
-
-                // In a real app, you would send this data to a server here.
-                alert("Profile Updated!");
-
-            } else {
-                // 2. Logic for EDITING (Switching from Span to Input)
-
-                // Show inputs, hide spans
-                displayElements.forEach(el => el.classList.add('hidden'));
-                inputElements.forEach(el => el.classList.remove('hidden'));
-
-                // Switch buttons
-                editButton.classList.add('hidden');
-                saveButton.classList.remove('hidden');
+                            // Show save button
+                            if (saveBtn) saveBtn.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
-        }
 
-        // Initialize the view when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            showContent('user-profile');
+
         });
     </script>
 
