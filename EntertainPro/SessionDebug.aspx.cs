@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace EntertainPro
 {
@@ -26,9 +22,25 @@ namespace EntertainPro
                 {
                     sb.Append("<tr>");
                     sb.Append("<td>" + key + "</td>");
-                    sb.Append("<td>" + (Session[key] ?? "NULL") + "</td>");
+
+                    if (key == "UserImage")
+                    {
+                        string imgPath = Session[key]?.ToString();
+                        if (!string.IsNullOrEmpty(imgPath))
+                            sb.Append("<td><img src='" + ResolveClientUrl("~/" + imgPath.TrimStart('/')) + "' width='80' height='80' style='border-radius:8px; border:1px solid #ccc;'/></td>");
+
+
+                        else
+                            sb.Append("<td>NULL</td>");
+                    }
+                    else
+                    {
+                        sb.Append("<td>" + (Session[key] ?? "NULL") + "</td>");
+                    }
+
                     sb.Append("</tr>");
                 }
+
             }
 
             sb.Append("</table>");

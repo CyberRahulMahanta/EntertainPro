@@ -41,7 +41,7 @@ namespace EntertainPro
 
                     Session["UserEmail"] = dr["Email"].ToString();
                     Session["unm"] = dr["FirstName"].ToString();
-                    Session["UserImage"] = dr["ImagePath"].ToString();
+                    Session["UserImage"] = dr["ImagePath"] == DBNull.Value ? "" : dr["ImagePath"].ToString();
                     Session["UserID"] = dr["UserID"].ToString();
                     Session["Role"] = dr["Role"].ToString();
 
@@ -53,6 +53,7 @@ namespace EntertainPro
                     }
                     else if (role == "user")
                     {
+                        System.Diagnostics.Debug.WriteLine("Image path set to: " + Session["UserImage"]);
                         Response.Redirect("index.aspx");
                     }
                     else

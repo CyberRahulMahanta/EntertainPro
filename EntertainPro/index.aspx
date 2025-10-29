@@ -157,7 +157,7 @@
             <div class="wishlist-header">
                 <h5>My Wishlist</h5>
                 <asp:LinkButton ID="closeWishlistBtn" runat="server" OnClick="CloseWishlist_Click" CssClass="close-wishlist-btn">
-    <i class="fa fa-times"></i>
+                 <i class="fa fa-times"></i>
                 </asp:LinkButton>
 
             </div>
@@ -334,7 +334,6 @@
                                 </ItemTemplate>
                             </asp:DataList>
                         </div>
-
                         <!-- Pagination inside UpdatePanel -->
                         <div class="text-center mt-3">
                             <asp:Button ID="btnPrev" runat="server" Text="Previous" CssClass="btn btn-danger me-2" OnClick="btnPrev_Click" />

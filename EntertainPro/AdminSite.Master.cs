@@ -11,21 +11,18 @@ namespace EntertainPro
 {
     public partial class AdminSite : System.Web.UI.MasterPage
     {
-        // Holds the full URL or path of the user's avatar
-        public string UserImageUrl = "https://placehold.co/40x40/dc2626/ffffff?text=U"; // default fallback
-        public string UserFullName = "User";       // Full name to display
-        public string UserRole = "User";           // Role to display
+        public string UserImageUrl = "https://placehold.co/40x40/dc2626/ffffff?text=U";
+        public string UserFullName = "User";
+        public string UserRole = "User";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Redirect to login page if user is not authenticated
             if (Session["UserID"] == null || Session["UserEmail"] == null)
             {
                 Response.Redirect("Login.aspx");
                 return;
             }
 
-            // Load user profile image from database
             LoadUserImage();
         }
 
@@ -40,7 +37,6 @@ namespace EntertainPro
 
                     string userId = Session["UserID"].ToString();
 
-                    // Fetch FirstName, LastName, and ImagePath
                     string query = "SELECT FirstName, LastName, ImagePath FROM Users WHERE UserID = " + userId;
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
@@ -53,9 +49,9 @@ namespace EntertainPro
                                 string imagePath = dr["ImagePath"].ToString();
 
                                 if (!string.IsNullOrEmpty(imagePath))
-                                    UserImageUrl = ResolveUrl(imagePath); // properly resolves '~/img/50.jpg' or any path
+                                    UserImageUrl = ResolveUrl(imagePath);
                                 else
-                                    UserImageUrl = "~/img/50.jpg"; // default
+                                    UserImageUrl = "~/img/50.jpg";
                             }
                         }
                     }
@@ -63,7 +59,6 @@ namespace EntertainPro
             }
             catch
             {
-                // fallback placeholder
                 UserImageUrl = "~/img/50.jpg";
                 UserFullName = "User";
             }

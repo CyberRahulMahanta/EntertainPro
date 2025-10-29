@@ -13,5 +13,83 @@ namespace EntertainPro
 
     public partial class AdminBookings
     {
+        protected global::System.Web.UI.WebControls.Repeater rptBookings;
+        protected global::System.Web.UI.WebControls.HiddenField hfDeleteBookingID;
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+
+        /// <summary>
+        /// lblBookingID control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblBookingID;
+
+        /// <summary>
+        /// lblCustomerName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblCustomerName;
+
+        /// <summary>
+        /// lblMovieName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblMovieName;
+
+        /// <summary>
+        /// lblLanguage control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblLanguage;
+
+        /// <summary>
+        /// lblSeatNumber control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSeatNumber;
+
+        /// <summary>
+        /// lblPrice control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblPrice;
+
+        /// <summary>
+        /// lblBookingDate control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblBookingDate;
+
+        /// <summary>
+        /// lblPaymentID control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblPaymentID;
+
+        /// <summary>
+        /// lblScreenName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblScreenName;
+
+        /// <summary>
+        /// lblScreenType control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblScreenType;
+
+        /// <summary>
+        /// lblShowDate control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblShowDate;
+
+        /// <summary>
+        /// lblShowTime control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblShowTime;
+
+        /// <summary>
+        /// imgQrCode control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Image imgQrCode;
+
+
     }
 }

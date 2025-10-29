@@ -66,7 +66,7 @@
                                             </div>
                                         </li>
                                         <li class="nav-item ms-3">
-                                            <asp:LinkButton ID="wishlistBtn" runat="server" CssClass="nav-link position-relative" OnClick="wishlistBtn_Click" ToolTip="Wishlist">
+                                            <asp:LinkButton ID="wishlistBtn" runat="server" CssClass="nav-link position-relative" ToolTip="Wishlist">
                                                 <i class="fa fa-heart fs-5 text-white"></i>
                                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="wishlistCount" runat="server">0</span>
                                             </asp:LinkButton>
@@ -165,12 +165,12 @@ alteration in some form by injected humour or randomised words.
                     <asp:Panel ID="wishlistPanel" runat="server" CssClass="wishlist-panel" Visible="false">
                         <div class="wishlist-header">
                             <h5>My Wishlist</h5>
-                            <asp:LinkButton ID="closeWishlistBtn" runat="server" OnClick="CloseWishlist_Click" CssClass="close-wishlist-btn">
+                            <asp:LinkButton ID="closeWishlistBtn" runat="server" CssClass="close-wishlist-btn">
             <i class="fa fa-times"></i>
                             </asp:LinkButton>
                         </div>
                         <div class="wishlist-content">
-                            <asp:DataList ID="DataList2" runat="server" OnItemCommand="DataList2_ItemCommand" ToolTip="See Your WishList">
+                            <asp:DataList ID="DataList2" runat="server" ToolTip="See Your WishList">
                                 <ItemTemplate>
                                     <div class="wishlist-item">
                                         <img src='<%# Eval("ImageUrl") %>' alt='<%# Eval("Movie_Name") %>' />

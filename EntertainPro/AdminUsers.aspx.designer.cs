@@ -13,5 +13,8 @@ namespace EntertainPro
 
     public partial class AdminUsers
     {
+        protected global::System.Web.UI.WebControls.Repeater UserRepeater;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl totalUsers;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenUserID;
     }
 }

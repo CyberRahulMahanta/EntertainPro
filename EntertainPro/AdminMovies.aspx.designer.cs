@@ -13,5 +13,7 @@ namespace EntertainPro
 
     public partial class AdminMovies
     {
+        protected global::System.Web.UI.WebControls.Repeater rptMovies;
+        protected global::System.Web.UI.WebControls.HiddenField hfMovieIdToDelete;
     }
 }

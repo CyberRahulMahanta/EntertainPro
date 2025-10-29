@@ -22,7 +22,7 @@ namespace EntertainPro
             if (!DoesUserExist(email))
             {
                 lblMessage.CssClass = "text-red-300 text-center block mb-4";
-                lblMessage.Text = "❌ Email not found!";
+                lblMessage.Text = "Email not found!";
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace EntertainPro
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress("rmahanta175@rku.ac.in", "Entertain Pro");
                 mail.To.Add(email);
-                mail.Subject = "🔑 EntertainPro - Password Reset OTP";
+                mail.Subject = "EntertainPro - Password Reset OTP";
                 mail.IsBodyHtml = true;
 
                 mail.Body = $@"
@@ -136,19 +136,19 @@ namespace EntertainPro
 
 
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("rmahanta175@rku.ac.in", "iyfzielgmirkgatr");
+                smtp.Credentials = new NetworkCredential("rmahanta175@rku.ac.in", "uixkdvjcwfqzgrcg");
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
 
                 lblMessage.CssClass = "text-green-300 text-center block mb-4";
-                lblMessage.Text = "✅ OTP sent to your email.";
+                lblMessage.Text = "OTP sent to your email.";
                 pnlRequestOtp.Visible = false;
                 pnlVerifyOtp.Visible = true;
             }
             catch (Exception ex)
             {
                 lblMessage.CssClass = "text-red-300 text-center block mb-4";
-                lblMessage.Text = "❌ Failed to send OTP: " + ex.Message;
+                lblMessage.Text = "Failed to send OTP: " + ex.Message;
             }
         }
 
@@ -157,7 +157,7 @@ namespace EntertainPro
             if (Session["OTP"] == null || Session["Email"] == null)
             {
                 lblMessage.CssClass = "text-red-300 text-center block mb-4";
-                lblMessage.Text = "❌ Session expired. Please request OTP again.";
+                lblMessage.Text = "Session expired. Please request OTP again.";
                 pnlRequestOtp.Visible = true;
                 pnlVerifyOtp.Visible = false;
                 return;

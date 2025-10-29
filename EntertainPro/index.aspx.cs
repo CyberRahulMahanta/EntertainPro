@@ -38,12 +38,36 @@ namespace EntertainPro
                 {
                     navUserItem.Visible = true;
                     navLoginItem.Visible = false;
-
                     navUserName.InnerText = Session["unm"].ToString();
 
-                    if (Session["UserImage"] != null && Session["UserImage"].ToString() != "")
+                    if (Session["UserID"] != null)
                     {
-                        userAvatar.Src = Session["UserImage"].ToString();
+                        string userId = Session["UserID"].ToString();
+                        string connStr = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+
+                        using (SqlConnection con = new SqlConnection(connStr))
+                        {
+                            con.Open();
+                            string query = "SELECT ImagePath FROM Users WHERE UserID = @UserID";
+                            using (SqlCommand cmd = new SqlCommand(query, con))
+                            {
+                                cmd.Parameters.AddWithValue("@UserID", userId);
+
+                                object result = cmd.ExecuteScalar();
+                                if (result != null && result != DBNull.Value)
+                                {
+                                    string imgPath = result.ToString();
+                                    if (!string.IsNullOrEmpty(imgPath))
+                                        userAvatar.Src = ResolveUrl("~/" + imgPath.TrimStart('/'));
+                                    else
+                                        userAvatar.Src = "img/50.jpg";
+                                }
+                                else
+                                {
+                                    userAvatar.Src = "img/50.jpg";
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -55,7 +79,9 @@ namespace EntertainPro
                     navUserItem.Visible = false;
                     navLoginItem.Visible = true;
                 }
+
             }
+
         }
 
         private void LoadUpcomingMovies()
@@ -217,13 +243,18 @@ namespace EntertainPro
             return sb.ToString();
         }
 
-        public string GetStars(int rating)
+        protected string GetStars(object ratingObj)
         {
+            if (ratingObj == null) return "";
+            int rating = Convert.ToInt32(ratingObj);
+
+            // Build star icons (Bootstrap or FontAwesome)
             string stars = "";
-            for (int i = 1; i <= 5; i++)
-            {
-                stars += i <= rating ? "<i class='fa fa-star'></i>" : "<i class='fa fa-star-o'></i>";
-            }
+            for (int i = 0; i < rating; i++)
+                stars += "<i class='fa fa-star text-yellow-400'></i>";
+            for (int i = rating; i < 5; i++)
+                stars += "<i class='fa fa-star text-gray-300'></i>";
+
             return stars;
         }
 
