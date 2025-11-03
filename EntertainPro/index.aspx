@@ -266,7 +266,7 @@
             <div class="container-xl">
                 <div class="row upcome_1 text-center">
                     <div class="col-md-12">
-                        <h3 class="mb-0">UPCOMING MOVIES</h3>
+                        <h3 class="mb-0">NOW SHOWING MOVIES</h3>
                         <hr class="line me-auto ms-auto">
                     </div>
                 </div>
@@ -877,7 +877,6 @@
         </div>
     </section>
 
-    <!--View Trailer Modal-->
 
     <div class="modal fade" id="trailerModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

@@ -88,7 +88,7 @@ namespace EntertainPro
         {
             using (SqlConnection con = new SqlConnection(s))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Movies where Category = 'Upcoming'", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Movies where Category = 'Showing'", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 PagedDataSource pg = new PagedDataSource();
@@ -124,7 +124,7 @@ namespace EntertainPro
         {
             using (SqlConnection con = new SqlConnection(s))
             {
-                string query = "SELECT * FROM Movies WHERE Category='Popular' AND SubCategory='Upcoming'";
+                string query = "SELECT * FROM Movies WHERE Category='Upcoming' AND SubCategory='Upcoming'";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);

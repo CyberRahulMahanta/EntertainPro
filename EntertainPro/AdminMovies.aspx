@@ -1,6 +1,27 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminSite.Master" AutoEventWireup="true" CodeFile="AdminMovies.aspx.cs" Inherits="EntertainPro.AdminMovies" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        @keyframes zoomEffect {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .zoom-label {
+            animation: zoomEffect 1.5s infinite ease-in-out;
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <main class="flex-1 p-6 md:p-8">
@@ -63,6 +84,7 @@
                 focus:ring-2 focus:ring-red-500 focus:outline-none"
                         onchange="filterMovies()">
                         <option value="all">All Categories</option>
+                        <option value="showing">Showing</option>
                         <option value="upcoming">Upcoming</option>
                         <option value="popular">Popular</option>
                         <option value="top">Top</option>
@@ -85,13 +107,13 @@
 
                         <tbody class="divide-y divide-slate-200">
                             <asp:Repeater ID="rptMovies" runat="server" OnItemCommand="rptMovies_ItemCommand">
-                                <itemtemplate>
+                                <ItemTemplate>
                                     <tr class="hover:bg-red-50/50 transition-colors"
                                         data-title='<%# Eval("Title").ToString().ToLower() %>'
                                         data-genre='<%# Eval("Genre").ToString().ToLower() %>'
                                         data-category='<%# Eval("Category").ToString().ToLower() %>'>
 
-                                        <td class="py-4 px-6 font-medium text-slate-700"><%# Eval("MovieID") %></td>
+                                        <td class="py-4 px-6 font-medium text-slate-700">#MV<%# Eval("MovieID") %></td>
                                         <td class="py-4 px-6">
                                             <img src='<%# ResolveUrl(Eval("ImageUrl").ToString()) %>'
                                                 alt='<%# Eval("Title") %>'
@@ -121,7 +143,7 @@
                                             </asp:LinkButton>
                                         </td>
                                     </tr>
-                                </itemtemplate>
+                                </ItemTemplate>
                             </asp:Repeater>
                         </tbody>
                     </table>
@@ -174,138 +196,138 @@
             </div>
         </div>
 
-        <!-- Modal (hidden by default) -->
+        <!-- Modal (visible here, but you can toggle using JS) -->
         <div id="addMovieModal"
             class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 backdrop-blur-sm transition-all duration-300">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl p-6 relative animate-fadeIn">
+
                 <!-- Close Button -->
-                <button id="closeModalBtn"
+                <button type="button" id="closeModalBtn"
                     class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold transition-colors duration-200">
                     ×
                 </button>
 
-                <!-- Header with Icon (Wider at top) -->
+
+                <!-- Header -->
                 <div class="text-center mb-4">
-                    <h2 class="text-3xl font-bold text-gray-800 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">Add New Movie</h2>
+                    <h2
+                        class="text-3xl font-bold text-gray-800 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">Add New Movie
+                    </h2>
                 </div>
 
-                <!-- enctype is important for file upload -->
-                <form id="addMovieForm" class="space-y-4" method="post" enctype="multipart/form-data">
+                <!-- Form Content -->
+                <div class="space-y-4">
 
-                    <!-- Top Section: Image on Left, 4 Labels on Right -->
+                    <!-- Top Section -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <!-- Left: Image Upload and Preview -->
+                        <!-- Left: Image Upload -->
                         <div class="flex flex-col items-center">
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Movie Poster</label>
-                            <input type="file" name="ImageFile" accept="image/*" id="imageInput"
-                                class="hidden">
-                            <label for="imageInput"
+                            <asp:FileUpload ID="ImageFile" runat="server" CssClass="hidden" ClientIDMode="Static" />
+                            <label for="ImageFile"
                                 class="cursor-pointer inline-block px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-all duration-300 text-sm mb-3">
                                 Choose Poster
                             </label>
-                            <!-- Image Preview -->
-                            <div id="imagePreview" class="w-32 h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+                            <div id="imagePreview"
+                                class="w-32 h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
                                 <span class="text-gray-500 text-xs">Preview will appear here</span>
                             </div>
                         </div>
 
-                        <!-- Right: 4 Labels -->
+                        <!-- Right: Text Fields -->
                         <div class="space-y-4">
-                            <!-- Title -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Movie Title</label>
-                                <input type="text" name="Title"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="Enter movie title" required>
+                                <asp:TextBox ID="txtTitle" runat="server" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="Enter movie title"></asp:TextBox>
                             </div>
 
-                            <!-- Genre -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Genre</label>
-                                <input type="text" name="Genre"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="e.g. Action, Drama" required>
+                                <asp:TextBox ID="txtGenre" runat="server" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="e.g. Action, Drama"></asp:TextBox>
                             </div>
 
-                            <!-- Rating -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Rating</label>
-                                <input type="number" name="Rating" min="1" max="5"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="Enter rating (1–5)" required>
+                                <asp:TextBox ID="txtRating" runat="server" TextMode="Number" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="Enter rating (1–5)"></asp:TextBox>
                             </div>
 
-                            <!-- Trailer URL -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Trailer URL</label>
-                                <input type="url" name="TrailerUrl"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="Enter YouTube link" required>
+                                <asp:TextBox ID="txtTrailerUrl" runat="server" TextMode="Url" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="Enter YouTube link"></asp:TextBox>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Bottom Section: 3 Labels on Left, 2 on Right -->
+                    <!-- Bottom Section -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                        <!-- Left: 3 Labels -->
+                        <!-- Left -->
                         <div class="space-y-4">
-                            <!-- Category -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Category</label>
-                                <select name="Category"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 bg-white text-sm">
-                                    <option>Upcoming</option>
-                                    <option>Now Showing</option>
-                                    <option>Top Rated</option>
-                                </select>
+                                <asp:DropDownList ID="ddlCategory" runat="server"
+                                    CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm bg-white">
+                                    <asp:ListItem Text="Select Category" Value=""></asp:ListItem>
+                                    <asp:ListItem Text="Upcoming" Value="Upcoming"></asp:ListItem>
+                                    <asp:ListItem Text="Showing" Value="Showing"></asp:ListItem>
+                                    <asp:ListItem Text="Top" Value="Top"></asp:ListItem>
+                                    <asp:ListItem Text="Popular" Value="Popular"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
 
-                            <!-- SubCategory -->
+
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">SubCategory</label>
-                                <input type="text" name="SubCategory"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="e.g. Drama, Romance" required>
+                                <asp:DropDownList ID="ddlSubCategory" runat="server"
+                                    CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm bg-white">
+                                    <asp:ListItem Text="Select SubCategory" Value=""></asp:ListItem>
+                                    <asp:ListItem Text="Showing" Value="Showing"></asp:ListItem>
+                                    <asp:ListItem Text="Upcoming" Value="Upcoming"></asp:ListItem>
+                                    <asp:ListItem Text="Released" Value="Released"></asp:ListItem>
+                                    <asp:ListItem Text="Best of Library" Value="Best of Library"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
 
-                            <!-- Duration -->
+
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Duration</label>
-                                <input type="text" name="Duration"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="e.g. 2h 16min" required>
+                                <asp:TextBox ID="txtDuration" runat="server" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="e.g. 2h 16min"></asp:TextBox>
                             </div>
                         </div>
 
-                        <!-- Right: 2 Labels -->
+                        <!-- Right -->
                         <div class="space-y-4">
-                            <!-- Language -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Language</label>
-                                <input type="text" name="Language"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 placeholder-gray-400 text-sm"
-                                    placeholder="e.g. English, Hindi" required>
+                                <asp:TextBox ID="txtLanguage" runat="server" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm" placeholder="e.g. English, Hindi"></asp:TextBox>
                             </div>
 
-                            <!-- Release Date -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Release Date</label>
-                                <input type="date" name="ReleaseDate"
-                                    class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 focus:outline-none transition-all duration-200 text-sm">
+                                <asp:TextBox ID="txtReleaseDate" runat="server" TextMode="Date" CssClass="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-red-300 focus:border-red-500 text-sm"></asp:TextBox>
+                                <asp:Label ID="lblValidationMessage" runat="server"
+                                    CssClass="block text-sm font-medium text-red-700 bg-red-100 border border-red-300 rounded-md px-3 py-2 zoom-label"
+                                    Style="margin-top: 35px; display: none;">
+                                </asp:Label>
+
                             </div>
                         </div>
                     </div>
 
                     <!-- Submit -->
                     <div class="text-center mt-6">
-                        <button type="submit"
-                            class="w-full max-w-xs bg-red-500 text-white font-bold py-2 rounded-lg hover:bg-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
-                            Save Movie
-                        </button>
+                        <asp:Button ID="btnSaveMovie" runat="server" Text="Save Movie"
+                            CssClass="w-full max-w-xs bg-red-500 text-white font-bold py-2 rounded-lg hover:bg-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm"
+                            OnClick="btnSaveMovie_Click" />
                     </div>
-                </form>
+                </div>
             </div>
+        </div>
+
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
+
+        <!-- ✅ Toast Notification -->
+        <div id="toast"
+            class="fixed top-5 right-5 hidden px-5 py-3 rounded-lg shadow-lg text-white font-medium z-50 transition-all duration-500">
         </div>
 
 
@@ -314,7 +336,6 @@
         <script>
             let searchTimeout;
 
-            // 🔹 Show loader on initial page load
             window.addEventListener("load", () => {
                 const loader = document.getElementById("movieLoader");
                 const container = document.getElementById("movieContainer");
@@ -327,10 +348,39 @@
                 setTimeout(() => {
                     loader.style.display = "none";
                     container.style.display = "block";
-                }, 1000); // 1s delay for realistic load
+                }, 1000);
+
+                // ✅ Now safely bind buttons & input AFTER DOM is ready
+                const openModalBtn = document.getElementById('openModalBtn');
+                const closeModalBtn = document.getElementById('closeModalBtn');
+                const modal = document.getElementById('addMovieModal');
+                const imageInput = document.getElementById('ImageFile');
+
+                if (openModalBtn && closeModalBtn && modal) {
+                    openModalBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+                    closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+                    window.addEventListener('click', (e) => {
+                        if (e.target === modal) modal.classList.add('hidden');
+                    });
+                }
+
+
+                if (imageInput) {
+                    imageInput.addEventListener('change', (event) => {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                const preview = document.getElementById('imagePreview');
+                                preview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="w-full h-full object-cover rounded-lg">`;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
             });
 
-            // 🔹 Filter function with loader
+            // 🔹 Filter function
             function filterMovies() {
                 clearTimeout(searchTimeout);
 
@@ -339,7 +389,6 @@
                 const container = document.getElementById("movieContainer");
                 const rows = document.querySelectorAll("#movieTable tbody tr");
 
-                // Hide table, show loader
                 container.style.opacity = "0.5";
                 loader.style.display = "flex";
                 noMovieDiv.style.display = "none";
@@ -362,14 +411,12 @@
                         if (isVisible) visibleCount++;
                     });
 
-                    // Hide loader and show results
                     loader.style.display = "none";
                     container.style.opacity = "1";
-
-                    // Show "No movies found" if needed
                     noMovieDiv.style.display = visibleCount === 0 ? "block" : "none";
                 }, 700);
             }
+
             function showDeleteModal(movieId) {
                 document.getElementById('<%= hfMovieIdToDelete.ClientID %>').value = movieId;
                 document.getElementById("deleteModal").classList.remove("hidden");
@@ -379,37 +426,46 @@
                 document.getElementById("deleteModal").classList.add("hidden");
             }
 
-            const openModalBtn = document.getElementById('openModalBtn');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const modal = document.getElementById('addMovieModal');
+            // Toast meaagse js code
+            function showToast(message, type) {
+                const toast = document.getElementById("toast");
 
-            openModalBtn.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-            });
+                // Reset previous classes before applying new ones
+                toast.className =
+                    "fixed top-16 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-medium z-50 transition-all duration-500 transform opacity-0 scale-95 " +
+                    (type === "success" ? "bg-green-600" : "bg-red-600");
 
-            closeModalBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
+                toast.textContent = message;
 
-            // Close modal when clicking outside the box
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
+                // Show animation
+                toast.classList.remove("hidden");
+                setTimeout(() => {
+                    toast.style.opacity = "1";
+                    toast.style.transform = "scale(1)";
+                }, 10);
+
+                // Auto-hide after 3 seconds
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    toast.style.transform = "scale(0.95)";
+                    setTimeout(() => toast.classList.add("hidden"), 500);
+                }, 3000);
+            }
+
+            window.addEventListener("load", () => {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                if (urlParams.get("success") === "1") {
+                    showToast("Movie Added Successfully!", "success");
+                } else if (urlParams.get("deleted") === "1") {
+                    showToast("Movie Deleted Successfully!", "error");
                 }
-            });
 
-            document.getElementById('imageInput').addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const preview = document.getElementById('imagePreview');
-                        preview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="w-full h-full object-cover rounded-lg">`;
-                    };
-                    reader.readAsDataURL(file);
-                }
+                // Remove query parameters so message doesn’t reappear on refresh
+                history.replaceState({}, document.title, window.location.pathname);
             });
         </script>
+
 
     </main>
 

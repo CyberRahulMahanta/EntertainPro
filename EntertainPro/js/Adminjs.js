@@ -1,16 +1,13 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
-    // chartData is registered by the C# code above
+﻿let ticketSalesChart; // Declare globally so resizeChart() can access it
+
+document.addEventListener('DOMContentLoaded', function () {
     if (typeof chartData === "undefined" || chartData.length === 0) {
         console.warn("No data for chart");
         return;
     }
 
-    // ❌ CORRECTION 2: Use the full BookingDay (e.g., '2025-10-13') for correct chronological ordering.
-    // The DayName can still be used for a nicer label format if desired.
-    // We'll create a composite label: "Mon (13)"
     const labels = chartData.map(item => {
         const date = new Date(item.BookingDay);
-        // Get short day name (e.g., "Mon") and day number (e.g., "13")
         const shortDay = date.toLocaleDateString('en-US', { weekday: 'short' });
         const dayNumber = date.getDate();
         return `${shortDay} (${dayNumber})`;
@@ -20,7 +17,8 @@
 
     const ctx = document.getElementById('ticketSalesChart');
     if (ctx) {
-        new Chart(ctx, {
+        // ✅ Assign chart instance to global variable
+        ticketSalesChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
@@ -39,28 +37,24 @@
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { grid: { display: false } },
-                    y: {
-                        grid: { color: '#e2e8f0' },
-                        // Ensure Y-axis starts at 0 for accurate comparison
-                        beginAtZero: true
-                    }
+                    y: { grid: { color: '#e2e8f0' }, beginAtZero: true }
                 }
             }
         });
     }
 });
+
 /**
- * Helper function to manually trigger a chart resize.
- * This is the fix for making the chart responsive to sidebar changes.
+ * ✅ Helper function to trigger chart resize after sidebar animation.
  */
 const resizeChart = () => {
     if (ticketSalesChart) {
-        // Wait for the CSS transition (300ms) to complete before resizing
         setTimeout(() => {
             ticketSalesChart.resize();
         }, 350);
     }
-}
+};
+
 
 // --- 2. Sidebar Resizing and Toggling Logic (Integrated with Chart Resize) ---
 
@@ -95,7 +89,7 @@ function updateLayout(width) {
         // COLLAPSED STATE: Icon and Text update
         // SVG for Expand (pointing right)
         collapseIcon.innerHTML = `<polyline points="9 17 4 12 9 7" /> <path d="M20 18v-2a4 4 0 0 0-4-4H4" />`;
-        collapseText.textContent = ''; // Text is hidden via CSS, but clearing helps accessibility/consistency
+        collapseText.textContent = '';
     } else {
         document.body.classList.remove('sidebar-collapsed');
 
@@ -234,13 +228,5 @@ clickArea.addEventListener('click', () => {
         dropdown.classList.remove('opacity-100', 'scale-100');
         dropdown.classList.add('opacity-0', 'scale-95');
         arrow.classList.remove('rotate-180'); // Rotate arrow back
-    }
-});
-
-document.addEventListener('click', (e) => {
-    if (!document.getElementById('admin-avatar-container').contains(e.target)) {
-        dropdown.classList.add('hidden', 'opacity-0', 'scale-95');
-        dropdown.classList.remove('opacity-100', 'scale-100');
-        arrow.classList.remove('rotate-180'); // Reset arrow
     }
 });

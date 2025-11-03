@@ -103,27 +103,6 @@ body {
         opacity: 1;
     }
 
-/* --- 3. Modal Transitions --- */
-.modal {
-    transition: opacity 300ms ease, visibility 300ms ease;
-}
-
-.modal-content {
-    transition: transform 300ms ease;
-}
-
-.modal.is-visible {
-    visibility: visible;
-    opacity: 1;
-}
-
-    .modal.is-visible .modal-content {
-        transform: scale(1);
-    }
-
-    .modal.is-visible.is-closing .modal-content {
-        transform: scale(0.95);
-    }
 
 #sidebar-resizer:hover {
     background-color: rgb(254 202 202 / 0.5);
@@ -145,4 +124,110 @@ body {
     position: relative;
     height: 200px;
     min-height: 200px;
+}
+
+/*Navbar tooltip css code*/
+/* Tooltip styling for collapsed sidebar */
+.sidebar-collapsed .nav-link {
+    position: relative;
+    justify-content: center;
+    overflow: visible !important; /* ensure tooltip can appear outside */
+}
+
+    .sidebar-collapsed .nav-link .nav-text {
+        display: none; /* hide text in collapsed mode */
+    }
+
+    .sidebar-collapsed .nav-link::after {
+        content: attr(data-tooltip);
+        position: fixed;
+        left: 80px;
+        background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1)); /* red-600 */
+        --tw-bg-opacity: 0.95;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        white-space: nowrap;
+        font-size: 0.85rem;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        z-index: 999999999;
+    }
+
+    /* ✅ Arrow color same as tooltip background */
+    .sidebar-collapsed .nav-link::before {
+        content: '';
+        position: fixed;
+        left: 70px;
+        border-width: 6px;
+        border-style: solid;
+        /* Match the tooltip background color */
+        border-color: transparent transparent transparent rgb(220 38 38 / var(--tw-bg-opacity, 1));
+        --tw-bg-opacity: 0.95;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        z-index: 999999999;
+    }
+
+    /* Show tooltip on hover */
+    .sidebar-collapsed .nav-link:hover::after,
+    .sidebar-collapsed .nav-link:hover::before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
+/* Optional: Prevent clipping inside parent containers */
+.sidebar-collapsed {
+    overflow: visible !important;
+}
+
+.main-content,
+.page-content,
+.dashboard-content {
+    overflow: visible !important;
+}
+
+
+/*Notification bell css code*/
+
+@keyframes bell-ring {
+    0% {
+        transform: rotate(0);
+    }
+
+    10% {
+        transform: rotate(15deg);
+    }
+
+    20% {
+        transform: rotate(-15deg);
+    }
+
+    30% {
+        transform: rotate(10deg);
+    }
+
+    40% {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+
+    60% {
+        transform: rotate(-5deg);
+    }
+
+    70%, 100% {
+        transform: rotate(0);
+    }
+}
+
+.animate-bell {
+    transform-origin: top center;
+    animation: bell-ring 2s ease-in-out infinite;
 }

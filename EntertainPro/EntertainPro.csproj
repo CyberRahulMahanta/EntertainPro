@@ -156,8 +156,11 @@
     <Content Include="AdminBookings.aspx" />
     <Content Include="AdminDashboard.aspx" />
     <Content Include="AdminIndex.aspx" />
+    <Content Include="AdminMovieDetails.aspx" />
     <Content Include="AdminMovies.aspx" />
     <Content Include="AdminSettings.aspx" />
+    <Content Include="AdminShowingMovies.aspx" />
+    <Content Include="AdminShowingMoviesDetails.aspx" />
     <Content Include="AdminTheaters.aspx" />
     <Content Include="AdminUsers.aspx" />
     <Content Include="App_Data\project.mdf" />
@@ -410,6 +413,13 @@
     <Compile Include="AdminIndex.aspx.designer.cs">
       <DependentUpon>AdminIndex.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminMovieDetails.aspx.cs">
+      <DependentUpon>AdminMovieDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMovieDetails.aspx.designer.cs">
+      <DependentUpon>AdminMovieDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminMovies.aspx.cs">
       <DependentUpon>AdminMovies.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,6 +433,20 @@
     </Compile>
     <Compile Include="AdminSettings.aspx.designer.cs">
       <DependentUpon>AdminSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminShowingMovies.aspx.cs">
+      <DependentUpon>AdminShowingMovies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminShowingMovies.aspx.designer.cs">
+      <DependentUpon>AdminShowingMovies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminShowingMoviesDetails.aspx.cs">
+      <DependentUpon>AdminShowingMoviesDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminShowingMoviesDetails.aspx.designer.cs">
+      <DependentUpon>AdminShowingMoviesDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminSite.Master.cs">
       <DependentUpon>AdminSite.Master</DependentUpon>
