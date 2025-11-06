@@ -132,13 +132,13 @@
                                             <asp:LinkButton ID="lnkView" runat="server"
                                                 CommandName="ViewDetails"
                                                 CommandArgument='<%# Eval("MovieID") %>'
-                                                CssClass="text-blue-600 hover:text-blue-800 transition-colors p-1">
+                                                CssClass="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-xs shadow">
                                                 View Details
                                             </asp:LinkButton>
 
                                             <asp:LinkButton ID="lnkDelete" runat="server"
                                                 OnClientClick='<%# "showDeleteModal(" + Eval("MovieID") + "); return false;" %>'
-                                                CssClass="text-red-600 hover:text-red-800 transition-colors p-1">
+                                                CssClass="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs shadow">
                                                 Delete
                                             </asp:LinkButton>
                                         </td>

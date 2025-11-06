@@ -76,7 +76,7 @@
                                     <td class="py-4 px-6 text-sm font-medium text-slate-800 whitespace-nowrap"><%# Eval("Bookings") %></td>
                                     <td class="py-4 px-6 whitespace-nowrap space-x-2">
                                         <button type="button"
-                                            class="text-slate-500 hover:text-slate-800 text-sm font-medium transition-colors p-1"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-xs shadow"
                                             data-username='<%# Eval("Username") %>'
                                             data-dob='<%# Eval("DOB", "{0:MMM dd, yyyy}") %>'
                                             data-phone='<%# Eval("Phone") %>'
@@ -92,7 +92,7 @@
 
                                         <button
                                             type="button"
-                                            class="text-red-600 hover:text-red-800 text-sm font-medium transition-colors p-1"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs shadow"
                                             data-userid='<%# Eval("UserID") %>'
                                             data-username='<%# Eval("Username") %>'
                                             onclick="openDeleteModal(this)">

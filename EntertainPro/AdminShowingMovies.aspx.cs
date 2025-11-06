@@ -106,14 +106,14 @@ namespace EntertainPro
         {
             if (ddlMovies.SelectedValue == "0" || ddlScreens.SelectedValue == "0")
             {
-                lblMessage.Text = "Please select a category!";
+                lblMessage.Text = "Please select a Movie and Screen!";
                 lblMessage.ForeColor = System.Drawing.Color.Red;
                 return;
             }
             getcon();
             cmd = new SqlCommand("insert into ShowingMovies (MovieID, ScreenID, ShowDate) values ('" + ViewState["MovieID"] + "','" + ViewState["ScreenID"] + "','" + txtShowDate.Text + "')", con);
             cmd.ExecuteNonQuery();
-            lblMessage.Text = "Product added successfully!";
+            lblMessage.Text = "Show added successfully!";
             lblMessage.ForeColor = System.Drawing.Color.Green;
             Response.Redirect(Request.RawUrl);
         }

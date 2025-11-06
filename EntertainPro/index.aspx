@@ -193,30 +193,29 @@
                         <div class="carousel-img-wrapper">
                             <img src="img/1.jpg" class="d-block w-100" alt="...">
                         </div>
-                        <div class="carousel-caption d-md-block">
-                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+
+                        <div class="carousel-caption d-md-block text-end top-50 translate-middle-y" style="right: 5%; left: auto;">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Best Release</h5>
+                            <h1>Mortal Kombat</h1>
                             <p>
-                                There are many variations of passages available but the majority have suffered
-                            alteration in some form by injected humour or randomised words.
-                       
+                                Mortal Kombat is releasing internationally on December 8, 2025, simultaneously in theaters in Dolby Cinema, IMAX, and 4DX formats and on the streaming service Entertain Pro.
                             </p>
                             <ul class="mb-0 mt-3 list-unstyled">
-                                <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
-                                <li class="d-inline-block"><a class="button_2" href="#">ABOUT US  <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                                <li class="d-inline-block me-2"><a class="button_1" href="contact.aspx">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
+                                <li class="d-inline-block"><a class="button_2" href="about.aspx">ABOUT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="carousel-item">
                         <div class="carousel-img-wrapper">
                             <img src="img/2.jpg" class="d-block w-100" alt="...">
                         </div>
-                        <div class="carousel-caption d-md-block">
-                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+                        <div class="carousel-caption d-md-block text-end top-50 translate-middle-y" style="right: 5%; left: auto;">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Now Showing</h5>
+                            <h1>Venom: The Last Dance</h1>
                             <p>
-                                There are many variations of passages available but the majority have suffered
-                            alteration in some form by injected humour or randomised words.
+                                Eddie Brock and Venom face their most dangerous challenge yet — a battle that could change both their worlds forever.
                        
                             </p>
                             <ul class="mb-0 mt-3 list-unstyled">
@@ -229,13 +228,11 @@
                         <div class="carousel-img-wrapper">
                             <img src="img/3.jpg" class="d-block w-100" alt="...">
                         </div>
-                        <div class="carousel-caption d-md-block">
-                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Releasing On</h5>
-                            <h1>Vestibulum Arcu Eget Aptent Semper</h1>
+                        <div class="carousel-caption d-md-block text-end top-50 translate-middle-y" style="right: 5%; left: auto;">
+                            <h5 class="text-uppercase bg_red d-inline-block p-2 text-white">Best Relesae</h5>
+                            <h1>Aladdin</h1>
                             <p>
-                                There are many variations of passages available but the majority have suffered
-                            alteration in some form by injected humour or randomised words.
-                       
+                                Experience the magic of Agrabah as Aladdin embarks on an adventure filled with friendship, romance, and the power of a wish.
                             </p>
                             <ul class="mb-0 mt-3 list-unstyled">
                                 <li class="d-inline-block me-2"><a class="button_1" href="#">CONTACT US <i class="fa fa-long-arrow-right ms-1"></i></a></li>

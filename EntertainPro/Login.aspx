@@ -36,9 +36,9 @@
 
             <!-- Email -->
             <div class="mb-4 input-group">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-envelope" style="color: black;"></i>
                 <asp:TextBox ID="txtEmail" runat="server" TextMode="Email"
-                    CssClass="input-glass" Placeholder="you@example.com"></asp:TextBox>
+                    CssClass="input-glass text-black" Placeholder="you@example.com"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                     ControlToValidate="txtEmail" ErrorMessage="Email required"
                     ForeColor="Yellow" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -46,7 +46,7 @@
 
             <!-- Password -->
             <div class="mb-4 input-group">
-                <i class="fa fa-lock"></i>
+                <i class="fa fa-lock" style="color: black;"></i>
                 <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"
                     CssClass="input-glass" Placeholder="Enter password"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvPassword" runat="server"

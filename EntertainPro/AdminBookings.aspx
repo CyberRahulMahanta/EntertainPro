@@ -22,22 +22,33 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <main class="flex-1 p-6 md:p-10">
         <div class="mb-8">
-            <div class="mb-8">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
-                    <!-- Custom SVG Icon -->
-                    <svg class="w-10 h-10 text-red-500 animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="m13.817 5.669 4.504 4.501-8.15 8.15-4.501-4.504zm-3.006 13.944 8.8-8.8c.166-.163.27-.389.27-.64s-.103-.477-.269-.64l-5.156-5.156c-.166-.158-.392-.255-.64-.255s-.474.097-.64.256l-8.8 8.8c-.166.163-.27.389-.27.64s.103.477.269.64l5.156 5.156c.166.158.392.255.64.255s.474-.097.64-.256zm12.663-9.073-12.918 12.933c-.332.326-.787.527-1.289.527s-.957-.201-1.289-.527l-1.794-1.793c.477-.492.77-1.164.77-1.905 0-1.513-1.227-2.74-2.74-2.74-.74 0-1.412.294-1.905.771l.001-.001-1.781-1.794c-.326-.332-.527-.787-.527-1.289s.201-.957.527-1.289l12.919-12.906c.332-.326.787-.527 1.289-.527s.957.201 1.289.527l1.781 1.781c-.515.499-.835 1.197-.835 1.969 0 1.513 1.227 2.74 2.74 2.74.773 0 1.471-.32 1.969-.835l.001-.001 1.794 1.781c.326.332.527.787.527 1.289s-.201.957-.527 1.289z"></path>
-                    </svg>
+            <div class="flex items-center justify-between mb-8">
+                <!-- Left: Heading and description -->
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                        <!-- Custom SVG Icon -->
+                        <svg class="w-10 h-10 text-red-500 animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="m13.817 5.669 4.504 4.501-8.15 8.15-4.501-4.504zm-3.006 13.944 8.8-8.8c.166-.163.27-.389.27-.64s-.103-.477-.269-.64l-5.156-5.156c-.166-.158-.392-.255-.64-.255s-.474.097-.64.256l-8.8 8.8c-.166.163-.27.389-.27.64s.103.477.269.64l5.156 5.156c.166.158.392.255.64.255s.474-.097.64-.256zm12.663-9.073-12.918 12.933c-.332.326-.787.527-1.289.527s-.957-.201-1.289-.527l-1.794-1.793c.477-.492.77-1.164.77-1.905 0-1.513-1.227-2.74-2.74-2.74-.74 0-1.412.294-1.905.771l.001-.001-1.781-1.794c-.326-.332-.527-.787-.527-1.289s.201-.957.527-1.289l12.919-12.906c.332-.326.787-.527 1.289-.527s.957.201 1.289.527l1.781 1.781c-.515.499-.835 1.197-.835 1.969 0 1.513 1.227 2.74 2.74 2.74.773 0 1.471-.32 1.969-.835l.001-.001 1.794 1.781c.326.332.527.787.527 1.289s-.201.957-.527 1.289z"></path>
+                        </svg>
 
-                    <span class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Bookings Overview
-                    </span>
-                </h1>
+                        <span class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Bookings Overview
+                        </span>
+                    </h1>
 
-                <p class="text-gray-500 text-sm md:text-base">
-                    View and manage all ticket bookings, including payment status and customer details.
-                </p>
+                    <p class="text-gray-500 text-sm md:text-base">
+                        View and manage all ticket bookings, including payment status and customer details.
+                    </p>
+                </div>
+
+                <!-- Right: Download Button -->
+                <div>
+                    <div>
+                        <button id="btnDownloadReport" type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">
+                            Download Report
+                        </button>
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden">
@@ -149,14 +160,14 @@
                                             runat="server"
                                             CommandName="ViewDetails"
                                             CommandArgument='<%# Eval("BookingID") %>'
-                                            CssClass="inline-flex items-center px-3 py-1 text-xs font-medium rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 transition">
+                                            CssClass="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-xs shadow">
                                             <i class="fa fa-eye mr-1"></i> View
                                         </asp:LinkButton>
 
                                         <button
                                             type="button"
                                             onclick='openDeleteModal(<%# Eval("BookingID") %>)'
-                                            class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition">
+                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs shadow">
                                             <i class="fa fa-trash mr-1"></i>Delete
                                         </button>
                                     </td>
@@ -266,6 +277,7 @@
 
 
 
+
         <!-- Delete Confirmation Modal -->
         <div id="deleteModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
             <div class="bg-white p-6 rounded-2xl w-[350px] shadow-lg text-center">
@@ -282,6 +294,41 @@
                         Text="Delete"
                         CssClass="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                         OnClick="btnConfirmDelete_Click" />
+                </div>
+            </div>
+        </div>
+        <!-- Download Modal -->
+        <div id="downloadModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-xl p-6 w-full max-w-md relative">
+                <h2 class="text-xl font-bold mb-4">Download Report</h2>
+
+                <!-- Fields -->
+                <div class="mb-4">
+                    <label class="block mb-1 font-semibold">Start Date</label>
+                    <input type="date" id="startDate" class="border rounded px-3 py-2 w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1 font-semibold">End Date</label>
+                    <input type="date" id="endDate" class="border rounded px-3 py-2 w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1 font-semibold">Status</label>
+                    <select id="status" class="border rounded px-3 py-2 w-full">
+                        <option value="">All</option>
+                        <option value="paid">Paid</option>
+                        <option value="unpaid">Unpaid</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1 font-semibold">Specific User (Optional)</label>
+                    <input type="text" id="userId" class="border rounded px-3 py-2 w-full" placeholder="Enter User ID">
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-end gap-3">
+                    <button type="button" id="modalClose" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
+                    <button type="button" id="previewReport" class="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white">Preview Report</button>
                 </div>
             </div>
         </div>
@@ -387,6 +434,45 @@
             timeFilter.addEventListener("change", applyFilters);
             startDateInput.addEventListener("change", applyFilters);
             endDateInput.addEventListener("change", applyFilters);
+        });
+
+        const modal = document.getElementById('downloadModal');
+        const btnOpen = document.getElementById('btnDownloadReport');
+        const btnClose = document.getElementById('modalClose');
+        const btnPreview = document.getElementById('previewReport');
+
+        // Open modal
+        btnOpen.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        // Close modal
+        btnClose.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // Redirect to DownloadReport.aspx with filters
+        btnPreview.addEventListener('click', () => {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            if (!startDate || !endDate) {
+                alert('Please select both Start Date and End Date');
+                return;
+            }
+
+            const status = document.getElementById('status').value;
+            const userId = document.getElementById('userId').value;
+
+            const query = new URLSearchParams({
+                startDate,
+                endDate,
+                status,
+                userId
+            });
+
+            // Redirect with query parameters
+            window.location.href = `DownloadReport.aspx?${query.toString()}`;
         });
     </script>
 </asp:Content>

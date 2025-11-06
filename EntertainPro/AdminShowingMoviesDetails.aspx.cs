@@ -13,7 +13,9 @@ namespace EntertainPro
     public partial class AdminShowingMoviesDetails : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString);
-
+        SqlDataAdapter da;
+        DataSet ds;
+        SqlCommand cmd;
         protected void Page_Load(object sender, EventArgs e)
         {
             HandleActions();
@@ -21,6 +23,8 @@ namespace EntertainPro
             {
                 string movieId = Request.QueryString["MovieID"];
                 BindShowings(movieId);
+                AddShowMovie();
+                ComboToSelectScreen();
             }
         }
 
@@ -111,12 +115,12 @@ namespace EntertainPro
             if (Request.QueryString["activate"] != null)
             {
                 showingId = Request.QueryString["activate"];
-                UpdateStatus(showingId, "Active");
+                UpdateStatus(showingId, "active");
             }
             else if (Request.QueryString["deactivate"] != null)
             {
                 showingId = Request.QueryString["deactivate"];
-                UpdateStatus(showingId, "Inactive");
+                UpdateStatus(showingId, "inactive");
             }
         }
 
@@ -171,5 +175,99 @@ namespace EntertainPro
             }
         }
 
+        void getcon()
+        {
+            if (con.State == ConnectionState.Closed)
+                con.Open();
+        }
+
+        private void AddShowMovie()
+        {
+            if (Request.QueryString["MovieID"] == null) return;
+
+            string movieId = Request.QueryString["MovieID"];
+            string query = "SELECT Title FROM Movies WHERE MovieID = " + movieId;
+
+            getcon();
+            SqlCommand cmd = new SqlCommand(query, con);
+            object result = cmd.ExecuteScalar();
+            con.Close();
+
+            txtMovieName.Text = result != null ? result.ToString() : "Movie not found";
+        }
+
+        void ComboToSelectScreen()
+        {
+            getcon();
+            da = new SqlDataAdapter("SELECT * FROM Screens", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            ddlScreen.Items.Add(new ListItem("--Select Showings Screen--", "0"));
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                ddlScreen.Items.Add(ds.Tables[0].Rows[i][1].ToString());
+            }
+
+        }
+        protected void ddlScreen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getcon();
+            da = new SqlDataAdapter("select ScreenID from Screens where ScreenName='" + ddlScreen.Text + "'", con);
+            ds = new DataSet();
+            da.Fill(ds);
+            ViewState["ScreenID"] = ds.Tables[0].Rows[0][0].ToString();
+        }
+
+        protected void btnSubmitShow_Click(object sender, EventArgs e)
+        {
+            if (ddlScreen.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select a screen..!";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            // 1. Validate and Format Date/Time
+            // Use DateTime.TryParse to ensure the input is valid before formatting.
+            if (!DateTime.TryParse(txtDate.Text, out DateTime showDate))
+            {
+                lblMessage.Text = "Invalid Date format.";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            if (!TimeSpan.TryParse(txtTime.Text, out TimeSpan showTime))
+            {
+                lblMessage.Text = "Invalid Time format.";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+            // Convert DateTime and TimeSpan objects into SQL-safe string formats (YYYY-MM-DD and HH:MM:SS)
+            string sqlDate = showDate.ToString("yyyy-MM-dd");
+            string sqlTime = showTime.ToString(@"hh\:mm\:ss"); // Format for TimeSpan 
+
+            // 2. Build the SQL Command (Insecure Method)
+            getcon();
+
+            string sql = "INSERT INTO ShowingMovies (MovieID, ScreenID, ShowDate, ShowTime, Status, Language) VALUES ('"
+                        + Request.QueryString["MovieID"] + "', '"
+                        + ViewState["ScreenID"] + "', '"
+                        // Use the correctly formatted date and time strings
+                        + sqlDate + "', '"
+                        + sqlTime + "', '"
+                        + DropDownList1.SelectedValue + "', '"
+                        + txtlang.Text + "')";
+
+            cmd = new SqlCommand(sql, con);
+
+            // 3. Execute the command
+            cmd.ExecuteNonQuery();
+
+            lblMessage.Text = "Show added successfully!";
+            lblMessage.ForeColor = System.Drawing.Color.Green;
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

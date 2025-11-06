@@ -333,7 +333,7 @@
                     }
 
                     loader.classList.add('hidden');
-                    noResults.classList.toggle('hidden', visibleCount !== 0);
+                    noResults.classList.toggle('hidden', visibleCount !== 0); 
                 }, 800);
             }
 

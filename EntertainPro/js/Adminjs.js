@@ -230,3 +230,18 @@ clickArea.addEventListener('click', () => {
         arrow.classList.remove('rotate-180'); // Rotate arrow back
     }
 });
+
+const bell = document.getElementById('notification-bell');
+const notification_dropdown = document.getElementById('notification-dropdown');
+
+bell.addEventListener('click', (e) => {
+    e.stopPropagation();
+    notification_dropdown.classList.toggle('hidden');
+});
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+    if (!bell.contains(e.target) && !notification_dropdown.contains(e.target)) {
+        notification_dropdown.classList.add('hidden');
+    }
+});

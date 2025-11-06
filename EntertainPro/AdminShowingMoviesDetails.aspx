@@ -4,23 +4,35 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <main class="flex-1 p-6 md:p-8">
-        <div class="mb-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
-                <svg class="w-12 h-12 text-red-500 animate-bounce" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_iconCarrier">
+        <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                    <svg class="w-12 h-12 text-red-500 animate-bounce" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 21L12 17L17 21M7.8 17H16.2C17.8802 17 18.7202 17 19.362 16.673C19.9265 16.3854 20.3854 15.9265 20.673 15.362C21 14.7202 21 13.8802 21 12.2V7.8C21 6.11984 21 5.27976 20.673 4.63803C20.3854 4.07354 19.9265 3.6146 19.362 3.32698C18.7202 3 17.8802 3 16.2 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V12.2C3 13.8802 3 14.7202 3.32698 15.362C3.6146 15.9265 4.07354 16.3854 4.63803 16.673C5.27976 17 6.11984 17 7.8 17Z"
                             stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </g>
-                </svg>
+                    </svg>
 
-                <span class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Showing Movies
-                </span>
-            </h1>
+                    <span class="bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">Showing Movies
+                    </span>
+                </h1>
 
-            <p class="text-gray-500 text-sm md:text-base">
-                View, edit, and organize movies available in your theaters.
-            </p>
+                <p class="text-gray-500 text-sm md:text-base">
+                    View, edit, and organize movies available in your theaters.
+                </p>
+            </div>
+
+            <!-- ✅ Add Show Button -->
+            <div class="mt-4 md:mt-0">
+                <button type="button" id="openAddShowModal"
+                    class="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold shadow transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Show
+                </button>
+
+            </div>
         </div>
         <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden">
             <div class="p-6 border-b border-slate-100">
@@ -112,8 +124,8 @@
                 <div class="mb-6">
                     <label class="block mb-2 font-semibold text-gray-700">Status</label>
                     <asp:DropDownList ID="ddlStatus" runat="server" CssClass="border rounded-md w-full p-2">
-                        <asp:ListItem Text="Active" Value="Active" />
-                        <asp:ListItem Text="Inactive" Value="Inactive" />
+                        <asp:ListItem Text="Active" Value="active" />
+                        <asp:ListItem Text="Inactive" Value="inactive" />
                     </asp:DropDownList>
                 </div>
 
@@ -144,6 +156,67 @@
             </div>
         </div>
 
+        <!-- Modal (hidden by default) -->
+        <div id="addShowModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md relative">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Add New Show</h2>
+
+                <div id="addShowForm" runat="server">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Movie</label>
+                            <asp:TextBox ID="txtMovieName" runat="server"
+                                ReadOnly="true"
+                                CssClass="w-full border border-gray-300 bg-gray-100 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none">
+                            </asp:TextBox>
+                        </div>
+
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Screen Name</label>
+                            <asp:DropDownList ID="ddlScreen" runat="server" CssClass="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none" OnSelectedIndexChanged="ddlScreen_SelectedIndexChanged"></asp:DropDownList>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Date</label>
+                            <asp:TextBox ID="txtDate" runat="server" TextMode="Date" CssClass="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none"></asp:TextBox>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Time</label>
+                            <asp:TextBox ID="txtTime" runat="server" TextMode="Time" CssClass="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none"></asp:TextBox>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Language</label>
+                            <asp:TextBox ID="txtlang" runat="server" CssClass="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none"></asp:TextBox>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Status</label>
+                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-400 focus:outline-none">
+                                <asp:ListItem Text="Active" Value="active"></asp:ListItem>
+                                <asp:ListItem Text="Inactive" Value="inactive"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-6 gap-3">
+                        <button type="button" onclick="closeAddShowModal()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">Cancel</button>
+                        <asp:Button ID="btnSubmitShow" runat="server" Text="Add Show" CssClass="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition" OnClick="btnSubmitShow_Click" />
+                    </div>
+                </div>
+
+                <!-- Message Label -->
+                <div class="mt-4 text-center">
+                    <asp:Label ID="lblMessage" runat="server" CssClass="text-sm font-medium"></asp:Label>
+                </div>
+
+                <!-- Close Icon -->
+                <button onclick="closeAddShowModal()" type="button" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                    ✕</button>
+            </div>
+        </div>
 
         <div id="toast" class="fixed top-14 right-5 z-[99999] text-white px-4 py-3 rounded-lg shadow-lg hidden transition-all duration-500 ease-in-out transform translate-y-5 opacity-0">
         </div>
@@ -213,6 +286,23 @@
 
             document.getElementById('cancelDeleteBtn').addEventListener('click', function () {
                 document.getElementById('deleteModal').classList.add('hidden');
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const openBtn = document.getElementById("openAddShowModal");
+                const modal = document.getElementById("addShowModal");
+
+                openBtn.addEventListener("click", function () {
+                    modal.classList.remove("hidden");
+                    modal.classList.add("flex");
+                });
+
+                document.querySelectorAll("[onclick='closeAddShowModal()']").forEach(btn => {
+                    btn.addEventListener("click", function () {
+                        modal.classList.add("hidden");
+                        modal.classList.remove("flex");
+                    });
+                });
             });
         </script>
 

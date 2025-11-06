@@ -355,7 +355,7 @@ min-height:330px;
 }
 
     #carouselExampleCaptions .carousel-item {
-        height: 90vh;
+        height: 620px;
         min-height: 600px;
         overflow: hidden;
     }
